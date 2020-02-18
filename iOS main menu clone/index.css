@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width:750px;
+  height: 1334px;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom right,blue, #666699, grey, lightblue, red, rgb(255, 192, 231), turquoise, turquoise); /* Standard syntax (must be last) */
+}
+
+.header {
+  padding: 8px 10px 0px 10px;
+  height:2em;
+  color:white;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.left {
+  float: left;
+}
+
+.time {
+  padding-left: 10%; /*hack alert*/
+  padding-right: 25%; /*hack alert*/
+}
+
+.right {
+  float: right;
+}
+
