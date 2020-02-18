@@ -1,3 +1,10 @@
+:root {
+    --burnt-yellow-bg-color: hsl(40, 100%, 55%);
+    --almost-neon-green-bg-color: hsl(135, 100%, 50%);
+    --almost-neon-green-bg-img: linear-gradient(hsl(135, 100%, 75%), hsl(135, 100%, 50%));
+  }
+
+
 .app-icon.tips {
     background-color: yellowgreen; /* For browsers that do not support gradients */
     background-image: linear-gradient(#ffb200, #ffe600); /* Standard syntax (must be last) */
@@ -57,15 +64,66 @@
 
 /* row 4 */
 .app-icon.numbers {
-    background-color:hsl(135, 100%, 50%);
-    background-image: linear-gradient(hsl(135, 100%, 75%), hsl(135, 100%, 50%));
+    background-color: var(--almost-neon-green-bg-color);
+    background-image: var(--almost-neon-green-bg-img);
 }
 
-.app-icon.pages {
-    background-color: hsl(40, 100%, 55%);
+.app-icon.pages, .app-icon.i-tunes-u {
+    background-color: var(--burnt-yellow-bg-color);
 }
 
 .app-icon.i-movie {
     background-color: #000066;
     background-image: linear-gradient(hsl(240, 100%, 20%), hsl(270, 100%, 55%));
+}
+
+/* row 5 */
+
+.app-icon.audible {
+    background-color: var(--burnt-yellow-bg-color);
+}
+
+.app-icon.bose-connect {
+    background-color: white;
+}
+
+.app-icon.hangouts {
+    background-color: white;
+}
+
+.app-icon.i-heart-radio {
+    background-color: hsl(0, 100%, 35%);
+}
+
+/* row 6 */
+.app-icon.messenger {
+    background-color: white;
+}
+
+.app-icon.uber {
+    background-color: black;
+}
+
+.app-icon.you-tube-music {
+    background-color: white;
+}
+
+.app-icon.rush {
+    background-color: black;
+    background-image: linear-gradient(black, turquoise);
+}
+
+/* often used icons */
+.app-icon.make-call {
+    background-color: var(--almost-neon-green-bg-color);
+    background-image: var(--almost-neon-green-bg-img);
+}
+
+.app-icon.safari-browser {
+    background-color: white;
+}
+
+.app-icon.i-message {
+    background-color: var(--almost-neon-green-bg-color);
+    background-image: var(--almost-neon-green-bg-img);
 }
