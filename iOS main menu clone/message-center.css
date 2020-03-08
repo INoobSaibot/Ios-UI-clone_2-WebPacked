@@ -1,0 +1,7 @@
+.message-center {
+    display: block;
+    background: var(--transparent-white);
+    padding: 100px;
+    margin:50px;
+
+}

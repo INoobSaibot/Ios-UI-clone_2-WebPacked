@@ -6,10 +6,21 @@
     <link rel='stylesheet' type='text/css' href='./signal-bars.css'>
     <link rel='stylesheet' type='text/css' href='./icons.css'>
         <link rel='stylesheet' type='text/css' href='./styles/icons/tips-icon/tips-icon.css'>
+    <link rel="stylesheet" type="text/css" href="./slide.css">
+    <link rel="stylesheet" type="text/css" href="./search.css">
+    <link rel="stylesheet" type="text/css" href="./message-center.css">
+
+    <!-- cdn/external imports -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- END cdn/external imports -->
+
+    <!-- js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./index.js"></script>
 </head>
 
 <body>
-
 <div class='container'>
     <div class='header'>
         <div class="left signal-bars">
@@ -22,52 +33,119 @@
         </div>
         <span class='center time'>4:26 PM</span><span class='right battery-power'>Battery</span>
     </div>
-    <div class="grid-container">
-        <div class="icon-and-name"><button class='app-icon tips'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
-        <div class="icon-and-name"><button class='app-icon podcasts'>2</button><div class='icon-text-name'>Podcasts</div></div>
-        <div class="icon-and-name"><button class='app-icon find-my'>3</button><div class='icon-text-name'>Find My</div></div>
-        <div class="icon-and-name"><button class='app-icon shortcuts'>4</button><div class='icon-text-name'>Shortcuts</div></div>
 
-        <!-- new row -->
-        <div class="icon-and-name"><button class='app-icon contacts'>1</button><div class='icon-text-name'>Contacts</div></div>
-        <div class="icon-and-name"><button class='app-icon files'>2</button><div class='icon-text-name'>Files</div></div>
-        <div class="icon-and-name"><button class='app-icon watch'>3</button><div class='icon-text-name'>Watch</div></div>
-        <div class="icon-and-name"><button class='app-icon utilities'>4</button><div class='icon-text-name'>Utilities</div></div>
+    <div id="container">
 
-        <!-- new row -->
-        <div class="icon-and-name"><button class='app-icon apple-store'>1</button><div class='icon-text-name'>Apple Store</div></div>
-        <div class="icon-and-name"><button class='app-icon clips'>2</button><div class='icon-text-name'>Clips</div></div>
-        <div class="icon-and-name"><button class='app-icon garage-band'>3</button><div class='icon-text-name'>GarageBand</div></div>
-        <div class="icon-and-name"><button class='app-icon keynote'>4</button><div class='icon-text-name'>Keynote</div></div>
+        <div id="view-0" class="box left-transition">
+<!--            <div class="search"><span class="search-icon" >icon-placeholder</span> <span class="search-label">Search</span> <span class="mic-icon">*mic*</span></div>-->
+            <div class='search-container'>
+                <div class='input-icons'>
+                    <i class="material-icons icon">search</i>
+                    <input class='search-box' type='text' placeholder='        Search'>
+                    <i class="material-icons mic-icon">mic</i>
+                </div>
+            </div>
 
-        <!-- new row -->
-        <div class="icon-and-name"><button class='app-icon numbers'>1</button><div class='icon-text-name'>Numbers</div></div>
-        <div class="icon-and-name"><button class='app-icon pages'>2</button><div class='icon-text-name'>Pages</div></div>
-        <div class="icon-and-name"><button class='app-icon i-movie'>3</button><div class='icon-text-name'>iMovie</div></div>
-        <div class="icon-and-name"><button class='app-icon i-tunes-u'>4</button><div class='icon-text-name'>iTunes U</div></div>
+            <div class="message-center">UP NEXT</div>
+            <div class="message-center">SIRI APP SUGGESTIONS</div>
+            <div class="message-center">NEWS</div>
+            <div class="message-center">SCREEN TIME</div>
+        </div>
 
-        <!-- new row -->
-        <div class="icon-and-name"><button class='app-icon audible'>1</button><div class='icon-text-name'>Audible</div></div>
-        <div class="icon-and-name"><button class='app-icon bose-connect'>2</button><div class='icon-text-name'>Bose Connect</div></div>
-        <div class="icon-and-name"><button class='app-icon hangouts'>3</button><div class='icon-text-name'>Hangouts</div></div>
-        <div class="icon-and-name"><button class='app-icon i-heart-radio'>4</button><div class='icon-text-name'>iHeartRadio</div></div>
+        <div id="view-1" class="grid-container box focused-position">
+            <div class="icon-and-name"><button class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
+            <div class="icon-and-name"><button class='app-icon files'>2</button><div class='icon-text-name'>Podcasts</div></div>
+            <div class="icon-and-name"><button class='app-icon files'>3</button><div class='icon-text-name'>Find My</div></div>
+            <div class="icon-and-name"><button class='app-icon camera'>4</button><div class='icon-text-name'>Shortcuts</div></div>
 
-        <!-- new row -->
-        <div class="icon-and-name"><button class='app-icon messenger'>1</button><div class='icon-text-name'>Messenger</div></div>
-        <div class="icon-and-name"><button class='app-icon uber'>2</button><div class='icon-text-name'>Uber</div></div>
-        <div class="icon-and-name"><button class='app-icon you-tube-music'>3</button><div class='icon-text-name'>YouTubeMusic</div></div>
-        <div class="icon-and-name"><button class='app-icon rush'>4</button><div class='icon-text-name'>Rush</div></div>
-      </div>
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
+            <div class="icon-and-name"><button class='app-icon podcasts'>2</button><div class='icon-text-name'>Podcasts</div></div>
+            <div class="icon-and-name"><button class='app-icon find-my'>3</button><div class='icon-text-name'>Find My</div></div>
+            <div class="icon-and-name"><button class='app-icon shortcuts'>4</button><div class='icon-text-name'>Shortcuts</div></div>
 
-      <div class='indicator-dots'><span class='dot'></span><span class='dot'></span><span class='dot active'></span><span class='dot'></span></div>
+        </div>
 
-      <div class='grid-container often-used-icons'>
-          <!-- new row -->
-          <div class="icon-and-name"><button class='app-icon make-call'>1</button></div>
-          <div class="icon-and-name"><button class='app-icon safari-browser'>2</button></div>
-          <div class="icon-and-name"><button class='app-icon i-message'>3</button></div>
-          <div class="icon-and-name"><button class='app-icon i-tunes'>4</button></div>
+        <div id='view-2' class="grid-container box">
+            <div class="icon-and-name"><button class='app-icon tips'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
+            <div class="icon-and-name"><button class='app-icon podcasts'>2</button><div class='icon-text-name'>Podcasts</div></div>
+            <div class="icon-and-name"><button class='app-icon find-my'>3</button><div class='icon-text-name'>Find My</div></div>
+            <div class="icon-and-name"><button class='app-icon shortcuts'>4</button><div class='icon-text-name'>Shortcuts</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon contacts'>1</button><div class='icon-text-name'>Contacts</div></div>
+            <div class="icon-and-name"><button class='app-icon files'>2</button><div class='icon-text-name'>Files</div></div>
+            <div class="icon-and-name"><button class='app-icon watch'>3</button><div class='icon-text-name'>Watch</div></div>
+            <div class="icon-and-name"><button class='app-icon utilities'>4</button><div class='icon-text-name'>Utilities</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon apple-store'>1</button><div class='icon-text-name'>Apple Store</div></div>
+            <div class="icon-and-name"><button class='app-icon clips'>2</button><div class='icon-text-name'>Clips</div></div>
+            <div class="icon-and-name"><button class='app-icon garage-band'>3</button><div class='icon-text-name'>GarageBand</div></div>
+            <div class="icon-and-name"><button class='app-icon keynote'>4</button><div class='icon-text-name'>Keynote</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon numbers'>1</button><div class='icon-text-name'>Numbers</div></div>
+            <div class="icon-and-name"><button class='app-icon pages'>2</button><div class='icon-text-name'>Pages</div></div>
+            <div class="icon-and-name"><button class='app-icon i-movie'>3</button><div class='icon-text-name'>iMovie</div></div>
+            <div class="icon-and-name"><button class='app-icon i-tunes-u'>4</button><div class='icon-text-name'>iTunes U</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon audible'>1</button><div class='icon-text-name'>Audible</div></div>
+            <div class="icon-and-name"><button class='app-icon bose-connect'>2</button><div class='icon-text-name'>Bose Connect</div></div>
+            <div class="icon-and-name"><button class='app-icon hangouts'>3</button><div class='icon-text-name'>Hangouts</div></div>
+            <div class="icon-and-name"><button class='app-icon i-heart-radio'>4</button><div class='icon-text-name'>iHeartRadio</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon messenger'>1</button><div class='icon-text-name'>Messenger</div></div>
+            <div class="icon-and-name"><button class='app-icon uber'>2</button><div class='icon-text-name'>Uber</div></div>
+            <div class="icon-and-name"><button class='app-icon you-tube-music'>3</button><div class='icon-text-name'>YouTubeMusic</div></div>
+            <div class="icon-and-name"><button class='app-icon rush'>4</button><div class='icon-text-name'>Rush</div></div>
+          </div>
+
+        <div id="view-3" class="grid-container box">
+            <div class="icon-and-name"><button class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
+            <div class="icon-and-name"><button class='app-icon files'>2</button><div class='icon-text-name'>Podcasts</div></div>
+            <div class="icon-and-name"><button class='app-icon files'>3</button><div class='icon-text-name'>Find My</div></div>
+            <div class="icon-and-name"><button class='app-icon camera'>4</button><div class='icon-text-name'>Shortcuts</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
+            <div class="icon-and-name"><button class='app-icon podcasts'>2</button><div class='icon-text-name'>Podcasts</div></div>
+            <div class="icon-and-name"><button class='app-icon find-my'>3</button><div class='icon-text-name'>Find My</div></div>
+            <div class="icon-and-name"><button class='app-icon shortcuts'>4</button><div class='icon-text-name'>Shortcuts</div></div>
+        </div>
     </div>
+
+
+    <div class="bottom">
+        <div class='indicator-dots'>
+            <span id='view-dot-0' class='dot'></span> <span id='view-dot-1' class='dot active'></span> <span id='view-dot-2' class='dot'></span> <span id='view-dot-3' class='dot'></span>
+        </div>
+
+        <div class='grid-container often-used-icons'>
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon make-call'>1</button></div>
+            <div class="icon-and-name"><button class='app-icon safari-browser'>2</button></div>
+            <div class="icon-and-name"><button class='app-icon i-message'>3</button></div>
+            <div class="icon-and-name"><button class='app-icon i-tunes'>4</button></div>
+        </div>
+    </div>
+
 </div>
+
+<div class="external-buttons">
+    <div class='home-button'><button>Home</button></div>
+    <div class='right-button'><button>Right</button></div>
+    <div class='left-button'><button>Left</button></div>
+</div>
+
 </body>
+<script type=text/javascript>
+    $ ( document ).ready(
+        function() {
+            Index.init();
+        }
+    );
+</script>
 </html>

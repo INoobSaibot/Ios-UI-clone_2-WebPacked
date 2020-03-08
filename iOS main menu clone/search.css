@@ -1,0 +1,53 @@
+/*@dark-gray: #282828;*/
+/*@light-gray: gray;*/
+/*// make @dark-gray a global style, or avail in all .less files.*/
+:root {
+    --light-gray-transparent: rgba(192,192,192, 0.5);
+    --transparent-white:rgba(255,255,255,0.2);
+}
+.search-container {
+    width:744px; /*hack alert, need to pull in width rom parent */
+    background-color: var(--transparent-white);
+}
+.search-box {
+    width:98%;
+    border-radius: 5px;
+    border: 0;
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 2.5em;
+    background-color: var(--transparent-white); /* hack alert, ^^^ something was making it white */
+}
+
+.search-box::placeholder {
+    color:lightgray;
+}
+
+.input-icons i {
+    position: absolute;
+}
+
+.input-icons {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.icon {
+    padding: 7px;
+    min-width: 40px;
+    /*color: @light-gray;*/
+    color: var(--light-gray-transparent);
+}
+
+/*// needs reworked for more consistant placement*/
+.mic-icon {
+    /*color: @light-gray;*/
+    color: var(--light-gray-transparent);
+    display: inline;
+    margin-left: -40px;
+}
+
+i {
+    font-size: 2.5em !important; /*override 24 px, built in from icons source / google material icons.css*/
+}
+

@@ -1,0 +1,33 @@
+/* jquery animation styles*/
+#container {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    width: 750px;
+    height: 100%; /* change to refernce width of  app parent view else where*/
+    overflow: hidden;
+}
+
+.box {
+    position: absolute;
+    /*width: 100%;*/
+    /*line-height: 300px;*/
+    /*font-size: 50px;*/
+    text-align: center;
+    /* border: 2px solid black; */
+    left: 250%;
+    margin-left: -50%;
+
+    transition: left .5s;
+    transition-timing-function: ease-in-out;
+}
+
+.focused-position {
+    left:50%;
+    transition: left .5s;
+}
+
+.left-transition {
+    left: -50%;
+    transition: left .5s;
+}
