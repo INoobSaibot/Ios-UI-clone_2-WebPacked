@@ -43,5 +43,6 @@
 
 .bottom {
     position: absolute;
-    bottom: 0;
+    bottom: 56px;
+    right:0;
   }
