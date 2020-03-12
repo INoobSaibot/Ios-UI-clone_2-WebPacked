@@ -35,6 +35,7 @@ const Index = {
 
     volumeUp: function () {
         const MAX = 16;//17.5;
+        const millis = this.volumeTimer = Date.now();
 
         let el = $('#volume-control');
         let level = $('#volume-level');
@@ -48,11 +49,19 @@ const Index = {
 
         if(!el.hasClass('show')) {
             el.toggleClass('show')
-            setTimeout(()=> {el.toggleClass('show')}, 1000)
         }
+
+        setTimeout(() => {
+            if(millis === this.volumeTimer) {
+                console.log(millis - this.volumeTimer)
+                el.toggleClass('show')
+            }
+        }, 1000)
     },
 
     volumeDown() {
+        const millis = this.volumeTimer = Date.now();
+
         const MIN = 6.0;//0;
         const DECREMENT = 0.3;
         let level = $('#volume-level');
@@ -68,8 +77,15 @@ const Index = {
 
         if(!el.hasClass('show')) {
             el.toggleClass('show')
-            setTimeout(()=> {el.toggleClass('show')}, 1000)
         }
+
+        setTimeout(() => {
+            if(millis === this.volumeTimer) {
+                console.log(millis - this.volumeTimer)
+                el.toggleClass('show')
+            }
+        }, 1000)
+
     },
 
     home: function () {
