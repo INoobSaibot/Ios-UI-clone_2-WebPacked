@@ -12,6 +12,7 @@ const Index = {
         $(".left-button").click(this.left);
 
         document.body.addEventListener('keydown', function (e) {
+            e.preventDefault();
             let key = e.key;
 
             if (key === 'ArrowRight') {
@@ -20,10 +21,10 @@ const Index = {
                 this.left();
             } else if (key === 'ArrowUp') {
                 this.volumeUp();
-                e.preventDefault();
             } else if (key === 'ArrowDown') {
                this.volumeDown();
-                e.preventDefault();
+            } else if (key === 'Control'){
+                this.home();
             }
         }.bind(this));
 
