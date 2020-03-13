@@ -4,7 +4,7 @@ const Index = {
 
         // end dev only code
         this.moving = Date.now();
-        this.volume =  2;// 0 to 5 em;
+        this.volume =  2;// 0 to 5 em
         this.volumeTimer = Date.now();
 
         $(".home-button").click(this.home);
@@ -28,65 +28,79 @@ const Index = {
             }
         }.bind(this));
 
+        document.body.addEventListener('keyup', function (e) {
+            e.preventDefault();
+            let key = e.key;
+            console.log(e);
+            const el = $('#volume-control');
+            const overExtended = el.hasClass('over-extended')
+            const squishedDown = el.hasClass('squished-down')
+
+            if (key === 'ArrowUp' && overExtended) {
+                el.toggleClass('over-extended');
+            } else if (key === 'ArrowDown' && squishedDown) {
+                el.toggleClass('squished-down');
+            }
+        }.bind(this));
+
         this.touchmoveRegister(this.right, this.left, this.home);
-        document.getElementById("container").addEventListener("transitionend", (e) => {
-            this.moving = false;
-        });
     },
 
     volumeUp: function () {
-        const MAX = 16;//17.5;
-        const millis = this.volumeTimer = Date.now();
-
-        let el = $('#volume-control');
-        let level = $('#volume-level');
-        this.volume += 0.3;
+        const MAX = 17.5;
+        const INCREMENT = 0.60;
+        this.volume += INCREMENT;
         if (this.volume > MAX) {
             this.volume = MAX;
-        }
-
-        let nextHeight = this.volume + 'em';
-        level.css({'height':nextHeight});
-
-        if(!el.hasClass('show')) {
-            el.toggleClass('show')
-        }
-
-        setTimeout(() => {
-            if(millis === this.volumeTimer) {
-                console.log(millis - this.volumeTimer)
-                el.toggleClass('show')
+            if(!$('#volume-control').hasClass('over-extended')) {
+                $('#volume-control').toggleClass('over-extended');
             }
-        }, 1000)
+        }
+        this.volumeChange();
     },
 
-    volumeDown() {
-        const millis = this.volumeTimer = Date.now();
-
-        const MIN = 6.0;//0;
-        const DECREMENT = 0.3;
-        let level = $('#volume-level');
-        let el = $('#volume-control');
-
+    volumeDown: function() {
+        const MIN = 0.0;
+        const DECREMENT = 0.60;
         this.volume -= DECREMENT;
         if (this.volume < MIN) {
             this.volume = MIN;
+            if(!$('#volume-control').hasClass('squished-down')) {
+                $('#volume-control').toggleClass('squished-down');
+            }
         }
+        this.volumeChange();
+    },
+
+    volumeChange() {
+        const millis = this.volumeTimer = Date.now();
+
+        let el = $('#volume-control');
+        let level = $('#volume-level');
+        const icon = $('#volume-icon');
+        const show = el.hasClass('show');
 
         let nextHeight = this.volume + 'em';
         level.css({'height':nextHeight});
 
-        if(!el.hasClass('show')) {
+        if(show && el.hasClass('skinny')){
+            // do nothing
+        } else if(!show) {
             el.toggleClass('show')
+        } else {
+            el.toggleClass('skinny')
+            icon.toggleClass('small');
         }
 
         setTimeout(() => {
             if(millis === this.volumeTimer) {
-                console.log(millis - this.volumeTimer)
                 el.toggleClass('show')
+                if(el.hasClass('skinny')){
+                    el.toggleClass('skinny');
+                    icon.toggleClass('small');
+                }
             }
         }, 1000)
-
     },
 
     home: function () {

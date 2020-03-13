@@ -1,5 +1,8 @@
 :root {
     --volume-control-width: 5.5em;
+    --volume-control-width_narrow: 0.8em;
+    --volume-level-color:rgba(255,255,255,0.8);
+    --icon-color:rgba(155,155,155,1.0);
 }
 
 .volume-control{
@@ -15,8 +18,9 @@
     transition: transform 0.5s;
     transform: scale(0.5);
     transition: margin-left 0.5s;
-    transition-timing-function: ease-in-out;
+    transition-timing-function: linear;//ease-in-out;
     transition: all 0.5s;
+    overflow: hidden;
 }
 
 .show{
@@ -24,23 +28,49 @@
     transform: scale(1.0);
 }
 
+.skinny {
+    width: var(--volume-control-width_narrow);
+    transition: width 0.25s;
+    transition: all 0.5s;
+}
+
+.over-extended{
+    transform:scale(0.750, 1.10);
+    transition: all 0.5s;
+}
+
+.squished-down{
+    transform:scale(0.50, 1.0);
+    transition: all 0.5s;
+    margin-top: 8em;
+}
+
 .volume-level{
     height: 2em;
     width: var(--volume-control-width);
-    background-color: white;
-    margin-top: 50%;
+    background-color: var(--volume-level-color);
+    margin-top: 5%;
     position: absolute;
     bottom: 0;
-    border-radius: 0 0 30px 30px;
-}
 
-.high-volume{
-
+    transition: height 0.20s;
+    transition-timing-function: linear;
 }
 
 .volume-icon {
     position: absolute;
     bottom: 0;
     margin: 2em;
-    color: lightgray;
+    font-size: 1em;
+}
+
+.fas.fa-fire-extinguisher{
+    color: var(--icon-color);
+    font-size: inherit;
+}
+
+.small{
+    font-size: 0px!important;
+    transition: all 0.5s;
+    padding-bottom: inherit;
 }
