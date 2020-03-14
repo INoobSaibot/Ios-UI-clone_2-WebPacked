@@ -1,10 +1,11 @@
 const Index = {
     init: function () {
+        setInterval(this.renderTime, 1000);
         // dev testing start at #0 search screen
 
         // end dev only code
         this.moving = Date.now();
-        this.volume =  2;// 0 to 5 em
+        this.volume = 2;// 0 to 5 em
         this.volumeTimer = Date.now();
 
         $(".home-button").click(this.home);
@@ -22,8 +23,8 @@ const Index = {
             } else if (key === 'ArrowUp') {
                 this.volumeUp();
             } else if (key === 'ArrowDown') {
-               this.volumeDown();
-            } else if (key === 'Control'){
+                this.volumeDown();
+            } else if (key === 'Control') {
                 this.home();
             }
         }.bind(this));
@@ -31,7 +32,7 @@ const Index = {
         document.body.addEventListener('keyup', function (e) {
             e.preventDefault();
             let key = e.key;
-            console.log(e);
+
             const el = $('#volume-control');
             const overExtended = el.hasClass('over-extended')
             const squishedDown = el.hasClass('squished-down')
@@ -46,26 +47,40 @@ const Index = {
         this.touchmoveRegister(this.right, this.left, this.home);
     },
 
+    renderTime() {
+        const today = new Date();
+        let h = today.getHours();
+        let m = today.getMinutes();
+        let s = today.getSeconds();
+        const am_pm = h > 12 ? 'PM' : 'AM';
+        h = h > 12 ? h - 12 : h;
+        m = m < 10 ? "0" + m : m;
+        s = s < 10 ? "0" + s : s;
+
+        const formatted = h + ":" + m + ":" + s + ' ' + am_pm;
+        $('.time')[0].innerText = formatted;
+    },
+
     volumeUp: function () {
         const MAX = 17.5;
-        const INCREMENT = 0.60;
+        const INCREMENT = 0.90;
         this.volume += INCREMENT;
         if (this.volume > MAX) {
             this.volume = MAX;
-            if(!$('#volume-control').hasClass('over-extended')) {
+            if (!$('#volume-control').hasClass('over-extended')) {
                 $('#volume-control').toggleClass('over-extended');
             }
         }
         this.volumeChange();
     },
 
-    volumeDown: function() {
+    volumeDown: function () {
         const MIN = 0.0;
-        const DECREMENT = 0.60;
+        const DECREMENT = 0.90;
         this.volume -= DECREMENT;
         if (this.volume < MIN) {
             this.volume = MIN;
-            if(!$('#volume-control').hasClass('squished-down')) {
+            if (!$('#volume-control').hasClass('squished-down')) {
                 $('#volume-control').toggleClass('squished-down');
             }
         }
@@ -81,11 +96,11 @@ const Index = {
         const show = el.hasClass('show');
 
         let nextHeight = this.volume + 'em';
-        level.css({'height':nextHeight});
+        level.css({'height': nextHeight});
 
-        if(show && el.hasClass('skinny')){
+        if (show && el.hasClass('skinny')) {
             // do nothing
-        } else if(!show) {
+        } else if (!show) {
             el.toggleClass('show')
         } else {
             el.toggleClass('skinny')
@@ -93,9 +108,9 @@ const Index = {
         }
 
         setTimeout(() => {
-            if(millis === this.volumeTimer) {
+            if (millis === this.volumeTimer) {
                 el.toggleClass('show')
-                if(el.hasClass('skinny')){
+                if (el.hasClass('skinny')) {
                     el.toggleClass('skinny');
                     icon.toggleClass('small');
                 }
