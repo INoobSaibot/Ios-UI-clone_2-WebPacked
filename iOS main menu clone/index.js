@@ -12,6 +12,24 @@ const Index = {
         $(".right-button").click(this.right);
         $(".left-button").click(this.left);
 
+        // $(".volume-up-button").click(boundVolumeUp);
+        const volumeUp = $('#volume-up');
+        let hold = 0;
+        volumeUp.on('touchstart mousedown', function () {
+            hold = setInterval(boundVolumeUp, 50);
+        }).on('mouseup mouseleave touchend touchcancel', function () {
+            clearTimeout(hold)
+        });
+        volumeUp.on('touchend mouseup mouseout', this.endVolumeHold);
+
+        const volumeDown = $('#volume-down');
+        volumeDown.on('touchstart mousedown', function () {
+            hold = setInterval(boundVolumeDown, 50);
+        }).on('mouseup mouseleave touchend touchcancel', function () {
+            clearTimeout(hold)
+        });
+        volumeDown.on('touchend mouseup mouseout', this.endVolumeHold);
+
         document.body.addEventListener('keydown', function (e) {
             e.preventDefault();
             let key = e.key;
@@ -29,22 +47,42 @@ const Index = {
             }
         }.bind(this));
 
-        document.body.addEventListener('keyup', function (e) {
-            e.preventDefault();
-            let key = e.key;
-
-            const el = $('#volume-control');
-            const overExtended = el.hasClass('over-extended')
-            const squishedDown = el.hasClass('squished-down')
-
-            if (key === 'ArrowUp' && overExtended) {
-                el.toggleClass('over-extended');
-            } else if (key === 'ArrowDown' && squishedDown) {
-                el.toggleClass('squished-down');
-            }
-        }.bind(this));
+        document.body.addEventListener('keyup', this.endVolumeHold)
+        document.body.addEventListener('touchend', function (e) {
+            // e.preventDefault();
+            // let key = e.key;
+            // let upButton = e.target.id === 'volume-up';
+            // let downButton = e.target.id === 'volume-down';
+            //
+            // const el = $('#volume-control');
+            // const overExtended = el.hasClass('over-extended')
+            // const squishedDown = el.hasClass('squished-down')
+            //
+            // if (key === 'ArrowUp' || upButton && overExtended) {
+            //     el.toggleClass('over-extended');
+            // } else if (key === 'ArrowDown' || downButton && squishedDown) {
+            //     el.toggleClass('squished-down');
+            // }
+        });
 
         this.touchmoveRegister(this.right, this.left, this.home);
+    },
+
+    endVolumeHold(e) {
+        e.preventDefault();
+        let key = e.key;
+        let upButton = e.target.id === 'volume-up';
+        let downButton = e.target.id === 'volume-down';
+
+        const el = $('#volume-control');
+        const overExtended = el.hasClass('over-extended')
+        const squishedDown = el.hasClass('squished-down')
+
+        if (key === 'ArrowUp' || upButton && overExtended) {
+            el.toggleClass('over-extended');
+        } else if (key === 'ArrowDown' || downButton && squishedDown) {
+            el.toggleClass('squished-down');
+        }
     },
 
     renderTime() {
@@ -71,7 +109,7 @@ const Index = {
                 $('#volume-control').toggleClass('over-extended');
             }
         }
-        this.volumeChange();
+        boundVolumeChange();
     },
 
     volumeDown: function () {
@@ -361,5 +399,28 @@ const Index = {
             handletouch(e, dir, 'end', swipeType, (dir == 'left' || dir == 'right') ? distX : distY)
             e.preventDefault()
         }, false)
+    },
+
+    x:42,
+    getX: function () {
+        return this.x
+    }
+}
+//
+const unboundGetX = Index.getX;
+const unboundVolumeChange = Index.volumeChange;
+const unboundVolumeUp = Index.volumeUp;
+const unboundVolumeDown = Index.volumeDown;
+//
+
+
+const boundGetX = unboundGetX.bind(Index);
+const boundVolumeChange = unboundVolumeChange.bind(Index);
+const boundVolumeUp = unboundVolumeUp.bind(Index);
+const boundVolumeDown = unboundVolumeDown.bind(Index);
+
+class Car {
+    constructor(brand) {
+        this.carname = brand;
     }
 }
