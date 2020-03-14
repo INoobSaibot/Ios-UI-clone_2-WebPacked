@@ -48,22 +48,22 @@ const Index = {
         }.bind(this));
 
         document.body.addEventListener('keyup', this.endVolumeHold)
-        document.body.addEventListener('touchend', function (e) {
-            // e.preventDefault();
-            // let key = e.key;
-            // let upButton = e.target.id === 'volume-up';
-            // let downButton = e.target.id === 'volume-down';
-            //
-            // const el = $('#volume-control');
-            // const overExtended = el.hasClass('over-extended')
-            // const squishedDown = el.hasClass('squished-down')
-            //
-            // if (key === 'ArrowUp' || upButton && overExtended) {
-            //     el.toggleClass('over-extended');
-            // } else if (key === 'ArrowDown' || downButton && squishedDown) {
-            //     el.toggleClass('squished-down');
-            // }
-        });
+        // document.body.addEventListener('touchend', function (e) {
+        //     // e.preventDefault();
+        //     // let key = e.key;
+        //     // let upButton = e.target.id === 'volume-up';
+        //     // let downButton = e.target.id === 'volume-down';
+        //     //
+        //     // const el = $('#volume-control');
+        //     // const overExtended = el.hasClass('over-extended')
+        //     // const squishedDown = el.hasClass('squished-down')
+        //     //
+        //     // if (key === 'ArrowUp' || upButton && overExtended) {
+        //     //     el.toggleClass('over-extended');
+        //     // } else if (key === 'ArrowDown' || downButton && squishedDown) {
+        //     //     el.toggleClass('squished-down');
+        //     // }
+        // });
 
         this.touchmoveRegister(this.right, this.left, this.home);
     },
@@ -71,8 +71,8 @@ const Index = {
     endVolumeHold(e) {
         e.preventDefault();
         let key = e.key;
-        let upButton = e.target.id === 'volume-up';
-        let downButton = e.target.id === 'volume-down';
+        let upButton = e.target.id === 'volume-up' || 'volume-up-icon';
+        let downButton = e.target.id === 'volume-down' || 'volume-down-icon';
 
         const el = $('#volume-control');
         const overExtended = el.hasClass('over-extended')

@@ -41,25 +41,30 @@ body {
     float: right;
 }
 
-.external-buttons {
+.volume-external-buttons {
     position: absolute;
-    left: 25px;
+    left: 0;
     /*bottom: 0;*/
-    /*margin-top:50%;*/
+    margin-top:75%;
+    height:20%;
 }
 
-.external-buttons button {
+.volume-external-buttons button {
     padding:0.5em;
-    margin: 1em;
-    font-size: 3em;
+    margin-left: 0;
+    margin-bottom: 1em;
+    font-size: 2em;
+    border-radius: 30px;
+    text-align: center;
+    width:100%;
 }
 
-/*@media only screen and (max-width: 1000px) {*/
-/*    .external-buttons {*/
-/*        background-color: lightblue;*/
-/*        display: flex;*/
-/*        left:auto;*/
-/*        bottom: 0;*/
+@media only screen and (max-width: 1000px) {
+    .nav {
+        background-color: lightblue;
+        display: flex;
+        left:auto;
+        bottom: 0;
 
-/*    }*/
-/*}*/
+    }
+}
