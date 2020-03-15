@@ -1,6 +1,3 @@
-// import Clock from './clock.js'
-
-
 const Index = {
     init: function () {
         // dev testing start at #0 search screen
@@ -40,7 +37,7 @@ const Index = {
 
 class Clock {
     constructor(name) {
-        this.clockname = name;
+        // this.clockname = name;
 
         this.init()
     }
