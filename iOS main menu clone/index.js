@@ -1,73 +1,53 @@
+// import Clock from './clock.js'
+
+
 const Index = {
     init: function () {
-        setInterval(this.renderTime, 1000);
         // dev testing start at #0 search screen
 
         // end dev only code
-        this.moving = Date.now();
-        this.volume = 2;// 0 to 5 em
-        this.volumeTimer = Date.now();
+        const headerClock = new Clock();
+        const headerBattery = new Battery();
+        const pan = new Pan();
+        const volume = new Volume();
 
-        $(".home-button").click(this.home);
-        $(".right-button").click(this.right);
-        $(".left-button").click(this.left);
 
-        // $(".volume-up-button").click(boundVolumeUp);
-        const volumeUp = $('#volume-up');
-        let hold = 0;
-        volumeUp.on('touchstart mousedown', function () {
-            hold = setInterval(boundVolumeUp, 50);
-        }).on('mouseup mouseleave touchend touchcancel', function () {
-            clearTimeout(hold)
-        });
-        volumeUp.on('touchend mouseup mouseout', this.endVolumeHold);
-
-        const volumeDown = $('#volume-down');
-        volumeDown.on('touchstart mousedown', function () {
-            hold = setInterval(boundVolumeDown, 50);
-        }).on('mouseup mouseleave touchend touchcancel', function () {
-            clearTimeout(hold)
-        });
-        volumeDown.on('touchend mouseup mouseout', this.endVolumeHold);
+        $(".home-button").click(pan.home);
+        $(".right-button").click(pan.right);
+        $(".left-button").click(pan.left);
 
         document.body.addEventListener('keydown', function (e) {
             e.preventDefault();
             let key = e.key;
 
             if (key === 'ArrowRight') {
-                this.right();
+                pan.right();
             } else if (key === 'ArrowLeft') {
-                this.left();
+                pan.left();
             } else if (key === 'ArrowUp') {
-                this.volumeUp();
+                volume.volumeUp();
             } else if (key === 'ArrowDown') {
-                this.volumeDown();
+                volume.volumeDown();
             } else if (key === 'Control') {
-                this.home();
+                pan.home();
             }
         }.bind(this));
 
-        document.body.addEventListener('keyup', this.endVolumeHold)
+        document.body.addEventListener('keyup', volume.endVolumeHold)
+    }
+}
 
-        this.touchmoveRegister(this.right, this.left, this.home);
-    },
 
-    endVolumeHold(e) {
-        e.preventDefault();
-        let key = e.key;
-        let upButton = e.target.id === 'volume-up' || 'volume-up-icon';
-        let downButton = e.target.id === 'volume-down' || 'volume-down-icon';
+class Clock {
+    constructor(name) {
+        this.clockname = name;
 
-        const el = $('#volume-control');
-        const overExtended = el.hasClass('over-extended')
-        const squishedDown = el.hasClass('squished-down')
+        this.init()
+    }
 
-        if (key === 'ArrowUp' || upButton && overExtended) {
-            el.toggleClass('over-extended');
-        } else if (key === 'ArrowDown' || downButton && squishedDown) {
-            el.toggleClass('squished-down');
-        }
-    },
+    init() {
+        setInterval(this.renderTime, 1000);
+    }
 
     renderTime() {
         const today = new Date();
@@ -81,66 +61,65 @@ const Index = {
 
         const formatted = h + ":" + m + ":" + s + ' ' + am_pm;
         $('.time')[0].innerText = formatted;
-    },
+    }
+}
 
-    volumeUp: function () {
-        const MAX = 17.5;
-        const INCREMENT = 0.90;
-        this.volume += INCREMENT;
-        if (this.volume > MAX) {
-            this.volume = MAX;
-            if (!$('#volume-control').hasClass('over-extended')) {
-                $('#volume-control').toggleClass('over-extended');
-            }
+class Battery {
+    static battery_0 = 'fa-battery-0';
+    static battery_1 = 'fa-battery-1';
+    static battery_2 = 'fa-battery-2';
+    static battery_3 = 'fa-battery-3';
+    static battery_4 = 'fa-battery-4';
+
+    constructor() {
+        this.init()
+    }
+
+    init() {
+        this.el = $('.battery-icon');
+        setInterval(() => {
+            this.toggle();
+        }, 500)
+    }
+
+    toggle() {
+        if (this.el.hasClass(Battery.battery_0)) {
+            this.el.toggleClass(Battery.battery_1);
+            this.el.toggleClass(Battery.battery_0);
+        } else if (this.el.hasClass(Battery.battery_1)) {
+            this.el.toggleClass(Battery.battery_1);
+            this.el.toggleClass(Battery.battery_2);
+        } else if (this.el.hasClass(Battery.battery_2)) {
+            this.el.toggleClass(Battery.battery_2);
+            this.el.toggleClass(Battery.battery_3);
+        } else if (this.el.hasClass(Battery.battery_3)) {
+            this.el.toggleClass(Battery.battery_3);
+            this.el.toggleClass(Battery.battery_4);
+        } else if (this.el.hasClass(Battery.battery_4)) {
+            this.el.toggleClass(Battery.battery_4)
+            this.el.toggleClass(Battery.battery_0)
         }
-        boundVolumeChange();
-    },
+    }
+}
 
-    volumeDown: function () {
-        const MIN = 0.0;
-        const DECREMENT = 0.90;
-        this.volume -= DECREMENT;
-        if (this.volume < MIN) {
-            this.volume = MIN;
-            if (!$('#volume-control').hasClass('squished-down')) {
-                $('#volume-control').toggleClass('squished-down');
-            }
-        }
-        this.volumeChange();
-    },
+class Pan {
+    static value = '';
+    moving = Date.now();
 
-    volumeChange() {
-        const millis = this.volumeTimer = Date.now();
+    constructor() {
+        this.init();
+    }
 
-        let el = $('#volume-control');
-        let level = $('#volume-level');
-        const icon = $('#volume-icon');
-        const show = el.hasClass('show');
+    init() {
+        $(".home-button").click(this.home);
+        $(".right-button").click(this.right);
+        $(".left-button").click(this.left);
 
-        let nextHeight = this.volume + 'em';
-        level.css({'height': nextHeight});
+        this.moving = Date.now();
+        this.touchmoveRegister();
+    }
 
-        if (show && el.hasClass('skinny')) {
-            // do nothing
-        } else if (!show) {
-            el.toggleClass('show')
-        } else {
-            el.toggleClass('skinny')
-            icon.toggleClass('small');
-        }
-
-        setTimeout(() => {
-            if (millis === this.volumeTimer) {
-                el.toggleClass('show')
-                if (el.hasClass('skinny')) {
-                    el.toggleClass('skinny');
-                    icon.toggleClass('small');
-                }
-            }
-        }, 1000)
-    },
-
-    home: function () {
+    home() {
         let now = Date.now();
         let millis = Date.now() - this.moving
         if (millis < 250) {
@@ -188,10 +167,50 @@ const Index = {
             $('#view-1').toggleClass('focused-position');
             $('#view-dot-1').toggleClass('active');
         }
+    }
 
-    },
+    left() {
+        let now = Date.now();
+        let millis = Date.now() - this.moving
+        if (millis < 250) {
+            return;
+        } else {
+            this.moving = now;
+        }
 
-    right: function () {
+        let grid_1_in_view = $('#view-1').hasClass('focused-position');
+        let grid_2_in_view = $('#view-2').hasClass('focused-position');
+        let grid_3_in_view = $('#view-3').hasClass('focused-position');
+
+        if (grid_1_in_view) {
+            $('#view-1').toggleClass('focused-position');
+            $('#view-dot-1').toggleClass('active');
+
+            $('#view-0').toggleClass('left-transition');
+            $('#view-0').toggleClass('focused-position');
+            $('#view-dot-0').toggleClass('active');
+
+            $('#bottom').toggleClass('focused-position');
+        } else if (grid_2_in_view) {
+            $('#view-2').toggleClass('focused-position');
+            $('#view-dot-2').toggleClass('active');
+
+            $('#view-1').toggleClass('left-transition');
+            $('#view-1').toggleClass('focused-position');
+            $('#view-dot-1').toggleClass('active');
+        } else if (grid_3_in_view) {
+            $('#view-3').toggleClass('focused-position');
+            $('#view-dot-3').toggleClass('active');
+
+            $('#view-2').toggleClass('left-transition');
+            $('#view-2').toggleClass('focused-position');
+            $('#view-dot-2').toggleClass('active');
+        } else {
+            this.moving = false;
+        }
+    }
+
+    right() {
         let now = Date.now();
         let millis = Date.now() - this.moving
         if (millis < 250) {
@@ -233,50 +252,9 @@ const Index = {
             $('#view-dot-3').toggleClass('active');
 
         }
-    },
+    }
 
-    left: function () {
-        let now = Date.now();
-        let millis = Date.now() - this.moving
-        if (millis < 250) {
-            return;
-        } else {
-            this.moving = now;
-        }
-
-        let grid_1_in_view = $('#view-1').hasClass('focused-position');
-        let grid_2_in_view = $('#view-2').hasClass('focused-position');
-        let grid_3_in_view = $('#view-3').hasClass('focused-position');
-
-        if (grid_1_in_view) {
-            $('#view-1').toggleClass('focused-position');
-            $('#view-dot-1').toggleClass('active');
-
-            $('#view-0').toggleClass('left-transition');
-            $('#view-0').toggleClass('focused-position');
-            $('#view-dot-0').toggleClass('active');
-
-            $('#bottom').toggleClass('focused-position');
-        } else if (grid_2_in_view) {
-            $('#view-2').toggleClass('focused-position');
-            $('#view-dot-2').toggleClass('active');
-
-            $('#view-1').toggleClass('left-transition');
-            $('#view-1').toggleClass('focused-position');
-            $('#view-dot-1').toggleClass('active');
-        } else if (grid_3_in_view) {
-            $('#view-3').toggleClass('focused-position');
-            $('#view-dot-3').toggleClass('active');
-
-            $('#view-2').toggleClass('left-transition');
-            $('#view-2').toggleClass('focused-position');
-            $('#view-dot-2').toggleClass('active');
-        } else {
-            this.moving = false;
-        }
-    },
-
-    touchmoveRegister: function (right, left, home) {
+    touchmoveRegister() {
         let touchsurface = document.getElementById('container'),
             startX,
             startY,
@@ -288,11 +266,11 @@ const Index = {
 
         const handleSwipe = (isRightswipe, isLeftSwipe) => {
             if (isRightswipe) {
-                left();
+                this.left();
             } else if (isLeftSwipe) {
-                right();
+                this.right();
             } else {
-                // home();
+                //this.home();
             }
         }
 
@@ -321,90 +299,122 @@ const Index = {
             handleSwipe(isRightSwipe, isLeftSwipe);
             e.preventDefault()
         }, false)
-
-
-    }.bind(this),
-
-    touche: function (el, callback) {
-
-        var touchsurface = el,
-            dir,
-            swipeType,
-            startX,
-            startY,
-            distX,
-            distY,
-            threshold = 150, //required min distance traveled to be considered swipe
-            restraint = 100, // maximum distance allowed at the same time in perpendicular direction
-            allowedTime = 500, // maximum time allowed to travel that distance
-            elapsedTime,
-            startTime,
-            handletouch = callback || function (evt, dir, phase, swipetype, distance) {
-            }
-
-        touchsurface.addEventListener('touchstart', function (e) {
-            var touchobj = e.changedTouches[0]
-            dir = 'none'
-            swipeType = 'none'
-            dist = 0
-            startX = touchobj.pageX
-            startY = touchobj.pageY
-            startTime = new Date().getTime() // record time when finger first makes contact with surface
-            handletouch(e, 'none', 'start', swipeType, 0) // fire callback function with params dir="none", phase="start", swipetype="none" etc
-            e.preventDefault()
-
-        }, false)
-
-        touchsurface.addEventListener('touchmove', function (e) {
-            var touchobj = e.changedTouches[0]
-            distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
-            distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
-            if (Math.abs(distX) > Math.abs(distY)) { // if distance traveled horizontally is greater than vertically, consider this a horizontal movement
-                dir = (distX < 0) ? 'left' : 'right'
-                handletouch(e, dir, 'move', swipeType, distX) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
-            } else { // else consider this a vertical movement
-                dir = (distY < 0) ? 'up' : 'down'
-                handletouch(e, dir, 'move', swipeType, distY) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
-            }
-            e.preventDefault() // prevent scrolling when inside DIV
-        }, false)
-
-        touchsurface.addEventListener('touchend', function (e) {
-            var touchobj = e.changedTouches[0]
-            elapsedTime = new Date().getTime() - startTime // get time elapsed
-            if (elapsedTime <= allowedTime) { // first condition for awipe met
-                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) { // 2nd condition for horizontal swipe met
-                    swipeType = dir // set swipeType to either "left" or "right"
-                } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) { // 2nd condition for vertical swipe met
-                    swipeType = dir // set swipeType to either "top" or "down"
-                }
-            }
-            // Fire callback function with params dir="left|right|up|down", phase="end", swipetype=dir etc:
-            handletouch(e, dir, 'end', swipeType, (dir == 'left' || dir == 'right') ? distX : distY)
-            e.preventDefault()
-        }, false)
-    },
-
-    x:42,
-    getX: function () {
-        return this.x
     }
 }
-//
-const unboundGetX = Index.getX;
-const unboundVolumeChange = Index.volumeChange;
-const unboundVolumeUp = Index.volumeUp;
-const unboundVolumeDown = Index.volumeDown;
-//
 
+class Volume {
+    static value = '';
 
-const boundGetX = unboundGetX.bind(Index);
-const boundVolumeChange = unboundVolumeChange.bind(Index);
-const boundVolumeUp = unboundVolumeUp.bind(Index);
-const boundVolumeDown = unboundVolumeDown.bind(Index);
+    constructor() {
+        this.volume = 2;// 0 to 5 em
+        this.volumeTimer = Date.now();
+        this.init()
+    }
 
-class Car {
-    constructor(brand) {
-        this.carname = brand;
+    init() {
+        this.initVolumeUpExternalButtons();
+        this.intVolumeDownExternalButtons();
+    }
+
+    initVolumeUpExternalButtons(){
+        const volumeUp = $('#volume-up');
+        let hold = 0;
+        volumeUp.on('touchstart mousedown', () => {
+            hold = setInterval(() => {
+                this.volumeUp();
+            }, 50);
+
+        }).on('mouseup mouseleave touchend touchcancel', function () {
+            clearTimeout(hold)
+        });
+
+        volumeUp.on('touchend mouseup mouseout', this.endVolumeHold);
+    }
+
+    intVolumeDownExternalButtons() {
+        let hold;
+        const volumeDown = $('#volume-down');
+        volumeDown.on('touchstart mousedown', () => {
+            hold = setInterval(() => {
+                this.volumeDown();
+            }, 50);
+        }).on('mouseup mouseleave touchend touchcancel', function () {
+            clearTimeout(hold)
+        });
+        volumeDown.on('touchend mouseup mouseout', this.endVolumeHold);
+    }
+
+    endVolumeHold(e) {
+        e.preventDefault();
+        let key = e.key;
+        let upButton = e.target.id === 'volume-up' || 'volume-up-icon';
+        let downButton = e.target.id === 'volume-down' || 'volume-down-icon';
+
+        const el = $('#volume-control');
+        const overExtended = el.hasClass('over-extended')
+        const squishedDown = el.hasClass('squished-down')
+
+        if (key === 'ArrowUp' || upButton && overExtended) {
+            el.toggleClass('over-extended');
+        } else if (key === 'ArrowDown' || downButton && squishedDown) {
+            el.toggleClass('squished-down');
+        }
+    }
+
+    volumeUp() {
+        const MAX = 17.5;
+        const INCREMENT = 0.90;
+        this.volume += INCREMENT;
+        if (this.volume > MAX) {
+            this.volume = MAX;
+            if (!$('#volume-control').hasClass('over-extended')) {
+                $('#volume-control').toggleClass('over-extended');
+            }
+        }
+        this.volumeChange();
+    }
+
+    volumeDown() {
+        const MIN = 0.0;
+        const DECREMENT = 0.90;
+        this.volume -= DECREMENT;
+        if (this.volume < MIN) {
+            this.volume = MIN;
+            if (!$('#volume-control').hasClass('squished-down')) {
+                $('#volume-control').toggleClass('squished-down');
+            }
+        }
+        this.volumeChange();
+    }
+
+    volumeChange() {
+        const millis = this.volumeTimer = Date.now();
+
+        let el = $('#volume-control');
+        let level = $('#volume-level');
+        const icon = $('#volume-icon');
+        const show = el.hasClass('show');
+
+        let nextHeight = this.volume + 'em';
+        level.css({'height': nextHeight});
+
+        if (show && el.hasClass('skinny')) {
+            // do nothing
+        } else if (!show) {
+            el.toggleClass('show')
+        } else {
+            el.toggleClass('skinny')
+            icon.toggleClass('small');
+        }
+
+        setTimeout(() => {
+            if (millis === this.volumeTimer) {
+                el.toggleClass('show')
+                if (el.hasClass('skinny')) {
+                    el.toggleClass('skinny');
+                    icon.toggleClass('small');
+                }
+            }
+        }, 1000)
     }
 }

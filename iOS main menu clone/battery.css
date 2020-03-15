@@ -1,0 +1,19 @@
+:root {
+    /*--light-gray-transparent: rgba(192,192,192, 0.5);*/
+    /*--transparent-white:rgba(255,255,255,0.2);*/
+}
+
+
+/*.battery-power{*/
+/*    background-color: #000066;*/
+/*    border-color: red;*/
+/*    border-style: dashed;*/
+/*    border-radius: 3px;*/
+/*}*/
+
+.battery-icon {
+    font-size: 1.5em !important;
+    margin-top: -20px;
+
+    /*font: normal normal normal 14px/1 FontAwesome!important;*/
+}

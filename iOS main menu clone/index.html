@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel='stylesheet' type='text/css' href='./index.css'>
-    <link rel='stylesheet' type='text/css' href='./icon-grid.css'>
+    <link rel='stylesheet' type='text/css' href='styles/index.css'>
+    <link rel='stylesheet' type='text/css' href='styles/icon-grid.css'>
     <link rel='stylesheet' type='text/css' href='./signal-bars.css'>
-    <link rel='stylesheet' type='text/css' href='./icons.css'>
+    <link rel='stylesheet' type='text/css' href='styles/icons.css'>
         <link rel='stylesheet' type='text/css' href='./styles/icons/tips-icon/tips-icon.css'>
     <link rel="stylesheet" type="text/css" href="./slide.css">
     <link rel="stylesheet" type="text/css" href="./search.css">
     <link rel="stylesheet" type="text/css" href="./message-center.css">
     <link rel="stylesheet" type="text/css" href="./styles/volume_control.css">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <!-- battery -->
+    <link rel="stylesheet" type="text/css" href="./battery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- cdn/external imports -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -19,7 +23,7 @@
 
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="./index.js"></script>
+    <script src="index.js"></script>
 </head>
 
 <body>
@@ -33,7 +37,7 @@
             <!-- Network name-->
             &nbsp; <span class='network'><span class='carrier'>Verizon</span> &nbsp; <span class='network-type'>LTE</span></span>
         </div>
-        <span class='center time'>4:26 PM</span><span class='right battery-power'>Battery</span>
+        <span class='center time'>4:26 PM</span><span class='right battery-power'><i class="battery-icon fa fa-battery-0"></i></span>
     </div>
 
     <div id="container">
@@ -165,7 +169,6 @@
     $ ( document ).ready(
         function() {
             Index.init();
-            const foo = new Car();
         }
     );
 </script>
