@@ -64,13 +64,13 @@
     font-size: 1em;
 }
 
-.fas.fa-fire-extinguisher{
-    color: var(--icon-color);
-    font-size: inherit;
-}
-
 .small{
     font-size: 0px!important;
     transition: all 0.5s;
     padding-bottom: inherit;
+}
+
+.mock-unshow{
+    border-style: dashed;
+    border-width: 9px;
 }

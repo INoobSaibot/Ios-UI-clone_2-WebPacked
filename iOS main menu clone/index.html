@@ -23,7 +23,9 @@
 
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="index.js"></script>
+<!--    <script src="./clock.js"></script>-->
+<!--    <script src="./volume.js"></script>-->
+    <script src="./index.js"></script>
 </head>
 
 <body>
@@ -41,7 +43,6 @@
     </div>
 
     <div id="container">
-
         <div id="view-0" class="box left-transition">
 <!--            <div class="search"><span class="search-icon" >icon-placeholder</span> <span class="search-label">Search</span> <span class="mic-icon">*mic*</span></div>-->
             <div class='search-container'>
@@ -166,10 +167,12 @@
 
 </body>
 <script type=text/javascript>
-    $ ( document ).ready(
-        function() {
-            Index.init();
-        }
-    );
+        $ ( document ).ready(
+            function() {
+                // setTimeout(Index.init, 1000)
+                Index.init();
+            }
+        );
+
 </script>
 </html>

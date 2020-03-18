@@ -7,8 +7,8 @@ const Index = {
         const headerBattery = new Battery();
         const pan = new Pan();
         const volume = new Volume();
-
-
+        //
+        //
         $(".home-button").click(pan.home);
         $(".right-button").click(pan.right);
         $(".left-button").click(pan.left);
@@ -32,13 +32,14 @@ const Index = {
 
         document.body.addEventListener('keyup', volume.endVolumeHold)
     }
+
+
 }
 
 
 class Clock {
     constructor(name) {
         // this.clockname = name;
-
         this.init()
     }
 
@@ -62,13 +63,13 @@ class Clock {
 }
 
 class Battery {
-    static battery_0 = 'fa-battery-0';
-    static battery_1 = 'fa-battery-1';
-    static battery_2 = 'fa-battery-2';
-    static battery_3 = 'fa-battery-3';
-    static battery_4 = 'fa-battery-4';
 
     constructor() {
+        this.battery_0 = 'fa-battery-0';
+        this.battery_1 = 'fa-battery-1';
+        this.battery_2 = 'fa-battery-2';
+        this.battery_3 = 'fa-battery-3';
+        this.battery_4 = 'fa-battery-4';
         this.init()
     }
 
@@ -80,29 +81,28 @@ class Battery {
     }
 
     toggle() {
-        if (this.el.hasClass(Battery.battery_0)) {
-            this.el.toggleClass(Battery.battery_1);
-            this.el.toggleClass(Battery.battery_0);
-        } else if (this.el.hasClass(Battery.battery_1)) {
-            this.el.toggleClass(Battery.battery_1);
-            this.el.toggleClass(Battery.battery_2);
-        } else if (this.el.hasClass(Battery.battery_2)) {
-            this.el.toggleClass(Battery.battery_2);
-            this.el.toggleClass(Battery.battery_3);
-        } else if (this.el.hasClass(Battery.battery_3)) {
-            this.el.toggleClass(Battery.battery_3);
-            this.el.toggleClass(Battery.battery_4);
-        } else if (this.el.hasClass(Battery.battery_4)) {
-            this.el.toggleClass(Battery.battery_4)
-            this.el.toggleClass(Battery.battery_0)
+        if (this.el.hasClass(this.battery_0)) {
+            this.el.toggleClass(this.battery_1);
+            this.el.toggleClass(this.battery_0);
+        } else if (this.el.hasClass(this.battery_1)) {
+            this.el.toggleClass(this.battery_1);
+            this.el.toggleClass(this.battery_2);
+        } else if (this.el.hasClass(this.battery_2)) {
+            this.el.toggleClass(this.battery_2);
+            this.el.toggleClass(this.battery_3);
+        } else if (this.el.hasClass(this.battery_3)) {
+            this.el.toggleClass(this.battery_3);
+            this.el.toggleClass(this.battery_4);
+        } else if (this.el.hasClass(this.battery_4)) {
+            this.el.toggleClass(this.battery_4)
+            this.el.toggleClass(this.battery_0)
         }
     }
 }
 
-class Pan {
-    static value = '';
-    moving = Date.now();
 
+
+class Pan {
     constructor() {
         this.init();
     }
@@ -300,7 +300,6 @@ class Pan {
 }
 
 class Volume {
-    static value = '';
 
     constructor() {
         this.volume = 2;// 0 to 5 em
@@ -342,6 +341,7 @@ class Volume {
     }
 
     endVolumeHold(e) {
+        console.log('end-hold')
         e.preventDefault();
         let key = e.key;
         let upButton = e.target.id === 'volume-up' || 'volume-up-icon';
@@ -385,7 +385,9 @@ class Volume {
     }
 
     volumeChange() {
+        const time = this.volumeTimer;
         const millis = this.volumeTimer = Date.now();
+        console.log(time-millis)
 
         let el = $('#volume-control');
         let level = $('#volume-level');
@@ -406,11 +408,11 @@ class Volume {
 
         setTimeout(() => {
             if (millis === this.volumeTimer) {
-                el.toggleClass('show')
-                if (el.hasClass('skinny')) {
-                    el.toggleClass('skinny');
-                    icon.toggleClass('small');
-                }
+                el.removeClass('show')
+                el.removeClass('skinny')
+                el.removeClass('over-extended')
+                el.removeClass('squished')
+                icon.removeClass('small')
             }
         }, 1000)
     }
