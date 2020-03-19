@@ -11,10 +11,7 @@ const Index = {
         const calculator = new Calculator();
 
         $(".home-button").click(() => {
-            const currently_focused_app = calculator;
-            currently_focused_app.minimize();
-            pan.home();
-
+            handleHome();
         });
         $(".right-button").click(pan.right);
         $(".left-button").click(pan.left);
@@ -35,7 +32,7 @@ const Index = {
             } else if (key === 'ArrowDown') {
                 volume.volumeDown();
             } else if (key === 'Control') {
-                pan.home();
+                handleHome()
             }
         }.bind(this));
 
@@ -49,6 +46,12 @@ const Index = {
                 page_in_view.toggleClass('fall-back');
                 calculator.open();
             }
+        }
+
+        function handleHome(){
+            const currently_focused_app = calculator;
+            currently_focused_app.minimize();
+            pan.home();
         }
     }
 }

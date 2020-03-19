@@ -8,5 +8,6 @@
 }
 
 .transition-transform {
-    transition: all 0.25s;
+    transition: transform 0.25s;
+    transition: all .5s; /* the above line was killing all of these from slide.css .box css class*/
 }
