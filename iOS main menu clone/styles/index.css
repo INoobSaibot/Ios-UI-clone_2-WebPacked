@@ -4,7 +4,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    background-color: black;
+    background-color: var(--dark-gray-transparent);
     display: flex;
     justify-content: center;
     height: 1334px;

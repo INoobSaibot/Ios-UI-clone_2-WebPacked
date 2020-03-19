@@ -1,17 +1,26 @@
 const Index = {
     init: function () {
         // dev testing start at #0 search screen
-
+        // $('#bottom').toggleClass('focused-position')
         // end dev only code
+
         const headerClock = new Clock();
         const headerBattery = new Battery();
         const pan = new Pan();
         const volume = new Volume();
-        //
-        //
-        $(".home-button").click(pan.home);
+        const calculator = new Calculator();
+
+        $(".home-button").click(() => {
+            const currently_focused_app = calculator;
+            currently_focused_app.minimize();
+            pan.home();
+
+        });
         $(".right-button").click(pan.right);
         $(".left-button").click(pan.left);
+        $("button.app-icon").click((e) => {
+            handleClick(e);
+        });
 
         document.body.addEventListener('keydown', function (e) {
             e.preventDefault();
@@ -31,11 +40,54 @@ const Index = {
         }.bind(this));
 
         document.body.addEventListener('keyup', volume.endVolumeHold)
+
+        function handleClick(e) {
+            const id = e.currentTarget.id;
+            // const page_in_view = $('.focused-position'); /*hard coded a the moment*/
+            const page_in_view = $('.box');
+            if (id === 'calculator-icon') {
+                page_in_view.toggleClass('fall-back');
+                calculator.open();
+            }
+        }
     }
-
-
 }
 
+class Calculator {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.el = $('#calculator-app');
+        this.icon = $('#calculator-icon')
+        this.icon.on('touchstart', (e) => {
+            this.open();
+            console.log()
+        })
+    }
+
+    open() {
+        this.el.removeClass('fall-back')
+        this.isOpen = true;
+        this.el.toggleClass('focused-position')
+    }
+
+    minimize() {
+        if (this.isOpen !=true) {return}
+        this.isOpen = false;
+        this.el.toggleClass('fall-back');
+        this.el.one('transitionend', (e) => {
+            this.el.toggleClass('hidden');
+            this.el.toggleClass('focused-position');
+
+            $('.fall-back').toggleClass('fall-back transition-transform');
+            setTimeout(()=>{
+                this.el.toggleClass('hidden')
+            },35)
+        });
+    }
+}
 
 class Clock {
     constructor(name) {
@@ -63,7 +115,6 @@ class Clock {
 }
 
 class Battery {
-
     constructor() {
         this.battery_0 = 'fa-battery-0';
         this.battery_1 = 'fa-battery-1';
@@ -99,7 +150,6 @@ class Battery {
         }
     }
 }
-
 
 
 class Pan {
@@ -312,7 +362,7 @@ class Volume {
         this.intVolumeDownExternalButtons();
     }
 
-    initVolumeUpExternalButtons(){
+    initVolumeUpExternalButtons() {
         const volumeUp = $('#volume-up');
         let hold = 0;
         volumeUp.on('touchstart mousedown', () => {
@@ -387,7 +437,7 @@ class Volume {
     volumeChange() {
         const time = this.volumeTimer;
         const millis = this.volumeTimer = Date.now();
-        console.log(time-millis)
+        console.log(time - millis)
 
         let el = $('#volume-control');
         let level = $('#volume-level');

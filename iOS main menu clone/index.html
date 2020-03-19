@@ -9,12 +9,16 @@
     <link rel="stylesheet" type="text/css" href="./slide.css">
     <link rel="stylesheet" type="text/css" href="./search.css">
     <link rel="stylesheet" type="text/css" href="./message-center.css">
+    <link rel="stylesheet" type="text/css" href="./app-transitions.css">
     <link rel="stylesheet" type="text/css" href="./styles/volume_control.css">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
     <!-- battery -->
     <link rel="stylesheet" type="text/css" href="./battery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- calculator -->
+    <link rel="stylesheet" type="text/css" href="./calculator_app.css">
 
     <!-- cdn/external imports -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -23,8 +27,6 @@
 
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!--    <script src="./clock.js"></script>-->
-<!--    <script src="./volume.js"></script>-->
     <script src="./index.js"></script>
 </head>
 
@@ -53,11 +55,53 @@
                 </div>
             </div>
 
-            <div class="message-center">UP NEXT</div>
-            <div class="message-center">SIRI APP SUGGESTIONS</div>
+            <div class="message-center night"><div class="topleft"><button class='app-icon mini files'>2</button><span class="message-title">UP NEXT</span></div></div>
+            <div class="message-center night"><div class="topleft"><button class='app-icon mini podcasts'>2</button><span class="message-title">SIRI APP SUGGESTIONS</span>
+                <div class="grid-container">
+                    <div class="icon-and-name"><button id='calculator-icon' class='app-icon calculator'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Calculator</div></div>
+                    <div class="icon-and-name"><button class='app-icon hangouts'>2</button><div class='icon-text-name'>Hangouts</div></div>
+                    <div class="icon-and-name"><button class='app-icon i-message'>3</button><div class='icon-text-name'>Messages</div></div>
+                    <div class="icon-and-name"><button class='app-icon safari-browser'>4</button><div class='icon-text-name'>Safari</div></div>
+                </div>
+            </div>
+            </div>
             <div class="message-center">NEWS</div>
             <div class="message-center">SCREEN TIME</div>
         </div>
+<!-- calculator app       -->
+        <div id="calculator-app" class="box calculator-app">
+
+            <div class="result-box"><span class="result">0</span></div>
+            <div class="calc-grid-container">
+<!--                <div class="item1">Header</div>-->
+                <button class='calculator-btn light-grey-button'><span class=''></span></button>
+                <button class='calculator-btn light-grey-button'><span class=''></span></button>
+                <button class='calculator-btn light-grey-button'><span class=''></span></button>
+                <button class='calculator-btn operator-button'><span class=''></span></button>
+
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn operator-button'><span class=''></span></button>
+
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn operator-button'><span class=''></span></button>
+
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn operator-button'><span class=''></span></button>
+
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn'><span class=''></span></button>
+                <button class='calculator-btn operator-button'><span class=''></span></button>
+            </div>
+        </div>
+        <!-- end-calculator-app-->
+
 
         <div id="view-1" class="grid-container box focused-position">
             <div class="icon-and-name"><button class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
@@ -163,6 +207,8 @@
 <div class="volume volume-external-buttons"><i class='fas fa-volume-up'></i>
     <div class='volume-button'><button id="volume-up"><i class='fas fa-volume-up'></i></button></div>
     <div class='volume-button'><button id="volume-down"><i class='fas fa-volume-down'></i></button></div>
+        <div class='home-button'><button>Home</button></div>
+
 </div>
 
 </body>

@@ -1,0 +1,12 @@
+.fall-back{
+    transform: scale(0.0);
+    transition: transform 0.35s;
+}
+
+.hidden{
+    display: none;
+}
+
+.transition-transform {
+    transition: all 0.25s;
+}

@@ -10,14 +10,9 @@
 
 .box {
     position: absolute;
-    /*width: 100%;*/
-    /*line-height: 300px;*/
-    /*font-size: 50px;*/
-    text-align: center;
-    /* border: 2px solid black; */
     left: 250%;
     margin-left: -50%;
-    transition: left .5s;
+    transition: all .5s;
     transition-timing-function: ease-in-out;
 }
 
