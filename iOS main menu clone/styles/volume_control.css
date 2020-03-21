@@ -3,10 +3,11 @@
     --volume-control-width_narrow: 0.8em;
     --volume-level-color:rgba(255,255,255,0.8);
     --icon-color:rgba(155,155,155,1.0);
+    --dark-black-transparent: rgba(50,50,50,0.5) ;
 }
 
 .volume-control{
-    background-color:var(--dark-gray-transparent);
+    background-color:var(--dark-black-transparent);
     height: 17.5em;
     width: var(--volume-control-width);
     margin-left: -5.5em;
@@ -60,8 +61,8 @@
 .volume-icon {
     position: absolute;
     bottom: 0;
-    margin: 2em;
-    font-size: 1em;
+    margin: 1em;
+    font-size: 2.0em !important; /*override 24 px, built in from icons source / google material icons.css*/
 }
 
 .small{

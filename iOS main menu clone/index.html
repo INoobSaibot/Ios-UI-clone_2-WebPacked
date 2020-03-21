@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="./search.css">
     <link rel="stylesheet" type="text/css" href="./message-center.css">
     <link rel="stylesheet" type="text/css" href="./app-transitions.css">
+    <link rel="stylesheet" type="text/css" href="./modal.css">
     <link rel="stylesheet" type="text/css" href="./styles/volume_control.css">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
@@ -46,17 +47,15 @@
 
     <div id="container">
         <div id="view-0" class="box left-transition">
-<!--            <div class="search"><span class="search-icon" >icon-placeholder</span> <span class="search-label">Search</span> <span class="mic-icon">*mic*</span></div>-->
+            <div class='_search-container'><i class="material-icons icon">search</i><input type='text' class='search-box-input' placeholder='Search'><i class="material-icons icon mic">mic</i></div>
+
+            <!-- old one below here-->
             <div class='search-container'>
-                <div class='input-icons'>
-                    <i class="material-icons icon">search</i>
-                    <input class='search-box' type='text' placeholder='        Search'>
-                    <i class="material-icons mic-icon">mic</i>
-                </div>
+
             </div>
 
-            <div class="message-center night"><div class="topleft"><button class='app-icon mini files'>2</button><span class="message-title">UP NEXT</span></div></div>
-            <div class="message-center night"><div class="topleft"><button class='app-icon mini podcasts'>2</button><span class="message-title">SIRI APP SUGGESTIONS</span>
+            <div id='up next' class="message-center night"><div class="topleft"><button class='app-icon mini files'>2</button><span class="message-title">UP NEXT</span></div></div>
+            <div id='suggestions' class="message-center night"><div class="topleft"><button class='app-icon mini podcasts'>2</button><span class="message-title">SIRI APP SUGGESTIONS</span><span class="message-expand-button"><i class="fa fa-angle-right"></i></span>
                 <div class="grid-container">
                     <div class="icon-and-name"><button id='calculator-icon' class='app-icon calculator'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Calculator</div></div>
                     <div class="icon-and-name"><button class='app-icon hangouts'>2</button><div class='icon-text-name'>Hangouts</div></div>
@@ -65,11 +64,17 @@
                 </div>
             </div>
             </div>
-            <div class="message-center">NEWS</div>
-            <div class="message-center">SCREEN TIME</div>
+            <div class="message-center night"><div class="topleft"><button class='app-icon mini files'>2</button><span class="message-title">NEWS</span></div></div>
+            <div class="message-center night"><div class="topleft"><button class='app-icon mini files'>2</button><span class="message-title">SCREEN TIME</span></div></div>
         </div>
 <!-- calculator app       -->
         <div id="calculator-app" class="box calculator-app">
+            <div class='header'><div class="left signal-bars"><div class="bar first-bar"></div><div class="bar second-bar"></div><div class="bar third-bar"></div><div class="bar fourth-bar bar-not-receiving"></div>
+                    <!-- Network name-->
+                    &nbsp; <span class='network'><span class='carrier'>Verizon</span> &nbsp; <span class='network-type'>LTE</span></span>
+                </div>
+                <span class='center time'>4:26 PM</span><span class='right battery-power'><i class="battery-icon fa fa-battery-0"></i></span>
+            </div>
 
             <div class="result-box"><span class="result">0</span></div>
             <div class="calc-grid-container">
@@ -104,8 +109,8 @@
 
 
         <div id="view-1" class="grid-container box focused-position">
-            <div class="icon-and-name"><button class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
-            <div class="icon-and-name"><button class='app-icon files'>2</button><div class='icon-text-name'>Podcasts</div></div>
+            <div class="icon-and-name"><button id="tips" class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
+            <div class="icon-and-name"><button id='podcasts' class='app-icon files'>2</button><div class='icon-text-name'>Podcasts</div></div>
             <div class="icon-and-name"><button class='app-icon files'>3</button><div class='icon-text-name'>Find My</div></div>
             <div class="icon-and-name"><button class='app-icon camera'>4</button><div class='icon-text-name'>Shortcuts</div></div>
 
@@ -183,8 +188,9 @@
         <div id='volume-control' class="volume-control">
             <div id='volume-level' class="volume-level"><span id='volume-icon' class="volume-icon"><i class='fas'>&#xf027;</i></i></span></div>
         </div>
-
     </div>
+    <!-- Modal container-->
+    <div id="modal-container"></div>
 </div>
 
 
@@ -216,7 +222,7 @@
         $ ( document ).ready(
             function() {
                 // setTimeout(Index.init, 1000)
-                Index.init();
+                const index = new Index();
             }
         );
 

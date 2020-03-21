@@ -1,22 +1,33 @@
-const Index = {
-    init: function () {
+class Index {
+    constructor() {
+        this.calculator = new Calculator();
+        this.modalService = new ModalService();
+        this.pan = new Pan();
+        this.messages = ['up next', 'suggestions', 'news', 'screen time'];
+        this.messageCenterService = new MessageCenterService(this.messages);
+        this.init();
+    }
+
+    init() {
         // dev testing start at #0 search screen
-        // $('#bottom').toggleClass('focused-position')
+        setTimeout(() => {
+            this.pan.left();
+        }, 250)
         // end dev only code
 
         const headerClock = new Clock();
         const headerBattery = new Battery();
-        const pan = new Pan();
+
         const volume = new Volume();
-        const calculator = new Calculator();
+
 
         $(".home-button").click(() => {
-            handleHome();
+            this.handleHome();
         });
-        $(".right-button").click(pan.right);
-        $(".left-button").click(pan.left);
+        $(".right-button").click(this.pan.right);
+        $(".left-button").click(this.pan.left);
         $("button.app-icon").click((e) => {
-            handleClick(e);
+            this.handleClick(e);
         });
 
         document.body.addEventListener('keydown', function (e) {
@@ -24,35 +35,153 @@ const Index = {
             let key = e.key;
 
             if (key === 'ArrowRight') {
-                pan.right();
+                this.pan.right();
             } else if (key === 'ArrowLeft') {
-                pan.left();
+                this.pan.left();
             } else if (key === 'ArrowUp') {
                 volume.volumeUp();
             } else if (key === 'ArrowDown') {
                 volume.volumeDown();
             } else if (key === 'Control') {
-                handleHome()
+                this.handleHome()
             }
         }.bind(this));
 
         document.body.addEventListener('keyup', volume.endVolumeHold)
+    }
 
-        function handleClick(e) {
-            const id = e.currentTarget.id;
-            // const page_in_view = $('.focused-position'); /*hard coded a the moment*/
-            const page_in_view = $('.box');
-            if (id === 'calculator-icon') {
-                page_in_view.toggleClass('fall-back');
-                calculator.open();
+    handleClick(e) {
+        const id = e.currentTarget.id;
+        const page_in_view = $('.box');
+
+        if (id === 'calculator-icon') {
+            page_in_view.toggleClass('fall-back');
+            this.calculator.open();
+        } else {
+            this.modalService.add(id);
+        }
+    }
+
+    handleHome() {
+        const currently_focused_app = this.calculator;
+        currently_focused_app.minimize();
+        this.modalService.minimizeAllModals();
+        this.pan.home();
+    }
+}
+
+class MessageCenterService {
+    constructor(messagesArr) {
+        this.messages = messagesArr;
+        this.components = [];
+        this.init();
+    }
+
+    init() {
+        this.messages.forEach((message)=>{
+            this.components.push(new Message(message));
+        })
+    }
+}
+
+class Message {
+    constructor(id) {
+        this.id = id;
+        this.elRef = $('#'+id);
+        this.expanded = false;
+        this.init();
+    }
+
+    init(){
+        this.expandButtonElRef = this.elRef.find('.message-expand-button');
+        this.expandButtonElRef.click(() => {
+            this.expandClicked();
+        })
+        this.expandButtonElRef.on('touchstart', ()=>{
+            this.expandClicked();
+        })
+
+        $('#whatever').on({ 'touchstart' : function(){ /* do something... */ } });
+    }
+
+    expandClicked(){
+        if (this.expanded) {
+            this.expanded = false;
+            this.expandButtonElRef.removeClass('expanded');
+        } else{
+            this.expanded = true;
+            this.expandButtonElRef.addClass('expanded');
+        }
+
+    }
+}
+
+
+class ModalService {
+    constructor() {
+        this.modals = new Array();
+        this.el = $('#modal-container');
+    }
+
+    add(id) {
+        const first = 0;
+        const modalRequested = this.modals.filter((modal) => {
+            return modal.id === id
+        });
+        if (modalRequested.length > 0) {
+            console.log(id, 'already in modal container, is it minimized? if so focus and maximize it')
+            const ourModal = modalRequested[first];
+            if (ourModal.isMinimized()) {
+                ourModal.maximizeAndFocus();
             }
+        } else {
+            this.modals.push(new Modal(id, this.el))
         }
+    }
 
-        function handleHome(){
-            const currently_focused_app = calculator;
-            currently_focused_app.minimize();
-            pan.home();
-        }
+    minimizeAllModals() {
+        this.modals.forEach((m) => {
+            if (m.focused) {
+                m.minimize();
+            }
+        })
+    }
+
+}
+
+class Modal {
+    constructor(id, el) {
+        this.id = id;
+        this.modalContainer = el;
+        this.init();
+    }
+
+    init() {
+        const element = document.createElement('div');
+        element.classList.add('some-class')
+        element.innerHTML = 'hello ' + this.id + ' modal';
+        element.id = this.id;
+
+        this.focused = true;
+        this.ref = $(element).appendTo(this.modalContainer)
+    }
+
+    minimize() {
+        this.toggleOpen()
+    }
+
+    maximizeAndFocus() {
+        this.toggleOpen();
+    }
+
+    toggleOpen() {
+        this.ref.toggleClass('some-class');
+        this.ref.toggleClass('minimized');
+        this.focused = !this.focused;
+    }
+
+    isMinimized() {
+        return !this.focused;
     }
 }
 
@@ -77,7 +206,9 @@ class Calculator {
     }
 
     minimize() {
-        if (this.isOpen !=true) {return}
+        if (this.isOpen != true) {
+            return
+        }
         this.isOpen = false;
         this.el.toggleClass('fall-back');
         this.el.one('transitionend', (e) => {
@@ -85,9 +216,9 @@ class Calculator {
             this.el.toggleClass('focused-position');
 
             $('.fall-back').toggleClass('fall-back transition-transform');
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.el.toggleClass('hidden')
-            },35)
+            }, 35)
         });
     }
 }
@@ -394,7 +525,6 @@ class Volume {
     }
 
     endVolumeHold(e) {
-        console.log('end-hold')
         e.preventDefault();
         let key = e.key;
         let upButton = e.target.id === 'volume-up' || 'volume-up-icon';
@@ -440,7 +570,6 @@ class Volume {
     volumeChange() {
         const time = this.volumeTimer;
         const millis = this.volumeTimer = Date.now();
-        console.log(time - millis)
 
         let el = $('#volume-control');
         let level = $('#volume-level');
