@@ -14,7 +14,7 @@ class Index {
         // dev testing start at #0 search screen
         setTimeout(() => {
             // this.pan.left();
-            this.modalService.open('mail')
+            // this.modalService.open('mail')
         }, 250)
         // end dev only code
 
@@ -29,6 +29,10 @@ class Index {
         $("button.app-icon").click((e) => {
             this.handleIconClick(e);
         });
+
+        $("button.app-icon").on('touchstart', (e) => {
+            this.handleIconClick(e);
+        })
 
         document.body.addEventListener('keydown', (e) => {
             this.handleKeyDown(e);
@@ -280,13 +284,9 @@ class Modal {
     }
 
     maximizeAndFocus() {
-
-
         this.ref.css(this.smallStyle);
         this.ref.addClass('some-class')
         this.ref.removeClass('small')
-
-
         this.ref.css(this.cancelInlineStyle);
         this.focused = true;
     }
@@ -395,8 +395,6 @@ class Calculator {
         this.ref.removeClass('some-class');
         this.ref.css(this.style)
     }
-
-    /////////////////////////////////////
 
     minimize() {
         this.el = $('#calculator-app');
