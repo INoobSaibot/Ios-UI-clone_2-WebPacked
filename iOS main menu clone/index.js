@@ -32,14 +32,14 @@ class Index {
 
         const iconElement = "button.app-icon";
         $(iconElement)
-            .on('touchstart', (e)=> {
+            .on('touchstart', (e) => {
                 $(this).data('moved', '0');
             })
-            .on('touchmove', (e) =>{
+            .on('touchmove', (e) => {
                 $(this).data('moved', '1');
             })
-            .on('touchend', (e)=> {
-                if($(this).data('moved') == 0){
+            .on('touchend', (e) => {
+                if ($(this).data('moved') == 0) {
                     // HERE YOUR CODE TO EXECUTE ON TAP-EVENT
                     this.handleIconClick(e);
                 }
@@ -383,6 +383,7 @@ class Calculator {
     }
 
     open() {
+        if (this.focused) {return} // double tap, already open/opening;
         this.slideContainerRef.append(this.el);
         this.slideModalContainerRef.addClass('active')
         setTimeout(() => {
@@ -390,7 +391,7 @@ class Calculator {
             this.el.toggleClass('slide-modal-focused-position ')
             this.isOpen = true;
         }, 50)
-
+        this.focused = true
     }
 
     //
@@ -424,6 +425,7 @@ class Calculator {
             }, 35)
         });
         this.el.addClass('fall-back');
+        this.focused = false;
     }
 }
 
