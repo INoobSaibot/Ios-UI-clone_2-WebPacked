@@ -30,9 +30,20 @@ class Index {
             this.handleIconClick(e);
         });
 
-        $("button.app-icon").on('touchstart', (e) => {
-            this.handleIconClick(e);
-        })
+        const iconElement = "button.app-icon";
+        $(iconElement)
+            .on('touchstart', (e)=> {
+                $(this).data('moved', '0');
+            })
+            .on('touchmove', (e) =>{
+                $(this).data('moved', '1');
+            })
+            .on('touchend', (e)=> {
+                if($(this).data('moved') == 0){
+                    // HERE YOUR CODE TO EXECUTE ON TAP-EVENT
+                    this.handleIconClick(e);
+                }
+            });
 
         document.body.addEventListener('keydown', (e) => {
             this.handleKeyDown(e);
