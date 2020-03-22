@@ -1,0 +1,104 @@
+:root {
+    --app-icon-count-bg-color: rgb(230, 60, 40);
+}
+
+.app-icon.mail {
+    background-image: linear-gradient(royalblue, dodgerblue, cyan);
+}
+
+.app-icon-count {
+    color: white;
+    background-color: var(--app-icon-count-bg-color);
+    font-size: 2.5em;
+    border-radius: 0.8em;
+    padding: .20em;
+    padding-right: .4em;
+    position: absolute;
+    top: 0;
+    margin-top: -15%;
+    margin-left: 10%;
+}
+
+.app-icon.clock {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: black;
+}
+
+.app-icon.maps {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: white;
+}
+
+.app-icon.maps {
+    /*== css class mail*/
+}
+
+
+.app-icon.notes {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: white;
+}
+
+
+.app-icon.reminders {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: white;
+}
+
+
+.app-icon.stocks {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: black;
+}
+
+
+.app-icon.news{
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: white;
+}
+
+
+.app-icon.tv {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: black;
+}
+
+
+.app-icon.i-tunes-store {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: rgb(194, 84, 227);
+}
+
+
+.app-icon.app-store {
+    background-image: linear-gradient(rgb(85,175,230),dodgerblue, royalblue);
+    background-color: white;
+}
+
+.app-icon.books {
+    background-color: orange;
+}
+
+
+/* new row*/
+.app-icon.health {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: white;
+}
+
+.app-icon.home {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: white;
+}
+
+
+.app-icon.wallet {
+    /*background-image: linear-gradient(royalblue, dodgerblue, cyan);*/
+    background-color: black;
+}
+
+
+.app-icon.settings {
+    background-image: linear-gradient(lightgray, darkgray);
+    background-color: lightgray; /*backup*/
+}

@@ -6,6 +6,7 @@
     <link rel='stylesheet' type='text/css' href='./signal-bars.css'>
     <link rel='stylesheet' type='text/css' href='styles/icons.css'>
         <link rel='stylesheet' type='text/css' href='./styles/icons/tips-icon/tips-icon.css'>
+        <link rel='stylesheet' type='text/css' href='./styles/icons/tips-icon/home-page-icons.css'>
     <link rel="stylesheet" type="text/css" href="./slide.css">
     <link rel="stylesheet" type="text/css" href="./search.css">
     <link rel="stylesheet" type="text/css" href="./message-center.css">
@@ -13,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="./modal.css">
     <link rel="stylesheet" type="text/css" href="./styles/volume_control.css">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" type="text/css" href="./styles/siri-app-suggestions/siri-app-suggestions.css">
+
 
     <!-- battery -->
     <link rel="stylesheet" type="text/css" href="./battery.css">
@@ -54,13 +57,20 @@
 
             </div>
 
-            <div id='up next' class="message-center night"><div class="topleft"><button class='app-icon mini files'>2</button><span class="message-title">UP NEXT</span></div></div>
+            <div id='up-next' class="message-center night"><div class="topleft"><button class='app-icon mini files'>21</button><span class="message-title">UP NEXT</span></div><div class="up-next">No Upcoming Events, Reminders, or Alarms</div></div>
+            <!-- -->
             <div id='suggestions' class="message-center night"><div class="topleft"><button class='app-icon mini podcasts'>2</button><span class="message-title">SIRI APP SUGGESTIONS</span><span class="message-expand-button"><i class="fa fa-angle-right"></i></span>
                 <div class="grid-container">
-                    <div class="icon-and-name"><button id='calculator-icon' class='app-icon calculator'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Calculator</div></div>
-                    <div class="icon-and-name"><button class='app-icon hangouts'>2</button><div class='icon-text-name'>Hangouts</div></div>
-                    <div class="icon-and-name"><button class='app-icon i-message'>3</button><div class='icon-text-name'>Messages</div></div>
+                    <div class="icon-and-name"><button id='calculator-icon' class='app-icon calculator'></button><div class='icon-text-name'>Calculator</div></div>
+                    <div class="icon-and-name"><button class='app-icon messenger'>1</button><div class='icon-text-name'>Messenger</div></div>
                     <div class="icon-and-name"><button class='app-icon safari-browser'>4</button><div class='icon-text-name'>Safari</div></div>
+                    <div class="icon-and-name"><button class='app-icon hangouts'>2</button><div class='icon-text-name'>Hangouts</div></div>
+
+                    <!-- new row -->
+                    <div class="icon-and-name expanding-row"><button class='app-icon i-message'>3</button><div class='icon-text-name'>Messages</div></div>
+                    <div class="icon-and-name expanding-row"><button class='app-icon camera'>4</button><div class='icon-text-name'>Camera</div></div>
+                    <div class="icon-and-name expanding-row"><button class='app-icon maps'>3</button><div class='icon-text-name'>Maps</div></div>
+                    <div class="icon-and-name expanding-row"><button class='app-icon stocks'>3</button><div class='icon-text-name'>Stocks</div></div>
                 </div>
             </div>
             </div>
@@ -109,17 +119,34 @@
 
 
         <div id="view-1" class="grid-container box focused-position">
-            <div class="icon-and-name"><button id="tips" class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
-            <div class="icon-and-name"><button id='podcasts' class='app-icon files'>2</button><div class='icon-text-name'>Podcasts</div></div>
-            <div class="icon-and-name"><button class='app-icon files'>3</button><div class='icon-text-name'>Find My</div></div>
-            <div class="icon-and-name"><button class='app-icon camera'>4</button><div class='icon-text-name'>Shortcuts</div></div>
+            <div class="icon-and-name"><button id="face-time" class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>FaceTime</div></div>
+            <div class="icon-and-name"><button id='podcasts' class='app-icon files'>2</button><div class='icon-text-name'>Calender</div></div>
+            <div class="icon-and-name"><button class='app-icon files'>3</button><div class='icon-text-name'>Photos</div></div>
+            <div class="icon-and-name"><button class='app-icon camera'>4</button><div class='icon-text-name'>Camera</div></div>
 
             <!-- new row -->
-            <div class="icon-and-name"><button class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
-            <div class="icon-and-name"><button class='app-icon podcasts'>2</button><div class='icon-text-name'>Podcasts</div></div>
-            <div class="icon-and-name"><button class='app-icon find-my'>3</button><div class='icon-text-name'>Find My</div></div>
-            <div class="icon-and-name"><button class='app-icon shortcuts'>4</button><div class='icon-text-name'>Shortcuts</div></div>
+            <div class="icon-and-name"><button class='app-icon mail'><div class="app-icon-count">33,468</div></button><div class='icon-text-name'>Mail</div></div>
+            <div class="icon-and-name"><button class='app-icon clock'>2</button><div class='icon-text-name'>Clock</div></div>
+            <div class="icon-and-name"><button class='app-icon maps'>3</button><div class='icon-text-name'>Maps</div></div>
+            <div class="icon-and-name"><button class='app-icon weather mail'>4</button><div class='icon-text-name'>Weather</div></div>
 
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon notes'>1</button><div class='icon-text-name'>Notes</div></div>
+            <div class="icon-and-name"><button class='app-icon reminders'>2</button><div class='icon-text-name'>Reminders</div></div>
+            <div class="icon-and-name"><button class='app-icon stocks'>3</button><div class='icon-text-name'>Stocks</div></div>
+            <div class="icon-and-name"><button class='app-icon news'>4</button><div class='icon-text-name'>News</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon tv'></button><div class='icon-text-name'>TV</div></div>
+            <div class="icon-and-name"><button class='app-icon i-tunes-store'>2</button><div class='icon-text-name'>iTunes Store</div></div>
+            <div class="icon-and-name"><button class='app-icon app-store'>3</button><div class='icon-text-name'>App Store</div></div>
+            <div class="icon-and-name"><button class='app-icon books'>4</button><div class='icon-text-name'>Books</div></div>
+
+            <!-- new row -->
+            <div class="icon-and-name"><button class='app-icon health'></button><div class='icon-text-name'>Health</div></div>
+            <div class="icon-and-name"><button class='app-icon home'>2</button><div class='icon-text-name'>Home</div></div>
+            <div class="icon-and-name"><button class='app-icon wallet'>3</button><div class='icon-text-name'>Wallet</div></div>
+            <div class="icon-and-name"><button class='app-icon settings'>4</button><div class='icon-text-name'>Settings</div></div>
         </div>
 
         <div id='view-2' class="grid-container box">
@@ -216,7 +243,6 @@
         <div class='home-button'><button>Home</button></div>
 
 </div>
-
 </body>
 <script type=text/javascript>
         $ ( document ).ready(

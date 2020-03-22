@@ -12,11 +12,20 @@
     backdrop-filter: blur(30px); /*not supported by many browsers yet*/
     position: relative;
     padding-bottom: 2em;
+    transition: height 0.5s ease-in-out;
+    overflow: hidden;
+}
+.message-center .icon-text-name {
+    color:var(--icon-text-color-transparent); /*override normal color */
+}
+
+.message-center.expanded{
+    height:27em;
 }
 
 .message-expand-button{
     position: absolute;
-    right:-3%;
+    right:0.4em;
     margin: 2%;
     font-size: 3.0em!important;
     color: var(--text-color-for-transparent-backgrounds);
@@ -27,6 +36,21 @@
     color:dodgerblue;
     transform: rotate(90deg);
 }
+
+.icon-and-name.expanded {
+}
+
+div.icon-and-name.expanding-row.expanded {
+    opacity: 1.0;
+}
+
+
+div.icon-and-name.expanding-row{
+    opacity: 0.0;
+    transition: all 0.5s ease-in-out;
+}
+
+
 
 .message-center.night {
     background: var(--transparent-black);
@@ -50,7 +74,17 @@
 }
 
 .message-center .grid-container {
-    padding: 0;
-    margin-top: 2em;
+    padding: 14px;
+    margin-top: 1em;
+}
+
+.up-next{
+    position: absolute;
+    color: var(--text-color-for-transparent-backgrounds);
+    font-size: 2.20em;
+    bottom: 0;
+    padding: 2.0em;
+    text-align: center;
+    line-height: 1.4;
 }
 

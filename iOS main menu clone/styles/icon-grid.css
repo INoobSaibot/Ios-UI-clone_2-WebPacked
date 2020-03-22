@@ -1,3 +1,7 @@
+:root{
+    --icon-text-color-transparent:rgba(255,255,255, 0.5);
+    --icon-text-color-normal:rgba(255,255,255, 0.9);
+}
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -13,8 +17,8 @@
 .icon-text-name {
     overflow: visible;
     font-size: 1.55em;
-    padding: 8px 0 14px 0;
-    color: white;
+    padding: 10px 0 14px 0;
+    color: var(--icon-text-color-normal)
 }
 
 .indicator-dots {

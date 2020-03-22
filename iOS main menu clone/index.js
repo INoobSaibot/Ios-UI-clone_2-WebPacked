@@ -17,9 +17,7 @@ class Index {
 
         const headerClock = new Clock();
         const headerBattery = new Battery();
-
         const volume = new Volume();
-
 
         $(".home-button").click(() => {
             this.handleHome();
@@ -58,15 +56,18 @@ class Index {
             page_in_view.toggleClass('fall-back');
             this.calculator.open();
         } else {
-            this.modalService.add(id);
+            this.modalService.add(id, e);
         }
     }
 
     handleHome() {
         const currently_focused_app = this.calculator;
         currently_focused_app.minimize();
-        this.modalService.minimizeAllModals();
-        this.pan.home();
+        if (!this.modalService.hasOpenModals()) {
+            this.pan.home();
+        } else {
+            this.modalService.minimizeAllModals();
+        }
     }
 }
 
@@ -78,7 +79,7 @@ class MessageCenterService {
     }
 
     init() {
-        this.messages.forEach((message)=>{
+        this.messages.forEach((message) => {
             this.components.push(new Message(message));
         })
     }
@@ -87,32 +88,43 @@ class MessageCenterService {
 class Message {
     constructor(id) {
         this.id = id;
-        this.elRef = $('#'+id);
+        this.elRef = $('#' + id);
         this.expanded = false;
+        this.expandButtonElRef = this.elRef.find('.message-expand-button');
+        this.hiddenIconsRef = this.elRef.find('.icon-and-name.expanding-row');
         this.init();
     }
 
-    init(){
-        this.expandButtonElRef = this.elRef.find('.message-expand-button');
+    init() {
+
+
         this.expandButtonElRef.click(() => {
             this.expandClicked();
-        })
-        this.expandButtonElRef.on('touchstart', ()=>{
+        });
+        this.expandButtonElRef.on('touchstart', () => {
             this.expandClicked();
         })
-
-        $('#whatever').on({ 'touchstart' : function(){ /* do something... */ } });
     }
 
-    expandClicked(){
+    expandClicked() {
         if (this.expanded) {
-            this.expanded = false;
-            this.expandButtonElRef.removeClass('expanded');
-        } else{
-            this.expanded = true;
-            this.expandButtonElRef.addClass('expanded');
+            this.close()
+        } else {
+            this.open()
         }
+        this.expanded = !this.expanded;
+    }
 
+    close(){
+        this.expandButtonElRef.removeClass('expanded');
+        this.elRef.removeClass('expanded');
+        this.hiddenIconsRef.removeClass('expanded')
+    }
+
+    open(){
+        this.expandButtonElRef.addClass('expanded');
+        this.elRef.addClass('expanded')
+        this.hiddenIconsRef.addClass('expanded')
     }
 }
 
@@ -123,19 +135,19 @@ class ModalService {
         this.el = $('#modal-container');
     }
 
-    add(id) {
+    add(id, e) {
+        const openFrom =  new Rect(id);
         const first = 0;
         const modalRequested = this.modals.filter((modal) => {
             return modal.id === id
         });
         if (modalRequested.length > 0) {
-            console.log(id, 'already in modal container, is it minimized? if so focus and maximize it')
             const ourModal = modalRequested[first];
             if (ourModal.isMinimized()) {
                 ourModal.maximizeAndFocus();
             }
         } else {
-            this.modals.push(new Modal(id, this.el))
+            this.modals.push(new Modal(id, this.el, openFrom))
         }
     }
 
@@ -147,41 +159,105 @@ class ModalService {
         })
     }
 
+    hasOpenModals() {
+        const modalsFocused = this.modals.filter((modal) => {
+            return modal.focused === true;
+        });
+        if (modalsFocused.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 class Modal {
-    constructor(id, el) {
+    constructor(id, el, from) {
         this.id = id;
         this.modalContainer = el;
+        this.openedFrom = from;
         this.init();
     }
 
     init() {
         const element = document.createElement('div');
-        element.classList.add('some-class')
+        // element.classList.add('some-class')
         element.innerHTML = 'hello ' + this.id + ' modal';
         element.id = this.id;
 
-        this.focused = true;
         this.ref = $(element).appendTo(this.modalContainer)
+        this.maximizeAndFocus();
+    }
+
+    maximizeAndFocus(){
+        const adjustment = -75;
+        const fallback = 1000;
+        let left = this.openedFrom ? this.openedFrom.left + adjustment : fallback;
+        let top = this.openedFrom ? this.openedFrom.top : fallback;
+        const width = this.openedFrom ? this.openedFrom.width : fallback;
+        const height = this.openedFrom ? this.openedFrom.height : fallback;
+
+        this.style = {left: left, top: top, width:width, height:height, fontSize: 0, opacity:0};
+        this.ref.css(this.style);
+        this.toggleOpen();
+        setTimeout(() => {
+            this.toggleStyle = this.style;
+            this.style = {left: '', top: '', width:'', height:'', fontSize: '', opacity: ''};
+            this.ref.css(this.style);
+        },500)
     }
 
     minimize() {
-        this.toggleOpen()
+        this.ref.css(this.toggleStyle);
+        this.ref.one('transitionend', (e) => {
+            this.removeCssAndInline()
+            this.focused = false;
+        })
     }
 
-    maximizeAndFocus() {
-        this.toggleOpen();
+    removeCssAndInline(){
+        this.ref.removeClass('some-class');
+        this.ref.css(this.style)
     }
 
     toggleOpen() {
         this.ref.toggleClass('some-class');
-        this.ref.toggleClass('minimized');
         this.focused = !this.focused;
     }
 
     isMinimized() {
         return !this.focused;
+    }
+
+    getHomeCss() {
+        const homeCss = {
+            top: this.openedFrom.clientY, bottom: this.openedFrom.clientY
+            , left: this.openedFrom.clientX, right: this.openedFrom.clientX
+            , fontsize: '0em', transition: 'all 1s', position: 'absolute'
+            , transform: 'scale(0.0)'
+        }
+
+        return homeCss;
+    }
+
+    getBlankCss() {
+        const blankCss = {top: '', bottom: '', left: '', right: '', transform: ''}
+        return blankCss;
+    }
+}
+
+class Rect {
+    constructor(id) {
+        const el = document.getElementById(id);
+        var rect = el ? el.getBoundingClientRect() : {};
+        // console.log(rect.height, rect.width, rect.top, rect.left, rect.bottom, rect.right);
+        this.left = rect.left;
+        this.height = rect.height;
+        this.width = rect.width;
+        this.top = rect.top;
+        this.bottom = rect.bottom;
+        this.right = rect.right;
     }
 }
 
@@ -195,7 +271,6 @@ class Calculator {
         this.icon = $('#calculator-icon')
         this.icon.on('touchstart', (e) => {
             this.open();
-            console.log()
         })
     }
 
@@ -292,7 +367,6 @@ class Pan {
     }
 
     init() {
-        $(".home-button").click(this.home);
         $(".right-button").click(this.right);
         $(".left-button").click(this.left);
 
