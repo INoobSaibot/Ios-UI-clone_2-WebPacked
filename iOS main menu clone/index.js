@@ -2,7 +2,7 @@ class Index {
     constructor() {
         this.calculator = new Calculator();
         this.modalService = new ModalService();
-        this.pan = new Pan();
+        this.pan = new Pan('container');
         this.messages = ['up next', 'suggestions', 'news', 'screen time'];
         this.messageCenterService = new MessageCenterService(this.messages);
         this.volume = new Volume();
@@ -14,7 +14,7 @@ class Index {
         // dev testing start at #0 search screen
         setTimeout(() => {
             // this.pan.left();
-            // this.modalService.open('mail')
+            this.modalService.open('mail')
         }, 250)
         // end dev only code
 
@@ -97,16 +97,25 @@ class Index {
 class ExampleComponent {
     // static refs = []; /* break firefox and iOS safari*/
 
-    init(container, modalRefs) {
-        this.container = container;
+    setTitle(title) {
+        this.title = title;
         this.render();
     }
 
-    render() {
-        this.container.innerHTML = ExampleComponent.markup(this);
+    init(container) {
+        this.container = container;
+        this.title = this.container.dataset.title || '';
+        this.render();
     }
 
-    static markup({}) {
+
+    render() {
+        this.container.innerHTML = ExampleComponent.markup(this);
+        this.container.style.color = 'red';
+    }
+
+    static markup({title}) {
+
         const header = `<div class='header'><div class="left signal-bars"><div class="bar first-bar"></div><div class="bar second-bar"></div><div class="bar third-bar"></div><div class="bar fourth-bar bar-not-receiving"></div>
                     <!-- Network name-->
                     &nbsp; <span class='network'><span class='carrier'>Verizon</span> &nbsp; <span class='network-type'>LTE</span></span>
@@ -163,7 +172,6 @@ ${emailContentPreview}
         }
     }
 }
-
 
 class MessageCenterService {
     constructor(messagesArr) {
@@ -272,7 +280,6 @@ class ModalService {
             return false;
         }
     }
-
 }
 
 class Modal {
@@ -281,6 +288,22 @@ class Modal {
         this.modalContainer = el;
         this.openedFrom = from;
         this.init(modalRefs);
+        this.touchmoveRegister = new Touches(this.id, {right: this.right, up: this.up, down: this.down});
+    }
+
+    right(t) {
+        console.log('right')
+        console.log(t)
+    }
+
+    up =(t) => {
+        console.log('up')
+        this.component.setTitle(t.upSwipeDistance)
+    }
+
+    down(t) {
+        console.log('down')
+        console.log(t)
     }
 
     init(modalRefs) {
@@ -290,7 +313,7 @@ class Modal {
         element.id = this.id;
         element.classList.add(this.classes)
         this.ref = $(element).appendTo(this.modalContainer);
-        new ExampleComponent(document.getElementById(this.id), modalRefs, this.classes);
+        this.component = new ExampleComponent(document.getElementById(this.id), modalRefs, this.classes);
         this.maximizeAndFocus();
     }
 
@@ -356,8 +379,7 @@ class Modal {
 class Rect {
     constructor(id) {
         const el = document.getElementById(id);
-        var rect = el ? el.getBoundingClientRect() : {};
-        // console.log(rect.height, rect.width, rect.top, rect.left, rect.bottom, rect.right);
+        const rect = el ? el.getBoundingClientRect() : {};
         this.left = rect.left;
         this.height = rect.height;
         this.width = rect.width;
@@ -383,7 +405,9 @@ class Calculator {
     }
 
     open() {
-        if (this.focused) {return} // double tap, already open/opening;
+        if (this.focused) {
+            return
+        } // double tap, already open/opening;
         this.slideContainerRef.append(this.el);
         this.slideModalContainerRef.addClass('active')
         setTimeout(() => {
@@ -392,20 +416,6 @@ class Calculator {
             this.isOpen = true;
         }, 50)
         this.focused = true
-    }
-
-    //
-    otherMminimize() {
-        this.ref.css(this.toggleStyle);
-        this.ref.one('transitionend', (e) => {
-            this.removeCssAndInline()
-            this.focused = false;
-        })
-    }
-
-    removeCssAndInline() {
-        this.ref.removeClass('some-class');
-        this.ref.css(this.style)
     }
 
     minimize() {
@@ -493,16 +503,16 @@ class Battery {
 
 
 class Pan {
-    constructor() {
-        this.init();
+    constructor(elementID) {
+        this.init(elementID);
     }
 
-    init() {
+    init(elementID) {
         $(".right-button").click(this.right);
         $(".left-button").click(this.left);
 
         this.moving = Date.now();
-        this.touchmoveRegister();
+        this.touchmoveRegister = new Touches(elementID, {right: this.right, left: this.left, home: this.home});
     }
 
     home() {
@@ -639,9 +649,41 @@ class Pan {
 
         }
     }
+}
 
-    touchmoveRegister() {
-        let touchsurface = document.getElementById('container'),
+class Touches {
+    constructor(id, swipeAction) {
+        this.id = id;
+        this.touchmoveRegister(id)
+        this.left = swipeAction.left ? swipeAction.left : this.lostMotionAssembley;
+        this.right = swipeAction.right ? swipeAction.right : this.lostMotionAssembley;
+        this.up = swipeAction.up ? swipeAction.up : this.lostMotionAssembley;
+        this.down = swipeAction.down ? swipeAction.down : this.lostMotionAssembley;
+
+
+    }
+
+    lostMotionAssembley() {
+        // do nothing
+    }
+
+    handleSwipe(touchObj) {
+        if (touchObj.swipeRight) {
+            this.left(touchObj);
+        } else if (touchObj.swipeLeft) {
+            this.right(touchObj);
+        }
+        if (touchObj) {
+            this.up(touchObj);
+        } else if (touchObj.swipeDown) {
+            this.down(touchObj);
+        } else {
+            // this.home();
+        }
+    }
+
+    touchmoveRegister(elementID) {
+        let touchsurface = document.getElementById(elementID),
             startX,
             startY,
             dist,
@@ -650,21 +692,6 @@ class Pan {
             allowedTime = 2000, // maximum time allowed to travel that distance
             elapsedTime,
             startTime;
-
-        const handleSwipe = (touchObj) => {
-            if (touchObj.swipeRight) {
-                this.left();
-            } else if (touchObj.swipeLeft) {
-                this.right();
-            }
-            if(touchObj.swipeUp){
-                console.log('upswipe')
-            } else if (touchObj.swipeDown){
-                console.log('down')
-            } else {
-                // this.home();
-            }
-        }
 
         touchsurface.addEventListener('touchstart', function (e) {
             const touchobj = e.changedTouches[0];
@@ -680,7 +707,7 @@ class Pan {
             e.preventDefault() // prevent scrolling when inside DIV
         }, false);
 
-        touchsurface.addEventListener('touchmove', function (e) {
+        touchsurface.addEventListener('touchmove', (e) => {
             let touchobj = e.changedTouches[0];
             dist = touchobj.pageX - startX; // get total dist traveled by finger while in contact with surface
             x_dist = touchobj.pageY - startY;
@@ -692,14 +719,14 @@ class Pan {
             let isUpSwipe = (elapsedTime <= allowedTime && (-x_dist) >= threshold && Math.abs(touchobj.pageX - startX) <= 100)
             let isDownSwipe = (elapsedTime <= allowedTime && x_dist >= threshold && Math.abs(touchobj.pageX - startX) <= 100);
 
-            handleSwipe(new Touch(isRightSwipe, isLeftSwipe, isUpSwipe, isDownSwipe, dist, x_dist));
+            this.handleSwipe(new Touch(isRightSwipe, isLeftSwipe, isUpSwipe, isDownSwipe, dist, x_dist));
             e.preventDefault()
         }, false)
     }
 }
 
 class Touch {
-    constructor(right,left,up,down, rightSwipeDistance, upSwipeDistance) {
+    constructor(right, left, up, down, rightSwipeDistance, upSwipeDistance) {
         this.swipeRight = right;
         this.swipeLeft = left;
         this.swipeUp = up;
