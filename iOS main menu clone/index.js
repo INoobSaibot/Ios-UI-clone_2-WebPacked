@@ -645,24 +645,31 @@ class Pan {
             startX,
             startY,
             dist,
+            x_dist,
             threshold = 25, //required min distance traveled to be considered swipe
             allowedTime = 2000, // maximum time allowed to travel that distance
             elapsedTime,
             startTime;
 
-        const handleSwipe = (isRightswipe, isLeftSwipe) => {
-            if (isRightswipe) {
+        const handleSwipe = (touchObj) => {
+            if (touchObj.swipeRight) {
                 this.left();
-            } else if (isLeftSwipe) {
+            } else if (touchObj.swipeLeft) {
                 this.right();
+            }
+            if(touchObj.swipeUp){
+                console.log('upswipe')
+            } else if (touchObj.swipeDown){
+                console.log('down')
             } else {
-                //this.home();
+                // this.home();
             }
         }
 
         touchsurface.addEventListener('touchstart', function (e) {
             const touchobj = e.changedTouches[0];
             dist = 0;
+            x_dist = 0;
             startX = touchobj.pageX;
             startY = touchobj.pageY;
             startTime = new Date().getTime(); // record time when finger first makes contact with surface
@@ -676,16 +683,40 @@ class Pan {
         touchsurface.addEventListener('touchmove', function (e) {
             let touchobj = e.changedTouches[0];
             dist = touchobj.pageX - startX; // get total dist traveled by finger while in contact with surface
+            x_dist = touchobj.pageY - startY;
 
             elapsedTime = new Date().getTime() - startTime; // get time elapsed
             // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
             let isRightSwipe = (elapsedTime <= allowedTime && dist >= threshold && Math.abs(touchobj.pageY - startY) <= 100)
             let isLeftSwipe = (elapsedTime <= allowedTime && (-dist) >= threshold && Math.abs(touchobj.pageY - startY) <= 100)
+            let isUpSwipe = (elapsedTime <= allowedTime && (-x_dist) >= threshold && Math.abs(touchobj.pageX - startX) <= 100)
+            let isDownSwipe = (elapsedTime <= allowedTime && x_dist >= threshold && Math.abs(touchobj.pageX - startX) <= 100);
 
-            handleSwipe(isRightSwipe, isLeftSwipe);
+            handleSwipe(new Touch(isRightSwipe, isLeftSwipe, isUpSwipe, isDownSwipe, dist, x_dist));
             e.preventDefault()
         }, false)
     }
+}
+
+class Touch {
+    constructor(right,left,up,down, rightSwipeDistance, upSwipeDistance) {
+        this.swipeRight = right;
+        this.swipeLeft = left;
+        this.swipeUp = up;
+        this.swipeDown = down;
+        this.rightSwipeDistance = rightSwipeDistance;
+        this.upSwipeDistance = upSwipeDistance;
+
+        const rightToLeftDist = Math.abs(rightSwipeDistance);
+        const topToBotttomDistance = Math.abs(upSwipeDistance)
+
+        if (rightToLeftDist < topToBotttomDistance) {
+            this.swipeRight = this.swipeLeft = false;
+        } else {
+            this.swipeDown = this.swipeUp = false;
+        }
+    }
+
 }
 
 class Volume {
