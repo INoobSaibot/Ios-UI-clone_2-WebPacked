@@ -295,11 +295,11 @@ class Modal {
         console.log('right')
         console.log(t)
     }
-
-    up =(t) => {
-        console.log('up')
-        this.component.setTitle(t.upSwipeDistance)
-    }
+    //
+    // up =(t) => {
+    //     console.log('up')
+    //     this.component.setTitle(t.upSwipeDistance)
+    // }
 
     down(t) {
         console.log('down')
