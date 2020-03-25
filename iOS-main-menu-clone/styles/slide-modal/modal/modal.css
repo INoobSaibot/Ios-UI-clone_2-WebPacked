@@ -1,0 +1,23 @@
+.some-class {
+    /*border-style: dashed;*/
+    /*border-color: rebeccapurple;*/
+    /*font-size: 3em;*/
+    /*background-color: rgba(100,50,100,0.5);*/
+    /*position: absolute;*/
+    /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+    /*those can be helpful for debug dev ui modal/app content etc*/
+    top:0;
+    bottom: 0;
+    left:0;
+    right:0;
+    height:var(--body-height);
+}
+
+.hidden{
+    /*transition: all 1s;*/
+}
+
+.small{
+    fontSize: 0;
+    /*position:absolute;*/
+}

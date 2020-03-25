@@ -1,0 +1,43 @@
+:root {
+    --light-gray-transparent: rgba(200,200,255, 0.5);
+    --transparent-white:rgba(50,50,100,0.2);
+}
+
+._search-container{
+    height: 5em;
+    background-color: var(--transparent-white);
+    border-radius: 1.5em;
+    margin:1em;
+    margin-top: 0;
+    position: relative;
+    padding-left: 0.75em;
+    padding-right: 1.0em;
+    position: relative;
+    backdrop-filter: blur(30px);
+}
+.search-container {
+    width:744px; /*hack alert, need to pull in width rom parent */
+}
+.search-box-input {
+    font-size: 2.35em;
+    height: 100%; /* idk why but had to reduce this for it to fit in search container properly*/
+    width: 85%; /*idk*/
+    background-color: rgba(0,0,0, 0.0); /*clear transparent*/
+    border-width: 0;
+    padding:0;
+    display: inline-block;
+    margin-left: 1.4em;
+    z-index: 1001;
+}
+
+.search-box-input::placeholder {
+    color:var(--light-gray-transparent);
+}
+
+.icon {
+    color: var(--light-gray-transparent);
+    font-size: 3.25em !important; /*override 24 px, built in from icons source / google material icons.css*/
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

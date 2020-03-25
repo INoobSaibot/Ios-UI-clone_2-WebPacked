@@ -1,0 +1,44 @@
+.utilities-body {
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(15px);
+    background-color: rgba(1,1,1,0.35);
+}
+
+.title {
+    text-align: center;
+    padding-top: 3.25em;
+}
+
+.content {
+    background-color: rgba(185,185,185,0.9);
+    width: 38em;
+    height: 38em;
+    border-radius: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
+}
+
+
+/* can i moularise this and import it instead???*/
+
+.utilities-body .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /*background-color: #2196F3;*/
+
+    padding: 3em 1em 0em;
+    text-align: center;
+    margin-top:1.5em;
+}
+
+
+.utilities-body .icon-and-name {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    /*border: 1px solid rgba(0, 0, 0, 0.8);*/
+    /*padding: 20px;*/
+    /*font-size: 30px;*/
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'MyFont';
+    src:  url('./sansation_light.woff') format('woff'),
+    url('./google_font.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+.hello {
+    color: red;
+    background: url('./icon.png');
+    font-family: 'MyFont';
+    font-size: 5em;
+}
