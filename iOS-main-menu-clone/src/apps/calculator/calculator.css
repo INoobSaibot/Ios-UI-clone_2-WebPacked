@@ -5,34 +5,32 @@
     background-color: black;
     margin-left: auto;
     margin-right: auto;
-    padding:0.5em;
+    padding: 0.5em;
 }
 
 .lcd {
-    background-color: rgb(75,75,75);
-    height:1.75em;
+    background-color: rgb(75, 75, 75);
+    height: 1.75em;
     border-radius: 3px;
 }
-.buttons{
+
+.buttons {
     margin-top: 0.5em;
 }
-.btn-row{
-    /*!*height:10px;*!*/
-    /*background-color: #3559ff;*/
-    /*!*display: inline-block;*!*/
-}
-.grey, .gold{
-    height:0.8em;
-    width:0.8em;
+
+.grey, .gold {
+    height: 0.8em;
+    width: 0.8em;
     background-color: lightgray;
     border-radius: 100%;
     display: inline-block;
     margin-right: .2em;
     margin-left: .1em;
 }
-.zero {
-    width:50%;
-    border-radius: 30%;
+
+.calculator-icon .zero {
+    width: 50%;
+    border-radius: 10em;
 }
 
 .gold {

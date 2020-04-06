@@ -1,38 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel='stylesheet' type='text/css' href='../styles/index.css'>
-    <link rel='stylesheet' type='text/css' href='../styles/icon-grid.css'>
-    <link rel='stylesheet' type='text/css' href='../styles/signal-bars.css'>
-    <link rel='stylesheet' type='text/css' href='../styles/icons.css'>
-        <link rel='stylesheet' type='text/css' href='../styles/icons/tips-icon/tips-icon.css'>
-        <link rel='stylesheet' type='text/css' href='../styles/icons/tips-icon/home-page-icons.css'>
-    <link rel="stylesheet" type="text/css" href="../styles/slide/slide.css">
-    <link rel="stylesheet" type="text/css" href="../styles/search.css">
-    <link rel="stylesheet" type="text/css" href="../styles/message-center.css">
-    <link rel="stylesheet" type="text/css" href="../styles/app-transitions.css">
-    <link rel="stylesheet" type="text/css" href="../styles/slide-modal/modal/modal.css">
-    <link rel="stylesheet" type="text/css" href="../styles/slide-modal/slide-modal.css">
-    <link rel="stylesheet" type="text/css" href="../styles/mail/mail.css">
-    <link rel="stylesheet" type="text/css" href="../styles/mail/mail-message-preview.css">
-    <link rel="stylesheet" type="text/css" href="../styles/volume_control.css">
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
-    <!-- battery -->
-    <link rel="stylesheet" type="text/css" href="../styles/battery.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- calculator -->
-    <link rel="stylesheet" type="text/css" href="../styles/calculator_app.css">
-
     <!-- cdn/external imports -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- END cdn/external imports -->
 
-    <!-- js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!--    <script src="../_index.js"></script>-->
+
+    <!--  fav.ico -->
+<!--    <link rel="icon" type="image/x-icon" href="favicon.ico">-->
 </head>
 
 <body>
@@ -64,15 +42,15 @@
             <div id='suggestions' class="message-center night"><div class="topleft"><button class='app-icon mini podcasts'>2</button><span class="message-title">SIRI APP SUGGESTIONS</span><span class="message-expand-button"><i class="fa fa-angle-right"></i></span>
                 <div class="grid-container">
                     <div class="icon-and-name"><button id='calculator-icon' class='app-icon calculator'></button><div class='icon-text-name'>Calculator</div></div>
-                    <div class="icon-and-name"><button class='app-icon messenger'>1</button><div class='icon-text-name'>Messenger</div></div>
-                    <div class="icon-and-name"><button class='app-icon safari-browser'>4</button><div class='icon-text-name'>Safari</div></div>
-                    <div class="icon-and-name"><button class='app-icon hangouts'>2</button><div class='icon-text-name'>Hangouts</div></div>
+                    <div class="icon-and-name"><button id='messenger' class='app-icon messenger'>1</button><div class='icon-text-name'>Messenger</div></div>
+                    <div class="icon-and-name"><button id='Safari' class='app-icon safari-browser'>4</button><div class='icon-text-name'>Safari</div></div>
+                    <div class="icon-and-name"><button id= 'hangouts' class='app-icon hangouts'>2</button><div class='icon-text-name'>Hangouts</div></div>
 
                     <!-- new row -->
-                    <div class="icon-and-name expanding-row"><button class='app-icon i-message'>3</button><div class='icon-text-name'>Messages</div></div>
-                    <div class="icon-and-name expanding-row"><button class='app-icon camera'>4</button><div class='icon-text-name'>Camera</div></div>
-                    <div class="icon-and-name expanding-row"><button class='app-icon maps'>3</button><div class='icon-text-name'>Maps</div></div>
-                    <div class="icon-and-name expanding-row"><button class='app-icon stocks'>3</button><div class='icon-text-name'>Stocks</div></div>
+                    <div class="icon-and-name expanding-row"><button id='i_message' class='app-icon i-message'>3</button><div class='icon-text-name'>Messages</div></div>
+                    <div class="icon-and-name expanding-row"><button id='camera' class='app-icon camera'>4</button><div class='icon-text-name'>Camera</div></div>
+                    <div class="icon-and-name expanding-row"><button id='maps' class='app-icon maps'>3</button><div class='icon-text-name'>Maps</div></div>
+                    <div class="icon-and-name expanding-row"><button id='stocks' class='app-icon stocks'>3</button><div class='icon-text-name'>Stocks</div></div>
                 </div>
             </div>
             </div>
@@ -90,31 +68,31 @@
 
             <div class="result-box"><span class="result">0</span></div>
             <div class="calc-grid-container">
-<!--                <div class="item1">Header</div>-->
                 <button class='calculator-btn light-grey-button'><span class=''></span></button>
                 <button class='calculator-btn light-grey-button'><span class=''></span></button>
                 <button class='calculator-btn light-grey-button'><span class=''></span></button>
                 <button class='calculator-btn operator-button'><span class=''></span></button>
 
-                <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn operator-button'><span class=''></span></button>
+                <button class='calculator-btn' value="7"><span class='button-label' value="7">7</span></button>
+                <button class='calculator-btn' value="8"><span class='button-label' value="8">8</span></button>
+                <button class='calculator-btn' value="9"><span class='button-label' value="9">9</span></button>
+                <button class='calculator-btn operator-button' value="multiply-operator"><span class='butt-label' value="multiply-operator">x</span></button>
 
                 <button class='calculator-btn'><span class=''></span></button>
                 <button class='calculator-btn'><span class=''></span></button>
                 <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn operator-button'><span class=''></span></button>
+                <button class='calculator-btn operator-button'><div class="minus-sign"></div></button>
 
+                <button class='calculator-btn' value="1"><span class='button-label'>1</span></button>
                 <button class='calculator-btn'><span class=''></span></button>
                 <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn operator-button'><span class=''></span></button>
+                <button class='calculator-btn operator-button plus-operator-button' value="plus-operator"><span class='plus-label' value="plus-operator">+</span></button>
 
-                <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn'><span class=''></span></button>
-                <button class='calculator-btn operator-button'><span class=''></span></button>
+            </div>
+            <div class="bottom-grid">
+                <button class='calculator-btn item8 zero' value="0"><span class='button-label'>0</span></button>
+                <button class='calculator-btn item10'><span class='button-label'>.</span></button>
+                <button class='calculator-btn operator-button equals-operator-button item9' value="equals-operator"><span class='button-label equals-label' value="equals-operator">=</span></button>
             </div>
         </div>
         <!-- end-calculator-app-->
@@ -123,42 +101,42 @@
         <div id="view-1" class="grid-container box focused-position">
             <div class="icon-and-name"><button id="face-time" class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>FaceTime</div></div>
             <div class="icon-and-name"><button id='podcasts' class='app-icon files'>2</button><div class='icon-text-name'>Calender</div></div>
-            <div class="icon-and-name"><button class='app-icon files'>3</button><div class='icon-text-name'>Photos</div></div>
-            <div class="icon-and-name"><button class='app-icon camera'>4</button><div class='icon-text-name'>Camera</div></div>
+            <div class="icon-and-name"><button id='photos' class='app-icon files'>3</button><div class='icon-text-name'>Photos</div></div>
+            <div class="icon-and-name"><button id='camera(0)' class='app-icon camera'>4</button><div class='icon-text-name'>Camera</div></div>
 
             <!-- new row -->
-            <div class="icon-and-name"><button id='mail' class='app-icon mail'><div class="app-icon-count">33,468</div></button><div class='icon-text-name'>Mail</div></div>
-            <div class="icon-and-name"><button class='app-icon clock'>2</button><div class='icon-text-name'>Clock</div></div>
-            <div class="icon-and-name"><button class='app-icon maps'>3</button><div class='icon-text-name'>Maps</div></div>
-            <div class="icon-and-name"><button class='app-icon weather mail'>4</button><div class='icon-text-name'>Weather</div></div>
+            <div class="icon-and-name"><button id='mail' data-app-name='mail' class='app-icon mail'><div class="app-icon-count">33,468</div></button><div class='icon-text-name'>Mail</div></div>
+            <div class="icon-and-name"><button id='clock' class='app-icon clock'>2</button><div class='icon-text-name'>Clock</div></div>
+            <div class="icon-and-name"><button id='maps(0)' class='app-icon maps'>3</button><div class='icon-text-name'>Maps</div></div>
+            <div class="icon-and-name"><button id='weather' class='app-icon weather mail'>4</button><div class='icon-text-name'>Weather</div></div>
 
             <!-- new row -->
-            <div class="icon-and-name"><button class='app-icon notes'>1</button><div class='icon-text-name'>Notes</div></div>
-            <div class="icon-and-name"><button class='app-icon reminders'>2</button><div class='icon-text-name'>Reminders</div></div>
-            <div class="icon-and-name"><button class='app-icon stocks'>3</button><div class='icon-text-name'>Stocks</div></div>
-            <div class="icon-and-name"><button class='app-icon news'>4</button><div class='icon-text-name'>News</div></div>
+            <div class="icon-and-name"><button id='notes' class='app-icon notes'>1</button><div class='icon-text-name'>Notes</div></div>
+            <div class="icon-and-name"><button id='reminders' class='app-icon reminders'>2</button><div class='icon-text-name'>Reminders</div></div>
+            <div class="icon-and-name"><button id='stocks(0)' class='app-icon stocks'>3</button><div class='icon-text-name'>Stocks</div></div>
+            <div class="icon-and-name"><button id='news' class='app-icon news'>4</button><div class='icon-text-name'>News</div></div>
 
             <!-- new row -->
-            <div class="icon-and-name"><button class='app-icon tv'></button><div class='icon-text-name'>TV</div></div>
-            <div class="icon-and-name"><button class='app-icon i-tunes-store'>2</button><div class='icon-text-name'>iTunes Store</div></div>
-            <div class="icon-and-name"><button class='app-icon app-store'>3</button><div class='icon-text-name'>App Store</div></div>
-            <div class="icon-and-name"><button class='app-icon books'>4</button><div class='icon-text-name'>Books</div></div>
+            <div class="icon-and-name"><button id='tv' class='app-icon tv'></button><div class='icon-text-name'>TV</div></div>
+            <div class="icon-and-name"><button id='iTunes_store' class='app-icon i-tunes-store'>2</button><div class='icon-text-name'>iTunes Store</div></div>
+            <div class="icon-and-name"><button id='app_store' class='app-icon app-store'>3</button><div class='icon-text-name'>App Store</div></div>
+            <div class="icon-and-name"><button id='books' class='app-icon books'>4</button><div class='icon-text-name'>Books</div></div>
 
             <!-- new row -->
-            <div class="icon-and-name"><button class='app-icon health'></button><div class='icon-text-name'>Health</div></div>
-            <div class="icon-and-name"><button class='app-icon home'>2</button><div class='icon-text-name'>Home</div></div>
-            <div class="icon-and-name"><button class='app-icon wallet'>3</button><div class='icon-text-name'>Wallet</div></div>
-            <div class="icon-and-name"><button class='app-icon settings'>4</button><div class='icon-text-name'>Settings</div></div>
+            <div class="icon-and-name"><button id='health' class='app-icon health'></button><div class='icon-text-name'>Health</div></div>
+            <div class="icon-and-name"><button id='home' class='app-icon home'>2</button><div class='icon-text-name'>Home</div></div>
+            <div class="icon-and-name"><button id='wallet' class='app-icon wallet'>3</button><div class='icon-text-name'>Wallet</div></div>
+            <div class="icon-and-name"><button id='settings' class='app-icon settings'>4</button><div class='icon-text-name'>Settings</div></div>
         </div>
 
         <div id='view-2' class="grid-container box">
-            <div class="icon-and-name"><button class='app-icon tips'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
-            <div class="icon-and-name"><button class='app-icon podcasts'>2</button><div class='icon-text-name'>Podcasts</div></div>
-            <div class="icon-and-name"><button class='app-icon find-my'>3</button><div class='icon-text-name'>Find My</div></div>
-            <div class="icon-and-name"><button class='app-icon shortcuts'>4</button><div class='icon-text-name'>Shortcuts</div></div>
+            <div class="icon-and-name"><button id='tips' class='app-icon tips'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>Tips</div></div>
+            <div class="icon-and-name"><button id='podcasts(0)' class='app-icon podcasts'>2</button><div class='icon-text-name'>Podcasts</div></div>
+            <div class="icon-and-name"><button id='find_my' class='app-icon find-my'>3</button><div class='icon-text-name'>Find My</div></div>
+            <div class="icon-and-name"><button id='shortcuts' class='app-icon shortcuts'>4</button><div class='icon-text-name'>Shortcuts</div></div>
 
             <!-- new row -->
-            <div class="icon-and-name"><button class='app-icon contacts'>1</button><div class='icon-text-name'>Contacts</div></div>
+            <div class="icon-and-name"><button id='contacts' class='app-icon contacts'>1</button><div class='icon-text-name'>Contacts</div></div>
             <div class="icon-and-name"><button class='app-icon files'>2</button><div class='icon-text-name'>Files</div></div>
             <div class="icon-and-name"><button class='app-icon watch'>3</button><div class='icon-text-name'>Watch</div></div>
             <div class="icon-and-name"><button class='app-icon utilities' data-app-name="utilities">4</button><div class='icon-text-name'>Utilities</div></div>
@@ -224,30 +202,18 @@
     <div class="slide-modal-container">
         <div id="slide-container"></div>
     </div>
+    <div>
+
+    </div>
 </div>
 
 
-<div class="_external-buttons">
-<!--    <div class="nav">-->
-<!--        <div class='home-button'><button>Home</button></div>-->
-<!--        <div class='right-button'><button>Right</button></div>-->
-<!--        <div class='left-button'><button>Left</button></div>-->
-<!--    </div>-->
-<!--    <div class="volume">-->
-<!--        <div class='volume-button'><button id="volume-up">Volume up</button></div>-->
-<!--        <div class='volume-button'><button id="volume-down">Volume down</button></div>-->
-<!--    </div>-->
-</div>
-<!--<div class="nav">-->
-<!--    <div class='home-button'><button>Home</button></div>-->
-<!--    <div class='right-button'><button>Right</button></div>-->
-<!--    <div class='left-button'><button>Left</button></div>-->
-<!--</div>-->
 <div class="volume volume-external-buttons"><i class='fas fa-volume-up'></i>
     <div class='volume-button'><button id="volume-up"><i class='fas fa-volume-up'></i></button></div>
     <div class='volume-button'><button id="volume-down"><i class='fas fa-volume-down'></i></button></div>
         <div class='home-button'><button>Home</button></div>
 
 </div>
+
 </body>
 </html>

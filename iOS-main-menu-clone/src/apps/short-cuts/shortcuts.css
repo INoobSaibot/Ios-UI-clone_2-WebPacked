@@ -1,0 +1,25 @@
+.shortcuts-icon{
+    transform: rotate(180deg);
+}
+.smooth-rotated-rectangle {
+    background-color: #ffb200;
+    height:4.5em;
+    width:4.5em;
+    transform: rotate(135deg);
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 1em;
+}
+
+.pink{
+    background-color: hotpink;
+    background: linear-gradient(hotpink, rgba(255,105,180, 0.2));
+    /*margin-bottom:-2.5em;*/
+}
+
+.cyan{
+    background-color: cyan;
+    background: linear-gradient(cyan, rgba(0,255,255, 0.1));
+    transform: rotate(45deg);
+    margin-bottom:-2.5em;
+}

@@ -1,0 +1,131 @@
+:root {
+    --dark-gray: rgb(40, 40, 40);
+    --light-grey: rgb(150, 150, 150);
+    --operator-button-orange: rgb(255, 175, 50);
+}
+
+
+.calculator-app {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.result-box {
+    color: white;
+    right: 0;
+    font-size: 2em;
+    height: 8em;
+    margin: 2em 2em 1em 2em;
+    position: relative;
+}
+
+.result {
+    font-size: 5.5em;
+    font-weight: 100;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.calc-grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 1px;
+    padding: 10px 30px 0px 30px; /* top right bottom left*/
+}
+
+.bottom-grid {
+    display: grid;
+    grid-gap: 1px;
+    padding: 0px 30px 0px 30px; /* top right bottom left*/
+    grid-template-areas: 'zero zero point equals';
+    text-align: center;
+}
+
+.item8 {
+    grid-area: zero;
+}
+
+.calculator-app .zero {
+    width: 24em !important;
+    border-radius: 10em !important;
+    text-align: left !important;
+    padding-left: 4em;
+}
+
+.zero span{
+    color:blue;
+}
+
+.item9 {
+    grid-area: equals;
+}
+
+.item10 {
+    grid-area: point;
+}
+
+.calc-grid-container > div {
+    text-align: center;
+    width: 170px;
+}
+
+.calculator-btn {
+    height: 11em;
+    width: 11em;
+    border-radius: 100%;
+    border: 0;
+    margin: 1em;
+    background-color: var(--dark-gray);
+}
+
+.light-grey-button {
+    background-color: var(--light-grey);
+}
+
+.operator-button {
+    background-color: var(--operator-button-orange);
+}
+
+
+.button-label {
+    color: white;
+    font-size: 5em;
+}
+
+
+.butt-label {
+    color: white;
+    font-size: 5em;
+    line-height: 0.5em;
+}
+
+.minus-sign {
+    background-color: white;
+    width: 2.6em;
+    height: 0.5em;
+    /*text-align: center;*/
+    margin: auto;
+}
+
+.plus-label {
+    color: white;
+    font-size: 6em;
+    /*line-height: 10mm;*/
+}
+
+.plus-label.selected {
+    color: var(--operator-button-orange);
+}
+
+.operator-button.selected {
+    background-color: white;
+}
+
+.some-thing {
+    background-image: linear-gradient(130deg, #6c52d9, #1eaafc 85%, #3edfd7);
+}
+
+
+

@@ -1,0 +1,36 @@
+.app-modal-container {
+    /*top:0;*/
+    /*bottom: 0;*/
+    /*left:0;*/
+    /*right:0;*/
+    /*height:var(--body-height);*/
+
+    /*transition: transform 5s;*/
+}
+
+.small{
+    /*fontSize: 0;*/
+    /*position:absolute;*/
+}
+
+.half-size{
+    transform: scale(0.75);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.multi-app-view .header.inactive{
+    opacity: 0.0;
+}
+
+.multi-app-view .header{
+    transition: opacity 0.5s;
+}
+
+.modal-debug-css div:first-child{
+    background-color: rgba(0,0,0,0.3)
+}
+
+#modal-container div {
+    transition: transform 5s;
+}

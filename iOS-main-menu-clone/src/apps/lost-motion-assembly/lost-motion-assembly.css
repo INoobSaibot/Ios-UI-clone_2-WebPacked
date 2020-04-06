@@ -1,0 +1,145 @@
+.app-modal-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--body-height);
+}
+
+/*.small {*/
+/*    fontSize: 0;*/
+/*    !*position:absolute;*!*/
+/*}*/
+
+.tips-body {
+    background-color: black;
+}
+
+.tips-body .app-content {
+    margin-top: 3em;
+    padding: 2.0em 2.0em 0.0em 2.0em; /* top right bottom left*/
+    padding: 2.0em;
+}
+
+.title {
+    /*color: red;*/
+    font-size: 4em;
+    margin: 0;
+    margin-bottom: 0.3em;
+}
+
+.tips-body .tv{
+    /*height: 30em;*/
+    width: 100%;
+
+    background-color: rgba(150, 155, 155, 0.2);
+    border-radius: 1em;
+    padding-bottom: 7em;
+}
+
+.upper-left {
+    padding: 2em;
+}
+
+.upper-left-title {
+    color: white;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.upper-left-tips-number {
+    color: lightgray;
+    font-size: 1.75em;
+}
+
+.large-icon {
+    color: white;
+    text-align: center;
+    font-size: 13em;
+
+    margin-left: 0.5em;
+    margin-top: -0.2em;
+
+}
+
+.label{
+    background: -webkit-linear-gradient(345deg, deeppink, deeppink, deeppink, deeppink,deeppink, indianred,yellow, lightskyblue, blue, blue, blue, blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tips-container{
+    margin-top: 2em;
+}
+
+.tip {
+    margin-top: 0.5em;
+}
+
+.tip-icon {
+    background-color: rgba(150, 155, 155, 0.2);
+    border-radius: 1em;
+    height: 13em;
+    width: 13em;
+    display: inline-block;
+}
+
+.tip-icon-content {
+    text-align: center;
+    color: white;
+    font-size: 10em;
+    padding-top: 0.10em;
+    padding-bottom: .10em;
+
+    background: -webkit-linear-gradient(250deg, deeppink, indianred, yellow, orangered, purple, purple,purple);
+    /*background: -webkit-linear-gradient(230deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),*/
+    /*linear-gradient(130deg, rgba(255,255,0,.8), rgba(255,255,0,0) 70.71%),*/
+    /*linear-gradient(20deg, rgba(150,0,255,.8), rgba(150,0,255,0) 70.71%);*/
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tip-text {
+    display: inline-block;
+    margin: 1em;
+    line-height: 3em;
+}
+
+.tip-title {
+    color: white;
+    font-size: 2.3em;
+}
+
+.tip-row-2 {
+    color: white;
+    font-size: 1.7em;
+}
+
+.tip-row-3 {
+    color:rgba(150, 155, 155, 0.5);
+    font-size: 1.7em;
+}
+
+.more-next {
+    color:rgba(150, 155, 155, 0.5);
+    font-size: 2.5em;
+    right:0;
+    position: absolute;
+}
+
+.tip .message-expand-button{
+    margin-top:1.5em;
+}
+
+.tip hr{
+    border: 1px solid var(--mail-app-search-color);
+    margin-left:14em;
+    margin-top: 1em;
+    width: 31em;
+}
+
+.logo{
+    background: url('./apple-logo@logotyp.us.svg');
+    background-repeat: no-repeat;
+    padding-left: 0.5em;
+}

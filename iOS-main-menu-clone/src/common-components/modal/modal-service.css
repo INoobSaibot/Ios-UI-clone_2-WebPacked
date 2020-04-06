@@ -1,0 +1,14 @@
+.multi-app-view{
+    height:100%;
+    width: 100%;
+    top:0;
+    position: absolute;
+    backdrop-filter: blur(15px);
+    background-color: rgba(1, 1, 1, 0.35);
+}
+
+#modal-container{
+    transition: background-color 0.5s;
+    /*transition: backdrop-filter 0.5s;*/
+}
+

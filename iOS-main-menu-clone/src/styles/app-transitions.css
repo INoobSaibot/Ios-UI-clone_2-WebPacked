@@ -1,0 +1,13 @@
+.fall-back{
+    transform: scale(0.2);
+    transition: transform 0.55s;
+}
+
+.hidden{
+    display: none;
+}
+
+.transition-transform {
+    transition: transform 0.25s;
+    transition: all .5s; /* the above line was killing all of these from slide.css .box css class*/
+}

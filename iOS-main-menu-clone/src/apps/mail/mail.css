@@ -1,0 +1,56 @@
+:root {
+    --mail-app-search-color:rgba(50,50,50,0.5)
+}
+
+.mail-body {
+    background-color: black;
+}
+
+.mail-body .app-content ._search-container{
+    background-color: var(--mail-app-search-color)
+}
+
+.app-content {
+    /*background-color: purple;*/
+    /*padding: 100%;*/
+    /*font-size: 5em;*/
+    margin-top: 0;
+    padding:1em;
+}
+
+.mail-boxes-button {
+    font-size: 2em;
+}
+
+.mail-header {
+    color: dodgerblue;
+    font-size: 2.5em;
+}
+
+.mail-header .name {
+    transform: scale(0.5);
+    display: inline-block;
+    font-size: 2.0em;
+    margin-left: -1.43em;
+}
+
+
+.mail-boxes-button {
+    margin: 0.23em;
+}
+
+.edit-button {
+    transform: scale(0.5);
+    display: inline-block;
+    font-size: 2.0em;
+    right: 0;
+    position: absolute;
+}
+
+.title {
+    color: white;
+    font-size: 4.5em;
+    margin-left: 0.7em;
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}

@@ -1,12 +1,31 @@
-import Calculator from './Calculator'
+import Calculator from './apps/calculator/Calculator'
 import $ from "jquery";
-import MessageCenterService from './message-center/message-center-service';
-import ModalService from "./modal/modal-service";
-import Pan from './pan/pan'
-import Clock from "./clock/clock";
-import Battery from './battery/battery';
-import Volume from "./volume/volume";
+import MessageCenterService from './components/message-center/message-center-service';
+import ModalService from "./common-components/modal/modal-service";
+import Pan from './common-components/pan/pan'
+import Clock from "./components/clock/clock";
+import Battery from './components/battery/battery';
+import Volume from "./components/volume/volume";
 import UtilitiesApp from './apps/utilitities-app/utilitiies-app'
+import MailAppComponent from "./apps/mail/mail-app-component";
+import calculator_icon from "./apps/calculator/calculator-icon";
+import shortcuts_icon from "./apps/short-cuts/shortcuts";
+import './apps/calculator/calculator_app.css'; /* current calculator aoo implementation needs this style sheet here globally to keep it hidden/ outside viewport until opened*/
+import './styles/index.css';
+import './styles/icon-grid.css';
+import './styles/icons.css';
+import './styles/icons/tips-icon/tips-icon.css';
+import './styles/icons/tips-icon/home-page-icons.css';
+import './styles/slide/slide.css';
+import './styles/search.css';
+import './styles/message-center.css';
+import './styles/app-transitions.css';
+
+import './styles/slide-modal/slide-modal.css';
+import './styles/volume_control.css';
+import {EventEmitter} from './common-components/EventEmitter/eventEmitter';
+import LostMotionAssembly from "./apps/lost-motion-assembly/lost-motion-assembly";
+
 
 class Index {
     constructor() {
@@ -18,17 +37,29 @@ class Index {
         this.volume = new Volume();
 
         this.init();
+        this.clickTimer = null;
+        this.homeButtonIgnore = false;
+        this.elRef = $('container')
+        this.devOnly();
+    }
+
+    devOnly(){
+        // dev testing start at #0 search screen
+        // setTimeout(()=> {this.pan.right();}, 250);
+        // setTimeout(() => {
+        //     this.pan.left();
+        //     $('#calculator-icon').click();
+        // }, 250);
+        // this.modalService.open('tips', new Event('e'), LostMotionAssembly)
+        // EventEmitter.dispatch('double-tap');
+        EventEmitter.dispatch('debug', {debug:true})
+        // end dev only code
     }
 
     init() {
-        // dev testing start at #0 search screen
-        setTimeout(() => {
-            // this.pan.left();
-            // this.modalService.open('mail')
-            this.pan.right();
-            $('.utilities').click();
-        }, 250)
-        // end dev only code
+        EventEmitter.subscribe('double-tap', (data) => {
+            this.handleDoubleTapHome(data);
+        });
 
         const headerClock = new Clock();
         const headerBattery = new Battery();
@@ -36,14 +67,17 @@ class Index {
         $(".home-button").click(() => {
             this.handleHome();
         });
-        $(".right-button").click(this.pan.right);
-        $(".left-button").click(this.pan.left);
+
         $("button.app-icon").click((e) => {
+            e.stopImmediatePropagation(); /* infinite loop, open close app :( */
             let ClassDelegate;
             const appName = e.target.getAttribute('data-app-name');
-            console.log(appName);
-            if(appName === 'utilities'){
+            if (appName == null) {
+            }
+            if (appName === 'utilities') {
                 ClassDelegate = UtilitiesApp;
+            } else if (appName === 'mail') {
+                ClassDelegate = MailAppComponent
             }
             this.handleIconClick(e, ClassDelegate);
         });
@@ -70,6 +104,16 @@ class Index {
         document.body.addEventListener('keyup', (e) => {
             this.volume.endVolumeHold(e);
         })
+    }
+
+    handleDoubleTapHome(data) {
+        if (this.homeButtonIgnore != true) {
+            if (!this.modalService.multiAppView) {
+                this.modalService.multiModalView();
+            } else {
+                this.modalService.multiModalViewCancel();
+            }
+        }
     }
 
     handleKeyDown(e) {
@@ -102,18 +146,46 @@ class Index {
     }
 
     handleHome() {
+        this.homeTap();
+    }
+
+    singleTap(){
         const currently_focused_app = this.calculator;
         currently_focused_app.minimize();
         if (!this.modalService.hasFocusedModals()) {
             this.pan.home();
-        } else {
+        } else if(this.modalService.multiAppView){
+            this.handleDoubleTapHome();
+        }
+        else {
             this.modalService.minimizeAllModals();
         }
     }
+
+    homeTap(event) {
+        if (this.clickTimer == null) {
+            this.clickTimer = setTimeout(() => {
+                this.clickTimer = null;
+                this.singleTap();
+            }, 500)
+        } else {
+            clearTimeout(this.clickTimer);
+            this.clickTimer = null;
+            EventEmitter.dispatch('double-tap', this.calculator)
+        }
+    }
+
 }
 
-$(document).ready(function () {
-    //your code here
-    new Index();
-});
+$(document)
+
+    .ready(
+        function () {
+            //your code here
+            new Index();
+            $('#calculator-icon').html(calculator_icon);
+            $('#shortcuts').html(shortcuts_icon)
+        }
+    )
+;
 

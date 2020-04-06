@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'MyFont';
+    src:  url('webpack-demosation_light.woff') format('woff'),
+    url('webpack-demogle_font.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+.hello {
+    color: red;
+    background: url('webpack-demon.png');
+    font-family: 'MyFont';
+    font-size: 5em;
+}
