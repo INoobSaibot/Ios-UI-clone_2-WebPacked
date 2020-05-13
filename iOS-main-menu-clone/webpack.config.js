@@ -5,13 +5,13 @@ module.exports = {
     devServer: {
         contentBase: './dist'
     },
-    mode: 'development',
+    mode: 'production',
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    watch: true,
+    watch: false,
     watchOptions: {
         aggregateTimeout: 300,
         poll: 250,
