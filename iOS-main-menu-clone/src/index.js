@@ -97,8 +97,8 @@ class Index {
             e.stopImmediatePropagation(); /* infinite loop, open close app :( */
             let ClassDelegate;
             const appName = e.target.getAttribute('data-app-name');
-            alert(""+appName)
             if (appName == null) {
+                alert('so null')
             }
             if (appName === 'utilities') {
                 ClassDelegate = UtilitiesApp;
