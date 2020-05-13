@@ -89,8 +89,9 @@ class Index {
         const headerClock = new Clock();
         const headerBattery = new Battery();
 
-        $(".home-button").click(() => {
-            this.handleHome();
+        $(".home-button").click((e) => {
+            e.stopImmediatePropagation();
+            this.handleHome(e);
         });
 
         $("button.app-icon").on('click', ((e) => {
@@ -221,3 +222,4 @@ $(document)
     )
 ;
 
+// todo double tap home button
