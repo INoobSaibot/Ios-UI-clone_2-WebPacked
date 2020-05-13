@@ -1,5 +1,5 @@
 import Calculator from './apps/calculator/Calculator'
-import $ from "./jquery";
+import $ from "jquery";
 import MessageCenterService from './components/message-center/message-center-service';
 import ModalService from "./common-components/modal/modal-service";
 import Pan from './common-components/pan/pan'
