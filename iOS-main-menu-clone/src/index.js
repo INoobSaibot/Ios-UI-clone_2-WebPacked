@@ -82,8 +82,8 @@ class Index {
         EventEmitter.subscribe('keyboard-request_close', () => {
             this.modalService.minimizeAllModals(); // this works for now to close keyboard, will likely need more implimentation details on more cases are added, that use keybd
         })
-        EventEmitter.subscribe('double-tap', (data) => {
-            this.handleDoubleTapHome(data);
+        EventEmitter.subscribe('double-tap', () => {
+            this.handleDoubleTapHome();
         });
 
         const headerClock = new Clock();
@@ -91,6 +91,9 @@ class Index {
 
         $(".home-button").click(() => {
             this.handleHome();
+        });
+        $(".home-button-double-tap").click(() => {
+            this.handleDoubleTapHome();
         });
 
         $("button.app-icon").on('click', ((e) => {
@@ -121,7 +124,7 @@ class Index {
         })
     }
 
-    handleDoubleTapHome(data) {
+    handleDoubleTapHome() {
         if (this.homeButtonIgnore != true) {
             if (!this.modalService.multiAppView) {
                 this.modalService.multiModalView();
