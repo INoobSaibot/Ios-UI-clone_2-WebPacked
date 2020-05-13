@@ -56,16 +56,16 @@ class Index {
         // }, 250);
         // this.modalService.open('tips', new Event('e'), UtilitiesApp)
 
-        $('#photos').click();
+        // $('#photos').click();
         // $('#mail').click();
         // $('#tips').click();
-        setTimeout(() => {
-            this.modalService.minimizeAllModals();
-
-        }, 250);
-        setTimeout(() => {
-            EventEmitter.dispatch('double-tap')
-        }, 1000);
+        // setTimeout(() => {
+        //     this.modalService.minimizeAllModals();
+        //
+        // }, 250);
+        // setTimeout(() => {
+        //     EventEmitter.dispatch('double-tap')
+        // }, 1000);
         ////////
 
         // EventEmitter.dispatch('debug', {debug:true})
@@ -93,23 +93,9 @@ class Index {
             this.handleHome();
         });
 
-        $("button.app-icon").click((e) => {
-            alert(e.target)
-            e.stopImmediatePropagation(); /* infinite loop, open close app :( */
-            let ClassDelegate;
-            const appName = e.target.getAttribute('data-app-name');
-            if (appName == null) {
-            }
-            if (appName === 'utilities') {
-                ClassDelegate = UtilitiesApp;
-            } else if (appName === 'mail') {
-                ClassDelegate = MailAppComponent
-            } else if (appName === 'photos') {
-                ClassDelegate = Photos
-            }
-            // todo put class names in a dict/hash with string keys... get rid of ifs
-            this.handleIconClick(e, ClassDelegate);
-        });
+        $("button.app-icon").on('click', ((e) => {
+           this.handleIconTap(e)
+        }));
 
         const iconElement = "button.app-icon";
         $(iconElement)
@@ -122,7 +108,7 @@ class Index {
             .on('touchend', (e) => {
                 if ($(this).data('moved') == 0) {
                     // HERE YOUR CODE TO EXECUTE ON TAP-EVENT
-                    this.handleIconClick(e);
+                    this.handleIconTap(e);
                 }
             });
 
@@ -172,6 +158,23 @@ class Index {
         } else {
             this.modalService.open(id, e, ClassDelegate);
         }
+    }
+
+    handleIconTap(e){
+        e.stopImmediatePropagation(); /* infinite loop, open close app :( */
+        let ClassDelegate;
+        const appName = e.target.getAttribute('data-app-name');
+        if (appName == null) {
+        }
+        if (appName === 'utilities') {
+            ClassDelegate = UtilitiesApp;
+        } else if (appName === 'mail') {
+            ClassDelegate = MailAppComponent
+        } else if (appName === 'photos') {
+            ClassDelegate = Photos
+        }
+        // todo put class names in a dict/hash with string keys... get rid of ifs
+        this.handleIconClick(e, ClassDelegate);
     }
 
     handleHome() {

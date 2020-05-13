@@ -5,7 +5,7 @@ module.exports = {
     devServer: {
         contentBase: './dist'
     },
-    mode: 'production',
+    mode: 'development',
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
