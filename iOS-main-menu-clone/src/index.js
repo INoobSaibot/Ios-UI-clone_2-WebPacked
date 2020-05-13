@@ -97,6 +97,7 @@ class Index {
             e.stopImmediatePropagation(); /* infinite loop, open close app :( */
             let ClassDelegate;
             const appName = e.target.getAttribute('data-app-name');
+            alert(appName)
             if (appName == null) {
             }
             if (appName === 'utilities') {
@@ -198,6 +199,7 @@ class Index {
         } else {
             clearTimeout(this.clickTimer);
             this.clickTimer = null;
+            // todo I dont know why its passing calculator reference here
             EventEmitter.dispatch('double-tap', this.calculator)
         }
     }
