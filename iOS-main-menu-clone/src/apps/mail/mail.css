@@ -6,16 +6,21 @@
     background-color: black;
 }
 
+/*.app-body{*/
+/*    bottom: 0;*/
+/*    top:0;*/
+/*    position: absolute;*/
+/*    overflow: hidden;*/
+/*}*/
+
 .mail-body .app-content ._search-container{
     background-color: var(--mail-app-search-color)
 }
 
 .app-content {
     /*background-color: purple;*/
-    /*padding: 100%;*/
-    /*font-size: 5em;*/
     margin-top: 0;
-    padding:1em;
+    padding:1rem;
 }
 
 .mail-boxes-button {
@@ -47,7 +52,7 @@
     position: absolute;
 }
 
-.title {
+.mail-body .title {
     color: white;
     font-size: 4.5em;
     margin-left: 0.7em;

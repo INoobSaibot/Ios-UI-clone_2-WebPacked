@@ -7,9 +7,12 @@ import Clock from "./components/clock/clock";
 import Battery from './components/battery/battery';
 import Volume from "./components/volume/volume";
 import UtilitiesApp from './apps/utilitities-app/utilitiies-app'
+import Photos from "./apps/photos/photos";
 import MailAppComponent from "./apps/mail/mail-app-component";
+import SearchBarService from './components/message-center/search-bar';
 import calculator_icon from "./apps/calculator/calculator-icon";
 import shortcuts_icon from "./apps/short-cuts/shortcuts";
+import Keyboard from './common-components/keyboard/keyboard';
 import './apps/calculator/calculator_app.css'; /* current calculator aoo implementation needs this style sheet here globally to keep it hidden/ outside viewport until opened*/
 import './styles/index.css';
 import './styles/icon-grid.css';
@@ -24,7 +27,6 @@ import './styles/app-transitions.css';
 import './styles/slide-modal/slide-modal.css';
 import './styles/volume_control.css';
 import {EventEmitter} from './common-components/EventEmitter/eventEmitter';
-import LostMotionAssembly from "./apps/lost-motion-assembly/lost-motion-assembly";
 
 
 class Index {
@@ -35,6 +37,7 @@ class Index {
         this.messages = ['up next', 'suggestions', 'news', 'screen time'];
         this.messageCenterService = new MessageCenterService(this.messages);
         this.volume = new Volume();
+        this.messageCenterSearchBox = new SearchBarService($('._search-container'));
 
         this.init();
         this.clickTimer = null;
@@ -43,20 +46,42 @@ class Index {
         this.devOnly();
     }
 
-    devOnly(){
+    devOnly() {
         // dev testing start at #0 search screen
         // setTimeout(()=> {this.pan.right();}, 250);
         // setTimeout(() => {
         //     this.pan.left();
-        //     $('#calculator-icon').click();
+        //     // $('#calculator-icon').click();
+        //     $('.search-input-box').click();
         // }, 250);
-        // this.modalService.open('tips', new Event('e'), LostMotionAssembly)
-        // EventEmitter.dispatch('double-tap');
-        EventEmitter.dispatch('debug', {debug:true})
+        // this.modalService.open('tips', new Event('e'), UtilitiesApp)
+
+        $('#photos').click();
+        // $('#mail').click();
+        // $('#tips').click();
+        setTimeout(() => {
+            this.modalService.minimizeAllModals();
+
+        }, 250);
+        setTimeout(() => {
+            EventEmitter.dispatch('double-tap')
+        }, 1000);
+        ////////
+
+        // EventEmitter.dispatch('debug', {debug:true})
+
+
+        // EventEmitter.dispatch('keyboard-testing')
         // end dev only code
     }
 
     init() {
+        EventEmitter.subscribe('keyboard-request', (e) => {
+            this.modalService.open('on-scrn-kbd', new Event('none'), Keyboard, true)
+        })
+        EventEmitter.subscribe('keyboard-request_close', () => {
+            this.modalService.minimizeAllModals(); // this works for now to close keyboard, will likely need more implimentation details on more cases are added, that use keybd
+        })
         EventEmitter.subscribe('double-tap', (data) => {
             this.handleDoubleTapHome(data);
         });
@@ -78,7 +103,10 @@ class Index {
                 ClassDelegate = UtilitiesApp;
             } else if (appName === 'mail') {
                 ClassDelegate = MailAppComponent
+            } else if (appName === 'photos') {
+                ClassDelegate = Photos
             }
+            // todo put class names in a dict/hash with string keys... get rid of ifs
             this.handleIconClick(e, ClassDelegate);
         });
 
@@ -149,15 +177,14 @@ class Index {
         this.homeTap();
     }
 
-    singleTap(){
+    singleTap() {
         const currently_focused_app = this.calculator;
         currently_focused_app.minimize();
         if (!this.modalService.hasFocusedModals()) {
             this.pan.home();
-        } else if(this.modalService.multiAppView){
+        } else if (this.modalService.multiAppView) {
             this.handleDoubleTapHome();
-        }
-        else {
+        } else {
             this.modalService.minimizeAllModals();
         }
     }
@@ -167,7 +194,7 @@ class Index {
             this.clickTimer = setTimeout(() => {
                 this.clickTimer = null;
                 this.singleTap();
-            }, 500)
+            }, 250)
         } else {
             clearTimeout(this.clickTimer);
             this.clickTimer = null;

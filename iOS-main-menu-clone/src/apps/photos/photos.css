@@ -1,0 +1,79 @@
+:root {
+    --previewHeight: 20rem;
+}
+
+#photos-app-modal {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.app-body{
+    width:100%;
+/* todo    ^^^^^^^^^ hack fix? needs reworked, apps need unified and to all inherit from one base class.*/
+}
+.plus {
+    color: dodgerblue;
+    font-size: 5rem;
+    display: inline;
+}
+
+.title {
+    font-size: 4.25rem;
+    font-weight: bold;
+    transition: margin 1s;
+
+}
+
+.title.see-all{
+    color: dodgerblue;
+    font-size: 3.0rem;
+    font-weight: normal;
+    /*display: inline-block;*/
+    margin-top: -1.5em;
+    margin-left: 3rem;
+}
+
+.photos-body {
+    padding-left: 2rem;
+    overflow: hidden;
+
+}
+
+hr {
+    border-top: 1px solid grey;
+}
+
+.my-albums {
+    font-size: 3rem;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+.see-all-button {
+    display: inline-block;
+    font-size: 2rem;
+    color: dodgerblue;
+    right: 0;
+    margin: 2rem;
+    position: absolute;
+}
+
+.preview {
+    height: var(--previewHeight);
+    width: var(--previewHeight);
+    border-radius: 1rem;
+    background-color: #ffb200;
+    margin-top: 1rem;
+}
+
+.album-name {
+    font-size: 2rem;
+    margin-top: 1rem;
+}
+
+.photo-count {
+    font-size: 2rem;
+    color: grey;
+    margin-top: 0.5rem;
+}

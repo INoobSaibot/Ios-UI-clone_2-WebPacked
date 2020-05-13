@@ -9,22 +9,26 @@ class UtilitiesComponent {
 
     init(container) {
         this.container = container;
+        this.title = 'Utilities'
         this.outsideClick(container);
         this.render();
     }
 
     outsideClick() {
         $('#modal-container').on('click touchstart', (e) => {
+            if(this.ignoreOutsideClicks) return; /*nobody cares*/
             if ($(e.target).closest(".content").length == 0) {
                 // .closest can help you determine if the element
                 // or one of its ancestors is #menuscontainer
-
-                // const e = new Event('cat')
-                // e.
                 if (this.isMinimized()){console.log("already hidden");return}
                 else {this.minimize();console.log("hide");}
             }
         });
+    }
+
+    multiAppView(cancel){
+        if(cancel){this.ignoreOutsideClicks = false}
+        else this.ignoreOutsideClicks = true
     }
 
     render() {
@@ -33,9 +37,15 @@ class UtilitiesComponent {
 
     static markup({title}) {
         const calculator = calculator_icon;
+        const multiAppViewIcon = `
+<div class="multiAppViewIcon">
+    <span class="app-icon"></span><span class="title">${title}</span>
+</div>
+`
 
         return `
-<div class="utilities-body">
+${multiAppViewIcon}
+<div class="utilities-body app-body">
     <div class="title">Utilities</div>
     <div class="content">
         <div class="grid-container">

@@ -1,6 +1,6 @@
-import Clock from "../../components/clock/clock";
 import './mail-message-preview.css';
 import './mail.css';
+import smallIcon from '../../common-components/multi-app-view/icons/multi-app-view-icons'
 
 class MailAppComponent {
     // static refs = []; /* break firefox and iOS safari*/
@@ -20,7 +20,7 @@ class MailAppComponent {
 
     init(container) {
         this.container = container;
-        this.title = this.container.dataset.title || '';
+        this.title = 'Mail';
         this.render();
     }
 
@@ -33,8 +33,11 @@ class MailAppComponent {
         this.container.innerHTML = MailAppComponent.markup(this);
     }
 
-    static markup({title}) {
+    static getMiniIcon(title) {
+        return smallIcon(title, 'mail');
+    }
 
+    static markup({title}) {
         const header = `<div class='header'><div class="left signal-bars"><div class="bar first-bar"></div><div class="bar second-bar"></div><div class="bar third-bar"></div><div class="bar fourth-bar bar-not-receiving"></div>
                     <!-- Network name-->
                     &nbsp; <span class='network'><span class='carrier'>Verizon</span> &nbsp; <span class='network-type'>LTE</span></span>
@@ -60,8 +63,9 @@ ${emailContentPreview}
 `
 
 
-        return `<div class="mail-body">${header}
-<div class="mail-header"><span class="mail-boxes-button"><i class="fa fa-angle-left" aria-hidden="true"></i></span><div class="name">&nbsp;Mailboxes</div><div class="edit-button">Edit</div></div>
+        return `
+<div class="mail-body app-body">${header}
+    <div class="mail-header"><span class="mail-boxes-button"><i class="fa fa-angle-left" aria-hidden="true"></i></span><div class="name">&nbsp;Mailboxes</div><div class="edit-button">Edit</div></div>
       <div class="app-content"> <h1 class="title">Inbox</h1>
       ${search}
       <div class="message-preview-content">
@@ -70,11 +74,11 @@ ${emailContentPreview}
       ${messagePreview}
       ${messagePreview}
       ${messagePreview}
-</div>
-     
       </div>
      
     </div>
+     
+</div>
 `;
     }
 }

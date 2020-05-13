@@ -6,9 +6,9 @@
 
 .mail-message hr{
     border: 1px solid var(--mail-app-search-color);
-    width:110%;
     margin-top: 1.8em;
     margin-bottom: 1.2em;
+    margin-right: -1rem;
 }
 
 

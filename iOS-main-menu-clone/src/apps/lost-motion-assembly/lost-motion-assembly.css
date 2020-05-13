@@ -21,9 +21,9 @@
     padding: 2.0em;
 }
 
-.title {
-    /*color: red;*/
-    font-size: 4em;
+.tips-body .title {
+    color: white;
+    font-size: 4.5em;
     margin: 0;
     margin-bottom: 0.3em;
 }

@@ -1,6 +1,7 @@
 import header from '../../components/network-time-battery-header/network-time-battery-header';
 import './lost-motion-assembly.css';
 import {EventEmitter} from '../../common-components/EventEmitter/eventEmitter';
+import smallIcon from "../../common-components/multi-app-view/icons/multi-app-view-icons";
 
 class LostMotionAssembly {
     // static refs = []; /* break firefox and iOS safari*/
@@ -36,6 +37,10 @@ class LostMotionAssembly {
         this.container.innerHTML = LostMotionAssembly.markup(this);
     }
 
+    static getMiniIcon(){
+        return smallIcon('Tips', 'tips');
+    }
+
     static markup({title}) {
         const appTitle ='Collections'
         const tip =`
@@ -54,7 +59,7 @@ class LostMotionAssembly {
         const tip_3 = this.tip_component('Genius Picks','Favorites from our experts','15 tips')
 
         return `
-<div class="tips-body">
+<div class="tips-body app-body">
     ${header}
     <div class="app-content">
         <h1 class="title">${appTitle}</h1>

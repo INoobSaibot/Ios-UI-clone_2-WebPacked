@@ -1,0 +1,17 @@
+.my-albums-view {
+    width: 100%;
+    height: 70%;
+    bottom:7.5rem;
+    background-color: #3edfd7;
+    position: absolute;
+    left:200%;
+    transition: left 1s;
+}
+
+.my-albums-view.inactive {
+
+}
+
+.my-albums-view.active {
+    left: 0;
+}

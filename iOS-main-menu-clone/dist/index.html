@@ -30,11 +30,11 @@
 
     <div id="container">
         <div id="view-0" class="box left-transition">
-            <div class='_search-container'><i class="material-icons icon">search</i><input type='text' class='search-box-input' placeholder='Search'><i class="material-icons icon mic">mic</i></div>
+            <div class='_search-container'><i class="material-icons icon">search</i><input type='text' class='search-box-input' placeholder='Search'><span class="cursor"></span><i class="material-icons icon mic">mic</i></div>
 
             <!-- old one below here-->
             <div class='search-container'>
-
+                <!-- need to remove this div.search-container ,but taking out messes up page width, todo!-->
             </div>
 
             <div id='up-next' class="message-center night"><div class="topleft"><button class='app-icon mini files'>21</button><span class="message-title">UP NEXT</span></div><div class="up-next">No Upcoming Events, Reminders, or Alarms</div></div>
@@ -101,7 +101,7 @@
         <div id="view-1" class="grid-container box focused-position">
             <div class="icon-and-name"><button id="face-time" class='app-icon numbers'><span class='icons8-apple-logo'></span></button><div class='icon-text-name'>FaceTime</div></div>
             <div class="icon-and-name"><button id='podcasts' class='app-icon files'>2</button><div class='icon-text-name'>Calender</div></div>
-            <div class="icon-and-name"><button id='photos' class='app-icon files'>3</button><div class='icon-text-name'>Photos</div></div>
+            <div class="icon-and-name"><button id='photos' data-app-name='photos' class='app-icon files'>3</button><div class='icon-text-name'>Photos</div></div>
             <div class="icon-and-name"><button id='camera(0)' class='app-icon camera'>4</button><div class='icon-text-name'>Camera</div></div>
 
             <!-- new row -->

@@ -1,4 +1,5 @@
 const $ = require("jquery");
+import {EventEmitter} from '../../common-components/EventEmitter/eventEmitter';
 
 class Calculator {
     constructor() {
@@ -72,7 +73,6 @@ class Calculator {
                 this.operand_2 = this.concatValue(value, this.operand_2);
                 this.updateResultLcd(this.operand_2);
             } else if (this.operand_1 && this.operand_2) {
-                console.log('uh ooh')
                 this.calculate();
                 this.removeOperatorHighlight()
                 this.updateResultLcd(this.operand_1)
@@ -120,7 +120,7 @@ class Calculator {
 
     handleEquals() {
         if (this.operatorSelected === 'plus') {
-            this.result = this.add(this.operand_1, this.operand_2)
+            this.result = this.add(this.operand_1, this.operand_2);
 
             this.calculate();
             this.removeOperatorHighlight()

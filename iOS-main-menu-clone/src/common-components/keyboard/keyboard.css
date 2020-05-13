@@ -2,12 +2,12 @@
     --left-right-key-padding: 0.5em;
     --keyboard-row-2-padding: 2em;
 }
-.app-modal-container {
-    top:0;
+#on-scrn-kbd-app-modal {
     bottom: 0;
     left:0;
     right:0;
-    height:var(--body-height);
+
+    position: relative;
 }
 
 .hidden{
@@ -22,17 +22,17 @@
 
 
 .modal-debug-css, .app-modal-container{
-    border-style: dashed;
-    border-color: rebeccapurple;
+    /*border-style: dashed;*/
+    /*border-color: rebeccapurple;*/
 
-    background-color: rgba(100,50,100,0.5);
+    /*background-color: rgba(100,50,100,0.5);*/
     position: absolute;
     /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
     /*those can be helpful for debug dev ui modal/app content etc*/
 }
 
 .keyboard {
-    height:25em;
+    /*height:25em;*/
     width:100%;
     background-color: var(--dark-gray-transparent);
     bottom: 0;
@@ -42,6 +42,7 @@
 
 .row{
     margin-top: 0.5em;
+    text-align: center;
 }
 
 .row_1{
@@ -51,7 +52,7 @@
 .row_2{
     /*padding-left: var(--keyboard-row-2-padding);*/
     /*padding-right: var(--keyboard-row-2-padding);*/
-    text-align: center;
+    /*text-align: center;*/
 }
 .row_3{
 
@@ -64,15 +65,16 @@
     border-radius: 10%;
     padding-top: .2em;
     padding-bottom: 0.4em;
-    margin:0.15em;
+    margin:0.40rem;
     border: none;
     font-size:3em;
-    width:1.25em;
+    width: 3.875rem;
+
 }
 
 .function{
     background-color: rgba(255,255,255, 0.2);
-    width:2.6em;
+    width:2.5em;
     font-size:2.00em;
     padding-top: .7em;
     padding-bottom: 0.9em;
@@ -81,10 +83,10 @@
 }
 
 .upper-case{
-    margin-right:0.70em;
+    margin-right:0.85em;
 }
 .del{
-    margin-left: 0.65em;
+    margin-left: 0.75em;
 }
 
 .space-bar{
@@ -107,4 +109,20 @@
     padding-left: 0.3em;
     text-align: center;
     border-radius: 5%;
+}
+
+.key-down {
+    color: #ffb200;
+    background-color: red;
+}
+
+
+.key.mic {
+    /*background-color: rgba(255,255,255, 0.2);*/
+    width: 3.75rem;
+    font-size: 2.00em;
+    padding-top: .7em;
+    padding-bottom: 0.9em;
+    padding-left: 0.3em;
+    text-align: center;
 }

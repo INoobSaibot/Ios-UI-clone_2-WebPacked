@@ -1,27 +1,42 @@
 import Rect from '../rect/rect';
 import Modal from './modal';
 import './modal-service.css';
+import {EventEmitter} from '../EventEmitter/eventEmitter'
 
 class ModalService {
     constructor() {
         this.modals = new Array();
         this.el = $('#modal-container');
         this.modalRefs = new Array();
+        // this.bindThisFixes();
+        this.registerEvents()
     }
 
-    open(id, e, ClassDelegate) {
+    registerEvents(){
+        EventEmitter.subscribe('close-app', (appModal) => {this.closeAppAndModal(appModal)})
+    }
+
+
+
+    open(id, e, ClassDelegate, isNonStandardModalSize) {
         const openFrom = new Rect(id);
         const requestedAppModalinBackGround = this.isThatAppInBackGround(id);
         if (requestedAppModalinBackGround) {
             this.openAppFromBG(requestedAppModalinBackGround)
         } else {
-            this.modals.push(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate))
+            this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate, isNonStandardModalSize))
         }
     }
 
     openAppFromBG(requestedAppModal) {
         if (requestedAppModal.isMinimized()) {
             requestedAppModal.maximizeAndFocus();
+        }
+    }
+
+    openAppMultiView(requestedAppModal){
+        if (requestedAppModal.isMinimized()) {
+            requestedAppModal.multiViewMaximizeAndFocus(true);
         }
     }
 
@@ -50,37 +65,75 @@ class ModalService {
         }
     }
 
-    multiModalView(){
+    multiModalView() {
         this.el.addClass('multi-app-view');
         this.multiAppView = true;
-        const openAppModal = this.whichAppIsOpen();
 
-        if(openAppModal){
-            openAppModal.halfSize();
+        if (this.modals.length > 0) {
+            this.newMultiModalView();
         } else {
-            setTimeout( ()=>{
+            setTimeout(() => {
                 this.multiModalViewCancel();
             }, 500)
         }
     }
 
-    multiModalViewCancel(){
+    cancelMultiModalView(){
+        this.el.removeClass('multi-app-view')
+        this.multiAppView = false;
+    }
+
+    newMultiModalView() {
+        this.el.addClass('multi-app-view');
+        this.multiAppView = true;
+        const apps = this.modals;
+
+        let offset = 0;
+        apps.forEach((modal)=> {
+            modal.halfSize();
+            modal.giveOffset(offset);
+            offset ++;
+            this.openAppMultiView(modal)
+        })
+    }
+
+    multiModalViewCancel() {
         this.el.removeClass('multi-app-view');
         this.multiAppView = false;
         const appModal = this.whichAppIsOpen();
-        if(!appModal) return;
+        if (!appModal) return;
         appModal.halfSize(true);
     }
 
-    whichAppIsOpen(){
+    whichAppIsOpen() {
         return this.focusedModals().shift();
     }
 
-    focusedModals(){
+    closeAppAndModal(closingApp){
+        closingApp.removeFromDom();
+        // todo
+        const modals = this.modals.filter(modal => {
+            if (modal != closingApp)
+                return true;
+        })
+        if (modals.length === 0) {
+            // go home, multi-view end
+            this.cancelMultiModalView();
+        }
+        this.modals = modals;
+    }
+
+    focusedModals() {
         const openModals = this.modals.filter((modal) => {
             return modal.focused === true;
         });
-        console.log(openModals)
+        return openModals;
+    }
+
+    backGroundModals() {
+        const openModals = this.modals.filter((modal) => {
+            return modal.focused === false;
+        });
         return openModals;
     }
 }

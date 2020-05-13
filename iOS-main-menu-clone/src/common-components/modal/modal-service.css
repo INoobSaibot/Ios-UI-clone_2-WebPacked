@@ -9,6 +9,4 @@
 
 #modal-container{
     transition: background-color 0.5s;
-    /*transition: backdrop-filter 0.5s;*/
 }
-

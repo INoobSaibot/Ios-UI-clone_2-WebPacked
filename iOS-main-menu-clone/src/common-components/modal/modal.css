@@ -13,19 +13,48 @@
     /*position:absolute;*/
 }
 
-.half-size{
-    transform: scale(0.75);
-    border-radius: 15px;
-    overflow: hidden;
-}
+/*.half-size{*/
+/*    transform: scale(0.75);*/
+/*    border-radius: 15px;*/
+/*    !*overflow: hidden;*!*/
+/*}*/
 
-.multi-app-view .header.inactive{
-    opacity: 0.0;
-}
+/*.multiAppViewIcon{*/
+/*    display: none;*/
+/*    margin: 2rem;*/
+/*    position: absolute;*/
+/*    margin-top: -7rem;*/
+/*    !*top:-10px;*!*/
+/*}*/
 
-.multi-app-view .header{
-    transition: opacity 0.5s;
-}
+/*.half-size .multiAppViewIcon {*/
+/*    display: inline;*/
+/*}*/
+
+/*.multiAppViewIcon .title{*/
+/*    font-size: 2.75rem;*/
+/*    color:white;*/
+/*    display: inline;*/
+/*    line-height: 5rem;*/
+/*    position: absolute;*/
+/*    margin-left: 2rem;*/
+/*}*/
+
+
+/*.multiAppViewIcon .app-icon{*/
+/*    background-color: green;*/
+/*    height: 5rem;*/
+/*    width:5rem;*/
+/*    display: inline-block;*/
+/*}*/
+
+/*.multi-app-view .header.inactive{*/
+/*    opacity: 0.0;*/
+/*}*/
+
+/*.multi-app-view .header{*/
+/*    transition: opacity 0.5s;*/
+/*}*/
 
 .modal-debug-css div:first-child{
     background-color: rgba(0,0,0,0.3)
@@ -33,4 +62,8 @@
 
 #modal-container div {
     transition: transform 5s;
+}
+
+.move-up-off-screen{
+    margin-top: -200%;
 }
