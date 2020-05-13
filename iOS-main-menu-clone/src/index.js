@@ -94,11 +94,11 @@ class Index {
         });
 
         $("button.app-icon").click((e) => {
+            alert(e.target)
             e.stopImmediatePropagation(); /* infinite loop, open close app :( */
             let ClassDelegate;
             const appName = e.target.getAttribute('data-app-name');
             if (appName == null) {
-                alert('so null')
             }
             if (appName === 'utilities') {
                 ClassDelegate = UtilitiesApp;
