@@ -1,6 +1,7 @@
 class Clock {
-    constructor(name) {
+    constructor(name, callBack) {
         // this.clockname = name;
+        // this.callBack = callBack
         this.init()
     }
 
@@ -18,8 +19,14 @@ class Clock {
         m = m < 10 ? "0" + m : m;
         s = s < 10 ? "0" + s : s;
 
-        const formatted = h + ":" + m + ":" + s + ' ' + am_pm;
-        $('.time')[0].innerText = formatted;
+        // const formatted = h + ":" + m + ":" + s + ' ' + am_pm;
+        const formatted = h + ":" + m + ' ' + am_pm;
+        const jq = $('.time');
+        [jq].forEach(el => el.html(formatted));
+
+        // if (this.callBack){
+        //     this.callBack(formatted)
+        // }
     }
 }
 

@@ -20,8 +20,43 @@ class MailAppComponent {
 
     init(container) {
         this.container = container;
+        this.contentPosition = 0;
         this.title = 'Mail';
+
         this.render();
+        this.contentContainer = $('.message-preview-content')
+        this.registerEvents()
+    }
+
+    registerEvents(){
+        this.container.onclick = () => {
+            alert();
+        }
+
+        this.container.onwheel = (e) => {
+            const up = e.deltaY < 0;
+            this.handleWheel(up)
+        }
+    }
+
+    handleWheel(up){
+        if (up){
+            this.contentUp();
+        } else {
+            this.contentDown();
+        }
+    }
+
+    contentUp(){
+        const moveValue = 1.0;
+        this.contentPosition = this.contentPosition - moveValue;
+        this.contentContainer.css({'margin-top':`${this.contentPosition}em`});
+    }
+
+    contentDown(){
+        const moveValue = 1.0;
+        this.contentPosition = this.contentPosition + moveValue;
+        this.contentContainer.css({'margin-top':`${this.contentPosition}em`});
     }
 
     setTitle(title) {
@@ -37,7 +72,7 @@ class MailAppComponent {
         return smallIcon(title, 'mail');
     }
 
-    static markup({title}) {
+    static markup({title, contentPosition}) {
         const header = `<div class='header'><div class="left signal-bars"><div class="bar first-bar"></div><div class="bar second-bar"></div><div class="bar third-bar"></div><div class="bar fourth-bar bar-not-receiving"></div>
                     <!-- Network name-->
                     &nbsp; <span class='network'><span class='carrier'>Verizon</span> &nbsp; <span class='network-type'>LTE</span></span>
@@ -54,7 +89,6 @@ class MailAppComponent {
         const emailContentPreview = `
 <div class="email-content-preview">Thank you for being a valued customer, View: Web To Our Customers. Across the country...</div>
 `
-
         const messagePreview = `
 <div class="mail-message"><hr></div>
 <div class="unread"></div><span class="from">Best Buy</span><div class="when-and-expander"><span class="when">3:08 AM</span><span class="expander">${expander}</span></div>
@@ -64,12 +98,21 @@ ${emailContentPreview}
 
 
         return `
-<div class="mail-body app-body">${header}
-    <div class="mail-header"><span class="mail-boxes-button"><i class="fa fa-angle-left" aria-hidden="true"></i></span><div class="name">&nbsp;Mailboxes</div><div class="edit-button">Edit</div></div>
-      <div class="app-content"> <h1 class="title">Inbox</h1>
-      ${search}
+<div class="mail-body app-body">
+    <div class="above-content">
+        ${header}
+        <div class="mail-header"><span class="mail-boxes-button"><i class="fa fa-angle-left" aria-hidden="true"></i></span><div class="name">&nbsp;Mailboxes</div><div class="edit-button">Edit</div></div>
+        <div class="app-content"> <h1 class="title">Inbox</h1>
+        ${search}
+    </div>
+    </div>
       <div class="message-preview-content">
        ${messagePreview}
+      ${messagePreview}
+      ${messagePreview}
+      ${messagePreview}
+      ${messagePreview}
+      ${messagePreview}
       ${messagePreview}
       ${messagePreview}
       ${messagePreview}

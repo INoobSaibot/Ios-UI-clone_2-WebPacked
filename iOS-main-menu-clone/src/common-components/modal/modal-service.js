@@ -8,7 +8,6 @@ class ModalService {
         this.modals = new Array();
         this.el = $('#modal-container');
         this.modalRefs = new Array();
-        // this.bindThisFixes();
         this.registerEvents()
     }
 

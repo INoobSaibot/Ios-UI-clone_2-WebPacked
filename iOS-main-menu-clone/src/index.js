@@ -57,7 +57,7 @@ class Index {
         // this.modalService.open('tips', new Event('e'), UtilitiesApp)
 
         // $('#photos').click();
-        // $('#mail').click();
+        $('#mail').click();
         // $('#tips').click();
         // setTimeout(() => {
         //     this.modalService.minimizeAllModals();

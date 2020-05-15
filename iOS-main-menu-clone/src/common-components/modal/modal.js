@@ -205,7 +205,15 @@ class Modal {
 
     pushUp(touchs) {
         let ref = $('#' + this.id)
+
+        $(ref).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
+            function(event) {
+                // Do something when the transition ends
+                EventEmitter.dispatch('multi-app-view-changed')
+            });
+
         ref.addClass('move-up-off-screen')
+
     }
 
     shutDownAppAndModal(){

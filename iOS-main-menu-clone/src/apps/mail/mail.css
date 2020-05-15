@@ -13,6 +13,14 @@
 /*    overflow: hidden;*/
 /*}*/
 
+.above-content {
+    background-color: #ffb200;
+    position: relative;
+    z-index: 1;
+    right:0;
+    left:0;
+}
+
 .mail-body .app-content ._search-container{
     background-color: var(--mail-app-search-color)
 }
