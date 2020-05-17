@@ -19,6 +19,7 @@ class MailAppComponent {
     }
 
     init(container) {
+        this.lastTouch = 0;
         this.container = container;
         this.contentPosition = 0;
         this.title = 'Mail';
@@ -30,13 +31,37 @@ class MailAppComponent {
 
     registerEvents(){
         this.container.onclick = () => {
-            alert();
+            alert('click');
         }
 
         this.container.onwheel = (e) => {
             const up = e.deltaY < 0;
             this.handleWheel(up)
         }
+        // this.contentContainer[0].ontouchmove = (e) => {
+        //     console.log('og')
+        // }
+        this.contentContainer[0].addEventListener('touchmove', (e) =>{
+            this.handleTouchMove(e);
+        })
+        this.contentContainer[0].addEventListener('touchstart', (e) =>{
+            this.handleTouchStart(e);
+        })
+    }
+
+    handleTouchMove(e){
+        // this.contentUp();
+        const touch = e.touches[0];
+        // todo, first static function
+        const diff = touch.pageY - this.touchStart;
+            console.log(diff)
+        this.contentUp(diff)
+    }
+
+    handleTouchStart(e){
+        const touch = e.touches[0];
+        this.touchStart = touch.pageY;
+        // console.log(this.touchStart)
     }
 
     handleWheel(up){
@@ -47,10 +72,12 @@ class MailAppComponent {
         }
     }
 
-    contentUp(){
+    contentUp(diff){
         const moveValue = 1.0;
-        this.contentPosition = this.contentPosition - moveValue;
-        this.contentContainer.css({'margin-top':`${this.contentPosition}em`});
+        // this.contentPosition = this.contentPosition - moveValue;
+        this.contentPosition = diff;
+        // this.contentContainer.css({'margin-top':`${this.contentPosition}em`});
+        this.contentContainer.css({'margin-top':`${this.contentPosition}px`});
     }
 
     contentDown(){
