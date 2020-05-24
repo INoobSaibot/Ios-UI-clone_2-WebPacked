@@ -169,8 +169,14 @@ class Modal {
 
     activateSwipes(cancel) {
         if (cancel) {
-            this.swipes = {}
-        } else
+            // todo kinda a hack...
+            this.multiAppView = false;
+            // todo this doesn't work like designed, the idea is to stop the swipes
+            // todo, from multi app view, but they still run close etc.
+            // this.swipes.touchMoveUnRegister(this.id);
+            // this.swipes = {}
+        } else {
+            this.multiAppView = true;
             this.swipes = new Touches(this.id, {
                 left: this.swipeLeft,
                 right: this.swipeRight,
@@ -179,7 +185,9 @@ class Modal {
                 },
                 down: this.swipeDown
             })
+        }
     }
+
 
     swipeLeft(touches) {
     }
@@ -191,7 +199,7 @@ class Modal {
     }
 
     close(){
-        if(this.closedOrClosing){return;
+        if(this.closedOrClosing || !this.multiAppView){return;
         } else{
             this.closedOrClosing = true;
             this.pushUp()

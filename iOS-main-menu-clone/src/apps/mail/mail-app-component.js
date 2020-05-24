@@ -81,9 +81,57 @@ class MailAppComponent {
     }
 
     _moveDiv(value) {
-        console.log(this.contentPosition)
-        this.contentPosition += value;
+        const rect = this.container.getClientRects()[0]
+        const height = rect.height;
+
+        const defaultValue = -1396; // todo calculate this
+        console.log(`height: ${height}, bottom: ${bottom}`) //both are ready 1334, which seems wrong!
+
+        if (this.tooLow(value)) {
+            console.log('too low')
+
+            this.stopVelocitySlide();
+
+            this.contentPosition = 0
+        } else if(this._tooHigh(value)) {
+            // todo default value should be -1396
+            // console.log(defaultValue) 2668, too high
+            this.contentPosition = defaultValue;
+            this.stopVelocitySlide();
+            console.log('too high')
+        }
+        else{
+            this.contentPosition += value;
+        }
         this.contentContainer.css({'margin-top': `${this.contentPosition}px`});
+    }
+
+    _tooHigh(value){
+        // todo in the case too high should be anything over negative 1396 pixels. so -1397 and "lower"
+        const bottom = this.getContentRect().bottom;
+        const limit = this.container.getClientRects()[0].height;
+        if((bottom + value) < limit) {
+            return true;
+        } else {
+          return false;
+        }
+    }
+
+    tooLow(value){
+        const top = this.getContentRect().top;
+        if((top + value) > 0){return true;} else {return false;}
+    }
+
+    stopVelocitySlide(){
+        clearInterval(this.velocityInterval)
+
+    }
+
+    getContentRect(){
+        const first = 0;
+        const rect = this.contentContainer[first].getClientRects()[first];
+
+        return rect;
     }
 
 
@@ -92,8 +140,9 @@ class MailAppComponent {
 
         this.velocityInterval = setInterval(() => {
             if (Math.abs(velocity) > 0.1) {
+                // todo Fancier, velocity calc functions
                 velocity *= 0.90;
-                // console.log(velocity)
+
                 // todo unify the touch move and velocity move for bounding boxes etc.
                 this._moveDiv(velocity)
             } else {
@@ -121,6 +170,7 @@ class MailAppComponent {
 
     contentUp(moved) {
         // todo refactor, this method looks complicated
+        const arbitray_numer_so_we_can_see_bottom = 500;
         const wholeScreenRect = this.getRect();
         const messagesRect = this.contentContainer[0].getBoundingClientRect();
         const upperContentRect = this.upperContentContainer[0].getBoundingClientRect();
@@ -131,7 +181,9 @@ class MailAppComponent {
         }
 
         const messagesBottom = this.contentContainer[0].getClientRects()[0].bottom;
-        const bottomMessageSlideUpLimit = wholeScreenRect.bottom > (messagesBottom + moved + wholeScreenRect.height);
+        this.contentContainerBottomLimit = messagesBottom + moved + wholeScreenRect.height + arbitray_numer_so_we_can_see_bottom;
+
+        const bottomMessageSlideUpLimit = wholeScreenRect.bottom > (this.contentContainerBottomLimit);
         const topMessageSlideDownLimit = (messagesRect.top + moved) > upperContentRect.bottom ? true : false;
         if (bottomMessageSlideUpLimit || (topMessageSlideDownLimit)) {
             bottomMessageSlideUpLimit ? this.indicateSlideUpLimit() : this.topMessageSlideDownLimit();

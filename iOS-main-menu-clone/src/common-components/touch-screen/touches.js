@@ -8,12 +8,16 @@ class Touches {
         this.right = swipeAction.right ? swipeAction.right : this.lostMotionAssembley;
         this.up = swipeAction.up ? swipeAction.up : this.lostMotionAssembley;
         this.down = swipeAction.down ? swipeAction.down : this.lostMotionAssembley;
-
-
     }
 
     lostMotionAssembley() {
         // do nothing
+    }
+
+    touchMoveUnRegister(elementID){
+        // let touchsurface = document.getElementById(elementID);
+        //
+        // touchsurface.removeEventListener('touchstart')
     }
 
     handleSwipe(touchObj) {
