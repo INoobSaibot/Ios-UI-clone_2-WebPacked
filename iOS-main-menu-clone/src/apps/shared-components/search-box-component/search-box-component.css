@@ -1,0 +1,8 @@
+search-box{
+    color:gray;
+    background-color: lightgray;
+    display: inline-block;
+    width: 100%;
+    border-radius: 1rem;
+    margin: 1rem 0;
+}

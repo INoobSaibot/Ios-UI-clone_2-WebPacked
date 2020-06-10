@@ -1,0 +1,9 @@
+app-icon{
+    height:3.5rem;
+    width:3.5rem;
+    display: inline-block;
+    background-color: #ffb200;
+    border-radius: 20%;
+
+    /*margin: 0.25rem;*/
+}

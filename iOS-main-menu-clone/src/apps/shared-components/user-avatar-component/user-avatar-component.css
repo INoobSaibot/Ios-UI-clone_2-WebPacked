@@ -1,0 +1,9 @@
+user-avatar{
+    color:white;
+    background-color: lightgrey;
+    font-size: 3rem;
+    padding:2rem;
+    border-radius: 100%;
+    display: inline-block;
+    margin: 0.25rem 1rem 1rem 0;
+}

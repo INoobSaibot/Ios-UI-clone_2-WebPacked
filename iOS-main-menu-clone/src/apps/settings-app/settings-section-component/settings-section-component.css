@@ -1,0 +1,56 @@
+.settings-section hr{
+    margin:0;
+}
+
+.name-and-profiles hr{
+    border: 0.025rem solid deeppink;
+    width:150%;
+    margin: 2rem 0 1.75rem 0;
+    display: block;
+}
+
+.settings-section {
+    background-color: white;
+    margin-bottom: 3rem;
+}
+
+.settings-section-content{
+    padding-left: 2rem;
+    margin-top: 1rem;
+}
+
+.settings-section-content.with-grid{
+    padding-left: 0.35em;
+    margin-top: 0.75rem;
+}
+
+div.next-container {
+    right:0;
+    margin-right: 2.5rem;
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-and-profiles div.next-container {
+    height: 8.5rem;
+    /*todo query parent height, and set inline style*/
+}
+
+.apple-id-suggestions div.next-container {
+    height: 5.0rem;
+    /*todo query parent height, and set inline style*/
+    margin-top: -3.75rem;
+}
+
+div .one-setting {
+    background-color: darkcyan;
+    color: #3edfd7;
+}
+
+div .one-setting span {
+    background-color: #666699;
+    /*line-height: 0rem;*/
+}

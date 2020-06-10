@@ -9,6 +9,7 @@ import Volume from "./components/volume/volume";
 import UtilitiesApp from './apps/utilitities-app/utilitiies-app'
 import Photos from "./apps/photos/photos";
 import MailAppComponent from "./apps/mail/mail-app-component";
+import SettingsApp from './apps/settings-app/settings-app'
 import SearchBarService from './components/message-center/search-bar';
 import calculator_icon from "./apps/calculator/calculator-icon";
 import shortcuts_icon from "./apps/short-cuts/shortcuts";
@@ -57,7 +58,7 @@ class Index {
         // this.modalService.open('tips', new Event('e'), UtilitiesApp)
 
         // $('#photos').click();
-        $('#mail').click();
+        $('#settings').click();
         // $('#tips').click();
         // setTimeout(() => {
         //     this.modalService.minimizeAllModals();
@@ -97,7 +98,7 @@ class Index {
         });
 
         $("button.app-icon").on('click', ((e) => {
-           this.handleIconTap(e)
+            this.handleIconTap(e)
         }));
 
         const iconElement = "button.app-icon";
@@ -146,7 +147,7 @@ class Index {
             this.volume.volumeUp();
         } else if (key === 'ArrowDown') {
             this.volume.volumeDown();
-        } else if (key === 'Control') {
+        } else if (key === 'Alt') {
             this.handleHome()
         }
     }
@@ -163,20 +164,13 @@ class Index {
         }
     }
 
-    handleIconTap(e){
+    handleIconTap(e) {
         e.stopImmediatePropagation(); /* infinite loop, open close app :( */
         let ClassDelegate;
         const appName = e.target.getAttribute('data-app-name');
-        if (appName == null) {
-        }
-        if (appName === 'utilities') {
-            ClassDelegate = UtilitiesApp;
-        } else if (appName === 'mail') {
-            ClassDelegate = MailAppComponent
-        } else if (appName === 'photos') {
-            ClassDelegate = Photos
-        }
-        // todo put class names in a dict/hash with string keys... get rid of ifs
+        // todo move apps hash to somewhere else. this. or service etc.
+        const hash = {'utilities': UtilitiesApp, 'mail': MailAppComponent, 'photos': Photos, 'settings': SettingsApp}
+        ClassDelegate = hash[appName];
         this.handleIconClick(e, ClassDelegate);
     }
 

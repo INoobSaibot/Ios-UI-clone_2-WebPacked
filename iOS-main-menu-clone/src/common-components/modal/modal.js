@@ -42,7 +42,8 @@ class Modal {
             this.addLittleIcon(element);
         }, 1000);
         this.ref = $(element).appendTo(this.modalContainer);
-        this.component = new this.ClassDelegate(document.getElementById(this.id), modalRefs, this.classes, this.minimize, this.isMinimized);
+        // this.component = new this.ClassDelegate(document.getElementById(this.id), modalRefs, this.classes, this.minimize, this.isMinimized);
+        this.component = new this.ClassDelegate(document.getElementById(this.id), modalRefs, this.ClassDelegate);
         this.appsModalRef = $('#'+this.id);
         this.maximizeAndFocus();
     }

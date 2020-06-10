@@ -1,0 +1,16 @@
+:root {
+    --extra-light-grey: rgba(235, 235, 235, 1.0);
+}
+
+.settings-body {
+    background-color: var(--extra-light-grey);
+}
+
+app-title {
+    display: inline-block;
+    margin-top: 7rem;
+}
+
+.title-search {
+    padding: 1rem;
+}

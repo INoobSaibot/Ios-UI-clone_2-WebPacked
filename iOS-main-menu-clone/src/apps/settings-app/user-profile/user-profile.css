@@ -1,0 +1,31 @@
+.user-profile .name-and-profiles {
+    display: inline-block;
+    margin-left:10rem;
+}
+
+.user-profile .name-and-profiles .name {
+    font-size: 2.75rem;
+    margin-top: 1rem;
+}
+
+
+.user-profile .name-and-profiles .profile-list {
+    font-size: 1.55rem;
+    margin: 0.75rem 0 0 0;
+}
+
+.user-profile .apple-id-suggestions{
+    color:deeppink;
+    font-size: 2.25rem;
+    display: inline-block;
+    margin: -0.5rem 0 1.5rem 0;
+}
+
+.user-avatar, next-button {
+    position: absolute;
+}
+
+.suggestion-count{
+    position: absolute;
+    right:5rem;
+}

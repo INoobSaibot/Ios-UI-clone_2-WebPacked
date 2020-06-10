@@ -1,0 +1,12 @@
+red-counter .counter-number{
+    font-size: 2.0rem;
+    padding:1rem;
+    line-height: 3.0rem;
+}
+
+red-counter {
+    display: inline-block;
+    background-color: red;
+    border-radius: 100%;
+    color:white;
+}

@@ -1,0 +1,26 @@
+:root {
+    --switch-width: 2.5em;
+}
+
+flip-switch div.inner {
+    border-radius: 2.25em;
+    display: inline-block;
+    height: 3.0em;
+    width: 4.75em;
+    background-color: lightgrey;
+}
+
+flip-switch .switch{
+    background:white;
+    height: var(--switch-width);
+    width: var(--switch-width);
+    margin: 0.15em;
+    border: 2px solid lightgrey;
+    border-radius: 50px;
+    transition: margin-left 0.5s;
+}
+
+flip-switch .switch.on{
+    margin-left: 1.95em;
+}
+
