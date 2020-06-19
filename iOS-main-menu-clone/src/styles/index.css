@@ -46,11 +46,8 @@ body {
 
 .volume-external-buttons {
     position: absolute;
-    /*left: 0;*/
-    /*bottom: 0;*/
     margin-top:25%;
     height:20%;
-    /*position: relative;*/
 }
 
 .volume-external-buttons button {

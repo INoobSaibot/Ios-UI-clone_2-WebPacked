@@ -1,10 +1,11 @@
 .closed{
-    /*display: none;*/
-    margin-left: 100%;
+    right: -50%;
+}
+.open{
+    right:3%;
 }
 
 .volume-external-buttons {
-    /*display: none;*/
     position: absolute;
     transition: all 1s;
 }

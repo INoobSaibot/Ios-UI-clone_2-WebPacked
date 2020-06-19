@@ -137,6 +137,7 @@ class Index {
 
     toggleExternalButtons(){
         this.externalControlsContainer.classList.toggle('closed')
+        this.externalControlsContainer.classList.toggle('open')
     }
 
     handleDoubleTapHome() {
