@@ -7,10 +7,11 @@
 .settings-section .grid-container {
     display: grid;
     grid-template-areas:
-            'menu main main main main main main right'
-            'empty footer footer footer footer footer footer footer';
+            'menu menu main main main right right right'
+            'empty empty footer footer footer footer footer footer';
     grid-gap: 0px;
     padding: 0px;
+    /*margin-left:1em;*/
 }
 
 .settings-section .grid-container > div {
@@ -26,16 +27,53 @@ div .mini-icon{
     height:2.75em;
     width:2.75em;
     border-radius:0.525em;
+
+    margin-left: 0.75em;
+    margin-top:0.3em;
+    /*margin-bottom: 0.3em;*/
+    margin-right: 1em;
 }
 
+.mini-icon.blue{
+    background-color:dodgerblue;
+}
+
+.mini-icon.green{
+    background-color:lawngreen;
+}
 .grid-container > div.item3{
-    color:red;
+    /*background-color: #666699;*/
+    /*todo fix line height of text / vertical alignment, its a little off*/
+    /*color:red;*/
+    /*todo heavier font weight*/
     display:block;
-    margin:0.25em;
+    /*margin:0.25em;*/
+    width:15em;
+    overflow: hidden;
+}
+
+.grid-container > div.item4{
+    /*background-color: #666699;*/
+    width:15em;
+    overflow: hidden;
+    margin-right: 0;
+    display: block;
+}
+
+next-label {
+    margin-right: 1em;
+}
+
+flip-switch, .right{
+    right:0;
+    position: absolute;
+    margin-right: 1.5em;
 }
 
 .title-text{
     font-size: 1.75em;
+    line-height: 2em;
+    margin-left: 0.025em;
 }
 
 .item3 span{

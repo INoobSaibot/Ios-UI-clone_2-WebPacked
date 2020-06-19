@@ -6,6 +6,7 @@ import Pan from './common-components/pan/pan'
 import Clock from "./components/clock/clock";
 import Battery from './components/battery/battery';
 import Volume from "./components/volume/volume";
+import './components/external-buttons/external-buttons.css';
 import UtilitiesApp from './apps/utilitities-app/utilitiies-app'
 import Photos from "./apps/photos/photos";
 import MailAppComponent from "./apps/mail/mail-app-component";
@@ -14,7 +15,7 @@ import SearchBarService from './components/message-center/search-bar';
 import calculator_icon from "./apps/calculator/calculator-icon";
 import shortcuts_icon from "./apps/short-cuts/shortcuts";
 import Keyboard from './common-components/keyboard/keyboard';
-import './apps/calculator/calculator_app.css'; /* current calculator aoo implementation needs this style sheet here globally to keep it hidden/ outside viewport until opened*/
+import './apps/calculator/calculator_app.css'; /* current calculator implementation needs this style sheet here globally to keep it hidden/ outside viewport until opened*/
 import './styles/index.css';
 import './styles/icon-grid.css';
 import './styles/icons.css';
@@ -77,6 +78,7 @@ class Index {
     }
 
     init() {
+        this.setupExternalControls()
         EventEmitter.subscribe('keyboard-request', (e) => {
             this.modalService.open('on-scrn-kbd', new Event('none'), Keyboard, true)
         })
@@ -125,6 +127,18 @@ class Index {
         })
     }
 
+    setupExternalControls(){
+        this.externalControlsContainer = document.body.querySelector('.volume-external-buttons')
+       document.body.querySelector('#external-buttons-flip-switch').addEventListener('switch-changed', (e) => {
+           e.stopImmediatePropagation();
+            this.toggleExternalButtons();
+        })
+    }
+
+    toggleExternalButtons(){
+        this.externalControlsContainer.classList.toggle('closed')
+    }
+
     handleDoubleTapHome() {
         if (this.homeButtonIgnore != true) {
             if (!this.modalService.multiAppView) {
@@ -147,6 +161,8 @@ class Index {
             this.volume.volumeUp();
         } else if (key === 'ArrowDown') {
             this.volume.volumeDown();
+        } else if (key === 'h') {
+            this.toggleExternalButtons()
         } else if (key === 'Alt') {
             this.handleHome()
         }
@@ -207,7 +223,6 @@ class Index {
 }
 
 $(document)
-
     .ready(
         function () {
             //your code here

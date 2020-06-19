@@ -9,8 +9,16 @@
 app-title {
     display: inline-block;
     margin-top: 7rem;
+    transition: all;
 }
 
 .title-search {
-    padding: 1rem;
+    padding: 2.0em;
+    top:0;
+    z-index: 1000;
+    position: absolute;
+}
+
+search-box{
+    position: absolute;
 }

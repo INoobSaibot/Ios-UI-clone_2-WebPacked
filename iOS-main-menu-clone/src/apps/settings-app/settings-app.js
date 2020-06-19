@@ -11,8 +11,12 @@ import '../shared-components/user-avatar-component/user-avatar-component';
 import '../shared-components/red-counter/red-counter-component';
 import '../shared-components/next-button-component/next-button-component';
 import '../shared-components/app-icon-component/app-icon-component';
-import '../shared-components/slide-button-component/slide-button-component';
 import '../shared-components/flip-switch-component/flip-switch-component';
+import './settings-option-component/option-next-label-component/next-label-component';
+import '../shared-components/next-screen-component/next-screen-component';
+import '../shared-components/title-to-back-transforming-button-component/title-to-back-transforming-button-component.css';
+
+import WifiSettingsView from "./wifi-settings-view/wifi-settings-view";'./wifi-settings-view/wifi-settings-view';
 
 class SettingsApp {
     // static refs = []; /* break firefox and iOS safari*/
@@ -38,16 +42,79 @@ class SettingsApp {
         this.render();
     }
 
-    setTitle(title) {
-        this.title = title;
-        this.render();
-    }
-
     render() {
-        console.log(this.classRef)
         // todo with this bit of trickery / hack, reference to own class, (js doesn't have a good .getClass() method etc.)
         // todo this now is good example of something that potentially can go into parent / super class
         this.container.innerHTML = this.classRef.markup(this);
+        this.afterRender()
+    }
+
+    afterRender(){
+        this.container.addEventListener('switch-changed', (e) =>{console.log(e.detail)});
+        // todo temp hack
+        const wifiElement = this.container.querySelector('setting-option')
+        wifiElement.addEventListener('touchstart', (e) => {console.log(e)});
+        wifiElement.addEventListener('mousedown', (e) => {this.showNextScreen()});
+
+        // todo temp hack
+        // exploratory testing
+        const menu_title_element = this.container.querySelector('.menu-title app-title')
+        menu_title_element.addEventListener('mousedown', (e) => this.handleMenuTitleTouch())
+        menu_title_element.addEventListener('touchstart', (e) => this.handleMenuTitleTouch())
+        this.devOnly(wifiElement)
+    }
+
+    devOnly(el){
+        // this.showNextScreen()
+    }
+
+    handleMenuTitleTouch(e){
+        const nextScreen = this.container.querySelector('next-screen')
+        let next_open = nextScreen.getAttribute('show') === 'true'
+        if(!next_open) {return};
+
+        nextScreen.setAttribute('show', !next_open)
+        this.transformSettingsButton()
+    }
+
+    showNextScreen(){
+        const nextScreen = this.container.querySelector('next-screen')
+        const itm = nextScreen.getAttribute('show')
+
+        this.addView(nextScreen)
+        nextScreen.setAttribute('show', true)
+        this.transformSettingsButton()
+        this.moveSearchBar();
+    }
+
+    addView(container){
+        // todo, oh gosh this is such a mess.
+        const slot = container.querySelector('span[slot="content"]')
+
+        slot.innerHTML = '';
+        this.wifiSettings = new WifiSettingsView(WifiSettingsView)
+        slot.append(this.wifiSettings);
+    }
+
+    transformSettingsButton(){
+        //todo write some different more broken apart code, that also doesnt rely on dom data.
+        const settingsMenuTrailButton = this.container.querySelector('.title-search')
+        if (!settingsMenuTrailButton.classList.contains('back')){
+            settingsMenuTrailButton.classList.add('back')
+        } else {
+            settingsMenuTrailButton.classList.remove('back')
+            this.moveSearchBar(true)
+        }
+    }
+
+    moveSearchBar(moveBack){
+        // todo object level variable? use custom element property instead?
+        const searchBar = this.container.querySelector('.search-box-container');
+        // todo do something else to get transitions added to search bar movement...
+        if(!searchBar.style.transition){searchBar.style.transition = 'all 0.5s'}
+        const move_to = moveBack ? '0' : '-200%'
+        // searchBar.style.marginLeft = move_to;
+        searchBar.style.marginLeft = move_to;
     }
 
     // static getMiniIcon(){
@@ -58,14 +125,13 @@ class SettingsApp {
     static markup({title, suggestionsCount}) {
         return `
 <div class="settings-body app-body">
-<!-- todo gets rid of padding with _underscore -->
-<!-- todo maybe some other fixes -->
     <div class="_app-content">
         
-        <div class="title-search">
+        <div class="menu-title title-search">
             <app-title app-name="Settings"></app-title>
-            <search-box></search-box>
+            
         </div>
+        <div class="search-box-container"><search-box></search-box></div>
         
         <div class="settings-section user-profile">
             <hr>
@@ -86,24 +152,7 @@ class SettingsApp {
             <hr>
             </div>
             <!-- -->
-<!--    <div class="settings-section">-->
-<!--    <hr>-->
-<!--        <div class="settings-section-content">-->
-<!--        <div class="one-setting">-->
-<!--            <app-icon height="3rem"></app-icon>-->
-<!--            <span>-->
-<!--                <settings-option><span class='setting-title-text' slot="settingTitle">Airplane Mode</span></settings-option>-->
-<!--                <slide-button></slide-button>-->
-<!--                <hr>-->
-<!--            </span>-->
-<!--        </div>-->
-<!--    </div> -->
-<!--    <hr>-->
-<!--   </div>-->
    
-   
-    
-    </div>
     <!-- -->
     <div class="settings-section">
     <hr>
@@ -111,27 +160,46 @@ class SettingsApp {
             <div class="grid-container">
                 <div class="item2"><div class='mini-icon'></div></div>
                 <div class="item3"><span class='title-text'>Airplane Mode</span></div>  
-<!--                <div class="item4"><div class='slide-button'></div></div>-->
-                    <div class="item4"><flip-switch></flip-switch></div>
+                <div class="item4"><flip-switch></flip-switch></div>
                 <div class="item5"><hr></div>
             </div>
-            
+            <setting-option>
             <div class="grid-container">
-                <div class="item2"><div class='mini-icon'></div></div>
+                <div class="item2"><div class='mini-icon blue'></div></div>
                 <div class="item3"><span class='title-text'>Wi-Fi</span></div>  
-                <div class="item4"><div class='_slide-button'>NETGEAR89-5G</div></div>
+                <div class="item4"><div class="right"><next-label title="NETGEAR89-5G"></next-label><next-button></next-button></div></div>
+                <div class="item5"><hr></div>
+            </div>
+            </setting-option>
+            
+            <div class="grid-container">
+                <div class="item2"><div class='mini-icon blue'></div></div>
+                <div class="item3"><span class='title-text'>Bluetooth</span></div>  
+                <div class="item4"><div class="right"><next-label title="On"></next-label><next-button></next-button></div></div>
                 <div class="item5"><hr></div>
             </div>
             
             <div class="grid-container">
-                <div class="item2"><div class='mini-icon'></div></div>
-                <div class="item3"><span class='title-text'>Airplane Mode</span></div>  
-                <div class="item4"><div class='slide-button'></div></div>
+                <div class="item2"><div class='mini-icon green'></div></div>
+                <div class="item3"><span class='title-text'>Cellular</span></div>  
+                <div class="item4"><div class="right"><next-label title=""></next-label><next-button></next-button></div></div>
                 <div class="item5"><hr></div>
             </div>
+            
+            <div class="grid-container">
+                <div class="item2"><div class='mini-icon green'></div></div>
+                <div class="item3"><span class='title-text'>Personal Hotspot</span></div>  
+                <div class="item4"><div class="right"><next-label title="Off"></next-label><next-button></next-button></div></div>
+            </div>            
          </div>
         <hr>
    </div>
+   <next-screen show=false foo="99">
+   <span></span>
+        <span slot="content">
+        <div>WiFi</div>
+        </span>
+   </next-screen>
 </div>
 `;
     }

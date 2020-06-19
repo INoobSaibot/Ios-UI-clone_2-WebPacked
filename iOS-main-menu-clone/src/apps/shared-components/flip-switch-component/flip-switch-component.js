@@ -1,17 +1,26 @@
 import './flip-switch-component.css';
 
 class FlipSwitchComponent extends HTMLElement {
+    constructor() {
+        super();
+    }
     connectedCallback() {
         // todo fix reason for inline style transition override
-        this.innerHTML = `<div>
-                            <div class="inner">
+        this.innerHTML = `<div class="inner">
                             <div class="switch" style="transition: margin-left 0.18s"></div>
-                            </div>
                           </div>
 `;
-        this.switch = this.querySelector(".switch");
-        this.switchOn = true;
+        this.switch = this.querySelector(".inner");
+        this.switchContainer = this.querySelector(".switch");
+        this.switchOn = false;
+        this.registerEvents()
+    }
+
+    registerEvents(){
         this.onclick = () => {
+            this.handleSwitchFlipped()
+        }
+        this.ontouchend = () => {
             this.handleSwitchFlipped()
         }
     }
@@ -19,16 +28,14 @@ class FlipSwitchComponent extends HTMLElement {
     handleSwitchFlipped(){
         this.switchOn = !this.switchOn;
         if (this.switchOn) {
-            this.switch.classList.add('on')
+            this.switch.classList.add('on');
+            this.switchContainer.classList.add('on')
         } else {
             this.switch.classList.remove('on')
+            this.switchContainer.classList.remove('on')
         }
-        // const event = new CustomEvent('switch-changed', {
-        //     detail: {
-        //         on: this.switchOn === true
-        //     }
-        // })
 
+        this.dispatchEvent(new CustomEvent('switch-changed', { bubbles: true, detail: { on: this.switchOn } }))
     }
 }
 

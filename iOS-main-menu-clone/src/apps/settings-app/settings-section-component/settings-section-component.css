@@ -11,17 +11,26 @@
 
 .settings-section {
     background-color: white;
-    margin-bottom: 3rem;
+    margin-bottom: 4.5em;
 }
 
-.settings-section-content{
+.settings-section.user-profile .settings-section-content{
     padding-left: 2rem;
     margin-top: 1rem;
 }
 
 .settings-section-content.with-grid{
     padding-left: 0.35em;
-    margin-top: 0.75rem;
+    margin-top: 0.55rem;
+    margin-bottom: 0.45em;
+}
+
+.settings-section-content.with-grid next-button{
+   display: inline-block;
+}
+
+.settings-section-content.with-grid hr{
+    border: 0.025rem solid deeppink;
 }
 
 div.next-container {

@@ -1,0 +1,13 @@
+:root{
+    --light-grey: rgb(200,200,200);
+}
+
+
+next-label div {
+    font-size: 1.65em;
+    color: var(--light-grey);
+    /*background-color: #ffb200;*/
+    /*background: #3edfd7;*/
+    line-height: 2em;
+    display: inline-block;
+}

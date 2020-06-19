@@ -2,6 +2,7 @@
     margin-top: 0;
 }
 
-h1.title{
+app-title h1.title{
     margin: 0;
+    font-size: 4.25em;
 }

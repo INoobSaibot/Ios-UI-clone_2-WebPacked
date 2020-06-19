@@ -3,3 +3,11 @@ next-button{
     font-size: 1.40rem;
 }
 
+next-button span {
+    font-size: 2em;
+    line-height: 1.4em;
+}
+
+next-button i.fa{
+
+}

@@ -1,0 +1,14 @@
+.closed{
+    /*display: none;*/
+    margin-left: 100%;
+}
+
+.volume-external-buttons {
+    /*display: none;*/
+    position: absolute;
+    transition: all 1s;
+}
+
+flip-switch.reversed{
+    transform: rotate(180deg);
+}

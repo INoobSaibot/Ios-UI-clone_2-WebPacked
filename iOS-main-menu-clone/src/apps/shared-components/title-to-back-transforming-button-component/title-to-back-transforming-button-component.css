@@ -1,0 +1,11 @@
+.title-search app-title{
+    transition: all 0.5s;
+}
+.title-search.back app-title{
+    color:dodgerblue;
+    margin-top: 0em;
+    margin-bottom: 7em;
+    transform: scale(0.60);
+    margin-left: -3em;
+}
+

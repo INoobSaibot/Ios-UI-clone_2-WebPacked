@@ -1,3 +1,7 @@
+.settings-section.user-profile{
+    margin-top: 22em;
+}
+
 .user-profile .name-and-profiles {
     display: inline-block;
     margin-left:10rem;
@@ -21,7 +25,7 @@
     margin: -0.5rem 0 1.5rem 0;
 }
 
-.user-avatar, next-button {
+.user-avatar, .apple-id-suggestions next-button, .name-and-profiles next-button {
     position: absolute;
 }
 

@@ -2,7 +2,9 @@ search-box{
     color:gray;
     background-color: lightgray;
     display: inline-block;
-    width: 100%;
+    width: 91%;
+
     border-radius: 1rem;
-    margin: 1rem 0;
+    margin: 1rem 1em 0 2em;
+    top:14em;
 }

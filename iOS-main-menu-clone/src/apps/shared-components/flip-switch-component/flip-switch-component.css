@@ -8,6 +8,11 @@ flip-switch div.inner {
     height: 3.0em;
     width: 4.75em;
     background-color: lightgrey;
+    transition: background-color 5s;
+}
+
+flip-switch div.inner.on {
+    background-color: greenyellow;
 }
 
 flip-switch .switch{
