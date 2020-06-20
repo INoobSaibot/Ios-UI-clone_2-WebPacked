@@ -2,7 +2,13 @@
     margin-top: 0;
 }
 
-app-title h1.title{
+app-title div.title{
     margin: 0;
     font-size: 4.25em;
+    font-weight: bold;
+}
+
+app-title div.shrunk{
+    font-size: 4.00em;
+    font-weight: normal;
 }

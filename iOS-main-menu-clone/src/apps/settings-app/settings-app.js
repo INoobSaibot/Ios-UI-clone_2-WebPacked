@@ -16,7 +16,8 @@ import './settings-option-component/option-next-label-component/next-label-compo
 import '../shared-components/next-screen-component/next-screen-component';
 import '../shared-components/title-to-back-transforming-button-component/title-to-back-transforming-button-component.css';
 
-import WifiSettingsView from "./wifi-settings-view/wifi-settings-view";'./wifi-settings-view/wifi-settings-view';
+import WifiSettingsView from "./wifi-settings-view/wifi-settings-view";
+import '../shared-components/back-button/back-button-component.css'
 
 class SettingsApp {
     // static refs = []; /* break firefox and iOS safari*/
@@ -58,14 +59,15 @@ class SettingsApp {
 
         // todo temp hack
         // exploratory testing
-        const menu_title_element = this.container.querySelector('.menu-title app-title')
+        const menu_title_element = this.container.querySelector('.menu-title')
         menu_title_element.addEventListener('mousedown', (e) => this.handleMenuTitleTouch())
         menu_title_element.addEventListener('touchstart', (e) => this.handleMenuTitleTouch())
+
         this.devOnly(wifiElement)
     }
 
     devOnly(el){
-        // this.showNextScreen()
+        this.showNextScreen()
     }
 
     handleMenuTitleTouch(e){
@@ -99,10 +101,17 @@ class SettingsApp {
     transformSettingsButton(){
         //todo write some different more broken apart code, that also doesnt rely on dom data.
         const settingsMenuTrailButton = this.container.querySelector('.title-search')
+        const appTitle = settingsMenuTrailButton.querySelector('app-title')
+        const menu_title_back_button = this.container.querySelector('.back-button')
         if (!settingsMenuTrailButton.classList.contains('back')){
             settingsMenuTrailButton.classList.add('back')
+            menu_title_back_button.classList.add('show-back')
+            // appTitle.setAttribute('show',true)
+            appTitle.shrink()
         } else {
             settingsMenuTrailButton.classList.remove('back')
+            menu_title_back_button.classList.remove('show-back')
+            appTitle.enlarge()
             this.moveSearchBar(true)
         }
     }
@@ -128,9 +137,10 @@ class SettingsApp {
     <div class="_app-content">
         
         <div class="menu-title title-search">
+            <span class="back-button"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
             <app-title app-name="Settings"></app-title>
-            
         </div>
+        
         <div class="search-box-container"><search-box></search-box></div>
         
         <div class="settings-section user-profile">

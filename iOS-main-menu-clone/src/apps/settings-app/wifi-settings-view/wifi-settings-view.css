@@ -1,3 +1,7 @@
+:root{
+    --darker-gray:rgba(155,155,155,.125);
+}
+
 wifi-settings-view{
     /*background-color: black;*/
     width:100%;
@@ -22,20 +26,20 @@ wifi-settings-view div.section.top{
 
 wifi-settings-view div.section{
     width:100%;
-    background-color: rgba(255,255,255,.1);
+    background-color: var(--darker-gray);
     margin-bottom: 4em;
 }
 
 wifi-settings-view div.section hr {
-    /*margin-top: 1.5em;*/
-    border-color: var(--light-gray-transparent);
+    border-top:0.25em;
+    border-color: rgba(50,50,50,1.0);
 }
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 div.wifi-switch {
     margin-left: 6em;
     color: white;
-    font-size: 20px;
+    font-size: 1.0em;
 }
 
 settings-section .grid-container > div {
@@ -45,10 +49,26 @@ settings-section .grid-container > div {
     width:100%;
 }
 
-div.wifi-switch div.title-wifi {
+div.wifi-switch div.title-wifi, div.title-wifi {
     color: white;
     font-size: 2em;
     font-weight: 500;
-    line-height: 2.25em;
+    line-height: 1.75em;
     display: inline-block;
+}
+
+
+span.networks {
+    color: darkgrey;
+    font-size: 1.45em;
+}
+
+wifi-settings-view div.networks-title-container{
+    margin-left: 2em;
+    display: block;
+    color: darkgrey;
+}
+
+wifi-settings-view div.networks-title-container i{
+    margin-left: 1em;
 }

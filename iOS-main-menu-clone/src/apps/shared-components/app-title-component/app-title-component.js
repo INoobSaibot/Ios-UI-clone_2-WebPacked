@@ -1,9 +1,22 @@
 import './app-title.css';
 
 class AppTitleComponent extends HTMLElement {
+    constructor() {
+        super();
+    }
     connectedCallback() {
         const appName = this.getAttribute('app-name') || 'missing app name';
-        this.innerHTML = `<h1 class="title">${appName}</h1>`;
+        this.innerHTML = `<div class="title">${appName}</div>`;
+    }
+
+    shrink() {
+        const title = this.querySelector('.title')
+        title.classList.add('shrunk')
+    }
+
+    enlarge() {
+        const title = this.querySelector('.title')
+        title.classList.remove('shrunk')
     }
 }
 

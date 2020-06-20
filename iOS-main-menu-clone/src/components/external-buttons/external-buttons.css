@@ -8,6 +8,7 @@
 .volume-external-buttons {
     position: absolute;
     transition: all 1s;
+    z-index: 1000;
 }
 
 flip-switch.reversed{

@@ -26,7 +26,7 @@ class Touches {
         } else if (touchObj.swipeLeft) {
             this.right(touchObj);
         }
-        if (touchObj) {
+        if (touchObj.swipeUp) {
             this.up(touchObj);
         } else if (touchObj.swipeDown) {
             this.down(touchObj);

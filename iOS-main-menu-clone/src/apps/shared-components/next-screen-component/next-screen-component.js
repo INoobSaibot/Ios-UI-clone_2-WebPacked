@@ -17,15 +17,6 @@ class NextScreenComponent extends HTMLElement {
         // console.log('attributeChangedCallback()' , attrName, oldVal, newVal)
     }
 
-    set show(val) {
-        if (val) {
-            this.setAttribute('open', '')
-        } else {
-            this.removeAttribute('open');
-        }
-        this.toggleDrawer();
-    }
-
     open(){
         this.style.marginLeft = '0';
     }
