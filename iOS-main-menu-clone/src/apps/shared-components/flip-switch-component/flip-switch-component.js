@@ -13,7 +13,8 @@ class FlipSwitchComponent extends HTMLElement {
         this.switch = this.querySelector(".inner");
         this.switchContainer = this.querySelector(".switch");
         this.switchOn = false;
-        this.registerEvents()
+        this.lastEvent = Date.now()
+        this.registerEvents();
     }
 
     registerEvents(){
@@ -26,6 +27,11 @@ class FlipSwitchComponent extends HTMLElement {
     }
 
     handleSwitchFlipped(){
+        if (this.isDoubleTap()) {
+            return;
+        }
+
+        this.lastEvent = Date.now()
         this.switchOn = !this.switchOn;
         if (this.switchOn) {
             this.switch.classList.add('on');
@@ -36,6 +42,10 @@ class FlipSwitchComponent extends HTMLElement {
         }
 
         this.dispatchEvent(new CustomEvent('switch-changed', { bubbles: true, detail: { on: this.switchOn } }))
+    }
+
+    isDoubleTap(){
+        return this.lastEvent === Date.now()
     }
 }
 

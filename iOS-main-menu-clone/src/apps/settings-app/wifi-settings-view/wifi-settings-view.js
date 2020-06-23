@@ -31,7 +31,6 @@ class WifiSettingsView extends HTMLElement {
     }
 
     connectedCallback() {
-        this.innerHTML = 'your mom';
         this.render();
         this.afterRender()
     }
@@ -44,7 +43,6 @@ class WifiSettingsView extends HTMLElement {
 
     afterRender() {
         this.registerEvents();
-        let i = 0;
 
         const sections = this.getSections()
         const last = Utils.last(sections)
@@ -55,13 +53,13 @@ class WifiSettingsView extends HTMLElement {
     }
 
     registerEvents() {
-        this.onclick = () => {
-            this.handleClick()
-        }
+        // this.onclick = () => {
+        //     this.handleClick()
+        // }
     }
 
     handleClick() {
-        this.addSections()
+        // this.addSections()
     }
 
     addSections(sectionTitle, icons, isLast) {
@@ -76,11 +74,9 @@ class WifiSettingsView extends HTMLElement {
         const parent = document.createElement('div')
         parent.classList.add('section')
         this.nextSection = parent
-        this.nextSection.append(document.createElement('hr'))
         const contentDiv = document.createElement('div')
         contentDiv.classList.add('section-content')
         this.nextSection.append(contentDiv)
-        this.nextSection.append(document.createElement('hr'))
         this.append(this.nextSection)
         this.nextSectionContentArea = this.nextSection.querySelector('.section-content')
     }
@@ -94,7 +90,6 @@ class WifiSettingsView extends HTMLElement {
         list.push({title:'NETGEAR90', icons:true})
         list.push({title:'Parlainth', icons:true})
         list.push({title:'Other...', icons:false})
-        // return ['ATTGlwwG4I', 'IDK5', 'je suis libre', 'NETGEAR89', 'NETGEAR90', 'Parlainth', 'Other...']
         return list
     }
 
@@ -103,11 +98,9 @@ class WifiSettingsView extends HTMLElement {
         return `
 <div class="section top">
     <div class="title">Wi-Fi</div>
-    <hr>
 </div>
 
 <div class="section">
-    <hr>
         <div class="wifi-switch">
             <div class="title-wifi">Wi-Fi</div>
             <flip-switch></flip-switch>
@@ -120,12 +113,11 @@ class WifiSettingsView extends HTMLElement {
                 <i class="fa fa-wifi" style=""></i>
                 <i class="fa fa-info-circle" style=""></i>
             </span>
-            <hr>
         </div>
     <hr>
 </div>
 <div class="networks-title-container">
-    <span class="networks">NETWORKS</span><i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+    <span class="networks">NETWORKS</span><i class="fa fa-refresh fa-spin"></i>
 </div>
         `
     }

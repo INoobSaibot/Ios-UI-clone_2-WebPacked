@@ -28,6 +28,9 @@ wifi-settings-view div.section{
     width:100%;
     background-color: var(--darker-gray);
     margin-bottom: 4em;
+    border-top: 0.125em solid rgba(50,50,50,1.0);
+    border-bottom: 0.125em solid rgba(50,50,50,1.0);
+    /*border-width: 33px;*/
 }
 
 wifi-settings-view div.section hr {
@@ -36,10 +39,16 @@ wifi-settings-view div.section hr {
 }
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+wifi-settings-view .indicator-icons{
+    margin-top: 1.5em;
+}
+
 div.wifi-switch {
     margin-left: 6em;
     color: white;
-    font-size: 1.0em;
+    font-size: 1.1250em;
+    /*margin-top: 1em;*/
 }
 
 settings-section .grid-container > div {
@@ -53,22 +62,25 @@ div.wifi-switch div.title-wifi, div.title-wifi {
     color: white;
     font-size: 2em;
     font-weight: 500;
-    line-height: 1.75em;
+    line-height: 2.55em;
     display: inline-block;
 }
 
 
 span.networks {
     color: darkgrey;
-    font-size: 1.45em;
+    font-size: 1.575em;
 }
 
 wifi-settings-view div.networks-title-container{
     margin-left: 2em;
+    margin-bottom: 1.25em;
     display: block;
     color: darkgrey;
 }
 
 wifi-settings-view div.networks-title-container i{
-    margin-left: 1em;
+    margin-left: 0.5em;
+    /*margin-bottom: -1em;*/
+    font-size: 2.375em;
 }

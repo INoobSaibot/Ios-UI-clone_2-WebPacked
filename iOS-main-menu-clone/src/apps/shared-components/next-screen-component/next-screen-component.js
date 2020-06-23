@@ -1,7 +1,7 @@
 import './next-screen-component.css';
 
 class NextScreenComponent extends HTMLElement {
-    static get observedAttributes() { return ['c', 'l', 'show']; }
+    static get observedAttributes() { return ['show']; }
     connectedCallback() {
         this.attachShadow({mode: 'open'});
         this.shadowRoot.innerHTML = `<slot name="content">NEED NAME</slot>`;
