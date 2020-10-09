@@ -1,0 +1,7 @@
+body .container{
+    transition: all 0.45s ease-in-out;
+}
+
+body .container[flipped='true']{
+     transform: rotate(90deg);
+ }

@@ -1,3 +1,5 @@
+import {EventEmitter} from './common-components/EventEmitter/eventEmitter';
+
 import Calculator from './apps/calculator/Calculator'
 import $ from "jquery";
 import MessageCenterService from './components/message-center/message-center-service';
@@ -28,7 +30,7 @@ import './styles/app-transitions.css';
 
 import './styles/slide-modal/slide-modal.css';
 import './styles/volume_control.css';
-import {EventEmitter} from './common-components/EventEmitter/eventEmitter';
+import './common-components/screen/screen.css'
 
 
 class Index {
@@ -92,13 +94,6 @@ class Index {
         const headerClock = new Clock();
         const headerBattery = new Battery();
 
-        $(".home-button").click(() => {
-            this.handleHome();
-        });
-        $(".home-button-double-tap").click(() => {
-            this.handleDoubleTapHome();
-        });
-
         $("button.app-icon").on('click', ((e) => {
             this.handleIconTap(e)
         }));
@@ -125,6 +120,8 @@ class Index {
         document.body.addEventListener('keyup', (e) => {
             this.volume.endVolumeHold(e);
         })
+
+        this.screen = document.querySelector('.container')
     }
 
     setupExternalControls(){
@@ -133,6 +130,17 @@ class Index {
            e.stopImmediatePropagation();
             this.toggleExternalButtons();
         })
+
+        $(".home-button").click(() => {
+            this.handleHome();
+        });
+        $(".home-button-double-tap").click(() => {
+            this.handleDoubleTapHome();
+        });
+
+        $(".screen-flip").on('click', ((e) => {
+            this.handleFlipButtonClicked();
+        }));
     }
 
     toggleExternalButtons(){
@@ -148,6 +156,18 @@ class Index {
                 this.modalService.multiModalViewCancel();
             }
         }
+    }
+
+    handleFlipButtonClicked(){
+        this.currentOrientation = {}
+        EventEmitter.dispatch('screen-flipped', {debug:true, on: this.currentOrientation })
+        this.handleFlip()
+    }
+
+    handleFlip(){
+        const flipped = this.screen.getAttribute('flipped')
+        const isFlipped = flipped === true.toString() ? false : true;
+        this.screen.setAttribute('flipped', isFlipped.toString())
     }
 
     handleKeyDown(e) {

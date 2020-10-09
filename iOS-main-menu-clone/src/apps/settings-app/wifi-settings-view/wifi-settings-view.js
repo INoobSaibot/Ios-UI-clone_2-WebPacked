@@ -13,7 +13,13 @@ class WifiSettingsView extends HTMLElement {
                 <i class="fa fa-wifi" style=""></i>
                 <i class="fa fa-info-circle" style=""></i>
             </span>`
-        const optionalTrailingHr = isLast ? '' : `<hr>`
+        const optionalTrailingHr = isLast ? '' : `<hr>`;
+
+        if (isLast) {
+            setTimeout(() => {
+                div.dispatchEvent(new CustomEvent('loading-done', {bubbles: true, detail: {}}))
+            }, 500)
+        }
 
         const main = `
             <div class="title-wifi">${title}</div>
@@ -46,21 +52,71 @@ class WifiSettingsView extends HTMLElement {
 
         const sections = this.getSections()
         const last = Utils.last(sections)
+
+        // this.loadingIconTimeout = setTimeout(()=>{this.stopLoadingIcon()}, 2000)
+        let i = 1;
         sections.forEach((section) => {
             const isLast = section === last;
-            this.addSections(section.title, section.icons, isLast)
+            let time = i * 1000;
+            i++;
+            setTimeout(() => {
+                this.addSections(section.title, section.icons, isLast)
+            }, time)
+
         })
     }
 
     registerEvents() {
-        // this.onclick = () => {
-        //     this.handleClick()
-        // }
+        this.addEventListener('loading-done', () => {
+            this.stopLoadingIcon()
+        })
+        this.addEventListener('loading', () => {
+            this.stopLoadingIcon()
+        })
+        this.addEventListener('switch-changed', e => this.handleFlipSwitch(e))
     }
 
-    handleClick() {
-        // this.addSections()
+    handleFlipSwitch(e) {
+        this.wifiOn = e.detail.on;
     }
+
+    set wifiOn(on) {
+        if (!on) {
+            this.handleWifiTurnedOff()
+        } else {
+            this.handleWifiTurnedOn()
+        }
+    }
+
+    handleWifiTurnedOff() {
+        this.stopLoadingIcon();
+        this.removeNetworksTitle()
+        this.removeNetworks()
+    }
+
+    removeNetworksTitle() {
+        const networksSectionTitle = this.querySelector('div.networks-title-container')
+        if(networksSectionTitle) networksSectionTitle.remove();
+    }
+
+    removeNetworks() {
+        const networksSection = this.querySelector('div.section.networks')
+        if(networksSection) networksSection.remove();
+    }
+
+    handleWifiTurnedOn() {
+
+    }
+
+    stopLoadingIcon() {
+        this.loadingIcon = this.querySelector('i.fa.fa-gear.fa-spin')
+        if (!this.loadingIcon) {
+            return;
+        }
+        setTimeout(() => this.loadingIcon.remove(),0);
+        //    todo removing this makes the page jump, need to fix
+    }
+
 
     addSections(sectionTitle, icons, isLast) {
         const div = this.classRef.foo(sectionTitle, icons, isLast);
@@ -70,9 +126,9 @@ class WifiSettingsView extends HTMLElement {
         this.nextSectionContentArea.append(div)
     }
 
-    buildSection(){
+    buildSection() {
         const parent = document.createElement('div')
-        parent.classList.add('section')
+        parent.classList.add('section', 'networks')
         this.nextSection = parent
         const contentDiv = document.createElement('div')
         contentDiv.classList.add('section-content')
@@ -83,18 +139,17 @@ class WifiSettingsView extends HTMLElement {
 
     getSections() {
         const list = []
-        list.push({title:'ATTGlwwG4I', icons:true})
-        list.push({title:'IDK5', icons:true})
-        list.push({title:'je suis libre', icons:true})
-        list.push({title:'NETGEAR89', icons:true})
-        list.push({title:'NETGEAR90', icons:true})
-        list.push({title:'Parlainth', icons:true})
-        list.push({title:'Other...', icons:false})
+        list.push({title: 'ATTGlwwG4I', icons: true})
+        list.push({title: 'IDK5', icons: true})
+        list.push({title: 'je suis libre', icons: true})
+        list.push({title: 'NETGEAR89', icons: true})
+        list.push({title: 'NETGEAR90', icons: true})
+        list.push({title: 'Parlainth', icons: true})
+        list.push({title: 'Other...', icons: false})
         return list
     }
 
     static markup() {
-        const foo = '<div style="font-size:48px;color:red">xxxx</div>';//foo();
         return `
 <div class="section top">
     <div class="title">Wi-Fi</div>
@@ -103,7 +158,7 @@ class WifiSettingsView extends HTMLElement {
 <div class="section">
         <div class="wifi-switch">
             <div class="title-wifi">Wi-Fi</div>
-            <flip-switch></flip-switch>
+            <flip-switch on="true"></flip-switch>
             <hr>
         </div>
         <div class="wifi-switch">
@@ -117,7 +172,7 @@ class WifiSettingsView extends HTMLElement {
     <hr>
 </div>
 <div class="networks-title-container">
-    <span class="networks">NETWORKS</span><i class="fa fa-refresh fa-spin"></i>
+    <span class="networks">NETWORKS</span><i class="fa fa-gear fa-spin"></i>
 </div>
         `
     }

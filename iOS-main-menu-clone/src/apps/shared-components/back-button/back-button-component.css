@@ -10,6 +10,10 @@
     margin-right: .125em;
 }
 
+.back-button i.fa-angle-left {
+    /*font-family: 'not Font Awesome 5 Free' !important;*/
+}
+
 .show-back {
     opacity: 1.0;
     margin-left: 0;

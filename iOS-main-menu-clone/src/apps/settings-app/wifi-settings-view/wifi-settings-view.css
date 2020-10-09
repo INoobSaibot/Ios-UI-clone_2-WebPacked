@@ -77,10 +77,18 @@ wifi-settings-view div.networks-title-container{
     margin-bottom: 1.25em;
     display: block;
     color: darkgrey;
+    line-height: 3em;
+/*    todo, used line height so kinda hacky solve this problem...*/
 }
 
 wifi-settings-view div.networks-title-container i{
     margin-left: 0.5em;
     /*margin-bottom: -1em;*/
     font-size: 2.375em;
+}
+
+
+wifi-settings-view flip-switch{
+    margin-top: 0.75em;
+    font-size: 1.125em;
 }

@@ -12,17 +12,17 @@ class FlipSwitchComponent extends HTMLElement {
 `;
         this.switch = this.querySelector(".inner");
         this.switchContainer = this.querySelector(".switch");
-        this.switchOn = false;
+        this.switchOn = false || this.getAttribute('on');
         this.lastEvent = Date.now()
         this.registerEvents();
     }
 
     registerEvents(){
-        this.onclick = () => {
-            this.handleSwitchFlipped()
+        this.onclick = (e) => {
+            this.handleSwitchFlipped(e)
         }
-        this.ontouchend = () => {
-            this.handleSwitchFlipped()
+        this.ontouchend = (e) => {
+            this.handleSwitchFlipped(e)
         }
     }
 
@@ -45,7 +45,7 @@ class FlipSwitchComponent extends HTMLElement {
     }
 
     isDoubleTap(){
-        return this.lastEvent === Date.now()
+        return Date.now() - this.lastEvent < 100;
     }
 }
 

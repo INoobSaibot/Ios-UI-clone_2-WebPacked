@@ -18,6 +18,7 @@ import '../shared-components/title-to-back-transforming-button-component/title-t
 
 import WifiSettingsView from "./wifi-settings-view/wifi-settings-view";
 import '../shared-components/back-button/back-button-component.css'
+import {EventEmitter} from "../../common-components/EventEmitter/eventEmitter";
 
 class SettingsApp {
     // static refs = []; /* break firefox and iOS safari*/
@@ -31,7 +32,7 @@ class SettingsApp {
             this.init(container, classDelegate);
         } else {
             // If this element has already been instantiated, use the existing reference.
-            return MailAppComponent.refs[container.dataset.ref];
+            return SettingsApp.refs[container.dataset.ref];
         }
     }
 
@@ -50,12 +51,18 @@ class SettingsApp {
         this.afterRender()
     }
 
-    afterRender(){
-        this.container.addEventListener('switch-changed', (e) =>{console.log(e.detail)});
+    afterRender() {
+        // this.container.addEventListener('switch-changed', (e) => {
+        //     // console.log(e.detail)
+        // });
         // todo temp hack
         const wifiElement = this.container.querySelector('setting-option')
-        wifiElement.addEventListener('touchstart', (e) => {console.log(e)});
-        wifiElement.addEventListener('mousedown', (e) => {this.showNextScreen()});
+        wifiElement.addEventListener('touchstart', (e) => {
+            console.log(e)
+        });
+        wifiElement.addEventListener('mousedown', (e) => {
+            this.showNextScreen()
+        });
 
         // todo temp hack
         // exploratory testing
@@ -63,23 +70,38 @@ class SettingsApp {
         menu_title_element.addEventListener('mousedown', (e) => this.handleMenuTitleTouch())
         menu_title_element.addEventListener('touchstart', (e) => this.handleMenuTitleTouch())
 
+        EventEmitter.subscribe('screen-flipped', e => {
+            this.handleFlip(e)
+        })
+
         this.devOnly(wifiElement)
     }
 
-    devOnly(el){
+    handleFlip() {
+        const container = this.container.querySelector('.app-body')
+        const isFlipped = container.getAttribute('flipped') === true.toString() ? false : true;
+        // container.setAttribute('flipped', isFlipped.toString())
+
+        const children = [container.querySelector('._app-content').children];
+    }
+
+    devOnly(el) {
         this.showNextScreen()
     }
 
-    handleMenuTitleTouch(e){
+    handleMenuTitleTouch(e) {
         const nextScreen = this.container.querySelector('next-screen')
         let next_open = nextScreen.getAttribute('show') === 'true'
-        if(!next_open) {return};
+        if (!next_open) {
+            return
+        }
+        ;
 
         nextScreen.setAttribute('show', !next_open)
         this.transformSettingsButton()
     }
 
-    showNextScreen(){
+    showNextScreen() {
         const nextScreen = this.container.querySelector('next-screen')
         const itm = nextScreen.getAttribute('show')
 
@@ -89,24 +111,21 @@ class SettingsApp {
         this.moveSearchBar();
     }
 
-    addView(container){
-        // todo, oh gosh this is such a mess.
-        const slot = container.querySelector('span[slot="content"]')
-
-        slot.innerHTML = '';
-        this.wifiSettings = new WifiSettingsView(WifiSettingsView)
-        slot.append(this.wifiSettings);
+    addView(container) {
+        if (container.innerHTML){
+            this.wifiSettings = new WifiSettingsView(WifiSettingsView)
+            container.append(this.wifiSettings);
+        }
     }
 
-    transformSettingsButton(){
+    transformSettingsButton() {
         //todo write some different more broken apart code, that also doesnt rely on dom data.
         const settingsMenuTrailButton = this.container.querySelector('.title-search')
         const appTitle = settingsMenuTrailButton.querySelector('app-title')
         const menu_title_back_button = this.container.querySelector('.back-button')
-        if (!settingsMenuTrailButton.classList.contains('back')){
+        if (!settingsMenuTrailButton.classList.contains('back')) {
             settingsMenuTrailButton.classList.add('back')
             menu_title_back_button.classList.add('show-back')
-            // appTitle.setAttribute('show',true)
             appTitle.shrink()
         } else {
             settingsMenuTrailButton.classList.remove('back')
@@ -116,11 +135,13 @@ class SettingsApp {
         }
     }
 
-    moveSearchBar(moveBack){
+    moveSearchBar(moveBack) {
         // todo object level variable? use custom element property instead?
         const searchBar = this.container.querySelector('.search-box-container');
         // todo do something else to get transitions added to search bar movement...
-        if(!searchBar.style.transition){searchBar.style.transition = 'all 0.5s'}
+        if (!searchBar.style.transition) {
+            searchBar.style.transition = 'all 0.5s'
+        }
         const move_to = moveBack ? '0' : '-200%'
         // searchBar.style.marginLeft = move_to;
         searchBar.style.marginLeft = move_to;
@@ -155,7 +176,7 @@ class SettingsApp {
                     </div>
                     <div class="apple-id-suggestions">
                         <span class="">Apple ID Suggestions</span>
-                        <red-counter class="suggestion-count" number=${suggestionsCount}></red-counter>
+                        <red-counter class="suggestion-count" number=${suggestionsCount|''}></red-counter>
                         <div class="next-container"><next-button></next-button></div>
                     </div>
                 </div>
@@ -205,10 +226,6 @@ class SettingsApp {
         <hr>
    </div>
    <next-screen show=false foo="99">
-   <span></span>
-        <span slot="content">
-        <div>WiFi</div>
-        </span>
    </next-screen>
 </div>
 `;

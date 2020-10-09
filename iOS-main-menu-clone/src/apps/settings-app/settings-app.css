@@ -6,6 +6,10 @@
     background-color: var(--extra-light-grey);
 }
 
+.settings-body[flipped='true']{
+    transform: rotate(-90deg);
+}
+
 app-title {
     display: inline-block;
     margin-top: 7rem;
@@ -22,4 +26,6 @@ app-title {
 search-box{
     position: absolute;
 }
+
+
 

@@ -4,7 +4,7 @@ class NextScreenComponent extends HTMLElement {
     static get observedAttributes() { return ['show']; }
     connectedCallback() {
         this.attachShadow({mode: 'open'});
-        this.shadowRoot.innerHTML = `<slot name="content">NEED NAME</slot>`;
+        this.shadowRoot.innerHTML = `<slot>NEED NAME</slot>`;
     }
 
     attributeChangedCallback(attrName, oldVal, newVal){

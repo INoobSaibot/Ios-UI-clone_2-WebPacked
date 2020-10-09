@@ -4,9 +4,13 @@ const EventEmitter = {
         if (!this.events[event]) return
         this.events[event].forEach(callback => callback(data))
     },
-    subscribe: function (event, callback) {
+    subscribe (event, callback) {
         if (!this.events[event]) this.events[event] = []
         this.events[event].push(callback)
+    },
+    unsubscribe(val, other) {
+    //    todo
+        console.log(val, other)
     }
 }
 
