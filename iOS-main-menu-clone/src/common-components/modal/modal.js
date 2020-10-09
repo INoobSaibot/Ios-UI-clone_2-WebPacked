@@ -88,11 +88,11 @@ class Modal {
         return cancelInlineStyle;
     }
 
+
+
     hideTitle(){
         if (this.multiAppViewIcon) {
-            const miniIconElRef = $(`#${this.id}`);
             const el = this.ref.find('.multiAppViewIcon');
-            console.log(el)
             const iconTextEl = el.find('.title');
             if(iconTextEl){
                 iconTextEl.css({'display':'none'});
@@ -212,7 +212,7 @@ class Modal {
 
     }
 
-    pushUp(touchs) {
+    pushUp(touches) {
         let ref = $('#' + this.id)
 
         $(ref).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
@@ -231,7 +231,6 @@ class Modal {
     }
 
     removeFromDom(){
-        console.log(this.appsModalRef)
         setTimeout(()=> {this.appsModalRef.remove()}, 250);
     }
 }

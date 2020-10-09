@@ -85,7 +85,6 @@ class MailAppComponent {
         const height = rect.height;
 
         const defaultValue = -1396; // todo calculate this
-        console.log(`height: ${height}, bottom: ${bottom}`) //both are ready 1334, which seems wrong!
 
         if (this.tooLow(value)) {
             console.log('too low')

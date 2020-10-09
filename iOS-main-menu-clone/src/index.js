@@ -60,17 +60,23 @@ class Index {
         // }, 250);
         // this.modalService.open('tips', new Event('e'), UtilitiesApp)
 
-        // $('#photos').click();
         $('#settings').click();
-        // $('#tips').click();
-        // setTimeout(() => {
-        //     this.modalService.minimizeAllModals();
-        //
-        // }, 250);
-        // setTimeout(() => {
-        //     EventEmitter.dispatch('double-tap')
-        // }, 1000);
-        ////////
+        $('#photos').click();
+        $('#tips').click();
+        setTimeout(() => {
+            this.modalService.minimizeAllModals();
+
+        }, 250);
+        setTimeout(() => {
+            EventEmitter.dispatch('double-tap')
+        }, 1000);
+        //////
+        EventEmitter.subscribe('onAllAppsClosed',()=>{
+            $('#photos').click();
+            $('#settings').click();
+            $('#tips').click();
+            EventEmitter.dispatch('double-tap')
+        })
 
         // EventEmitter.dispatch('debug', {debug:true})
 

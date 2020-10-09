@@ -21,9 +21,9 @@ class FlipSwitchComponent extends HTMLElement {
         this.onclick = (e) => {
             this.handleSwitchFlipped(e)
         }
-        this.ontouchend = (e) => {
-            this.handleSwitchFlipped(e)
-        }
+        // this.ontouchend = (e) => {
+        //     this.handleSwitchFlipped(e)
+        // }
     }
 
     handleSwitchFlipped(){

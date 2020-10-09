@@ -9,12 +9,19 @@ class ModalService {
         this.el = $('#modal-container');
         this.modalRefs = new Array();
         this.registerEvents()
+        // this.devOnly = true;
     }
 
-    registerEvents(){
-        EventEmitter.subscribe('close-app', (appModal) => {this.closeAppAndModal(appModal)})
+    registerEvents() {
+        EventEmitter.subscribe('close-app', (appModal) => {
+            this.closeAppAndModal(appModal)
+        })
+        EventEmitter.subscribe('multi-app-view-changed', () => {
+            setTimeout(() => {
+                this.handleMultiAppViewChanged()
+            })
+        })
     }
-
 
 
     open(id, e, ClassDelegate, isNonStandardModalSize) {
@@ -33,7 +40,7 @@ class ModalService {
         }
     }
 
-    openAppMultiView(requestedAppModal){
+    openAppMultiView(requestedAppModal) {
         if (requestedAppModal.isMinimized()) {
             requestedAppModal.multiViewMaximizeAndFocus(true);
         }
@@ -77,7 +84,7 @@ class ModalService {
         }
     }
 
-    cancelMultiModalView(){
+    cancelMultiModalView() {
         this.el.removeClass('multi-app-view')
         this.multiAppView = false;
     }
@@ -88,11 +95,23 @@ class ModalService {
         const apps = this.modals;
 
         let offset = 0;
-        apps.forEach((modal)=> {
+        apps.forEach((modal) => {
             modal.halfSize();
             modal.giveOffset(offset);
-            offset ++;
+            offset++;
             this.openAppMultiView(modal)
+        })
+    }
+
+    handleMultiAppViewChanged() {
+        let offset = 0;
+        this.modals.forEach((modal) => {
+            // modal.halfSize();
+            modal.giveOffset(offset);
+            offset++;
+            // this.openAppMultiView(modal)
+            // modal.calculate_app_size_by_left_position(true)
+            modal.maximizeAndFocus(true)
         })
     }
 
@@ -108,7 +127,7 @@ class ModalService {
         return this.focusedModals().shift();
     }
 
-    closeAppAndModal(closingApp){
+    closeAppAndModal(closingApp) {
         closingApp.removeFromDom();
         // todo
         const modals = this.modals.filter(modal => {
@@ -118,8 +137,18 @@ class ModalService {
         if (modals.length === 0) {
             // go home, multi-view end
             this.cancelMultiModalView();
+            // dev only
+            if (this.devOnly) {
+                this.openSomeApps()
+            }
         }
         this.modals = modals;
+    }
+
+    openSomeApps() {
+        //todo
+        console.log('whhahaha')
+        EventEmitter.dispatch('onAllAppsClosed')
     }
 
     focusedModals() {
