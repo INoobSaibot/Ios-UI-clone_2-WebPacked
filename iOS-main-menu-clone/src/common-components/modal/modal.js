@@ -3,7 +3,6 @@ import Touches from '../touch-screen/touches'
 import './modal.css';
 import './multi-app-view.css'
 import {EventEmitter} from '../EventEmitter/eventEmitter';
-import smallIcon from '../../common-components/multi-app-view/icons/multi-app-view-icons'
 
 
 class Modal {
@@ -38,17 +37,17 @@ class Modal {
         this.classes = 'small'
         const element = document.createElement('div');
         element.id = this.id;
-        setTimeout(()=> {
+        setTimeout(() => {
             this.addLittleIcon(element);
         }, 1000);
         this.ref = $(element).appendTo(this.modalContainer);
         // this.component = new this.ClassDelegate(document.getElementById(this.id), modalRefs, this.classes, this.minimize, this.isMinimized);
         this.component = new this.ClassDelegate(document.getElementById(this.id), modalRefs, this.ClassDelegate);
-        this.appsModalRef = $('#'+this.id);
+        this.appsModalRef = $('#' + this.id);
         this.maximizeAndFocus();
     }
 
-    addLittleIcon(node){
+    addLittleIcon(node) {
         const title = this.component.title;
         const fallBackIcon = document.createElement('div')//smallIcon(this.id, this.component.title, 'purple');
         const littleIcon = this.ClassDelegate.getMiniIcon ? this.ClassDelegate.getMiniIcon(title) : fallBackIcon;
@@ -73,7 +72,7 @@ class Modal {
         let dynamicOpacity;
         if (multiAppView && this.offset === 0) {
             dynamicTransform = 'scale(0.73)'
-        } else if (multiAppView && this.offset > 0){
+        } else if (multiAppView && this.offset > 0) {
             dynamicOpacity = '0.5';
             // yeah and dont show that icon title!
             this.hideTitle();
@@ -89,13 +88,12 @@ class Modal {
     }
 
 
-
-    hideTitle(){
+    hideTitle() {
         if (this.multiAppViewIcon) {
             const el = this.ref.find('.multiAppViewIcon');
             const iconTextEl = el.find('.title');
-            if(iconTextEl){
-                iconTextEl.css({'display':'none'});
+            if (iconTextEl) {
+                iconTextEl.css({'display': 'none'});
             }
         } // whats in there? we went like .style, or something like that
     }
@@ -199,15 +197,12 @@ class Modal {
     swipeDown() {
     }
 
-    close(){
-        if(this.closedOrClosing || !this.multiAppView){return;
-        } else{
+    close() {
+        if (this.closedOrClosing || !this.multiAppView) {
+            return;
+        } else {
             this.closedOrClosing = true;
             this.pushUp()
-            // todo should next app move over to primary spot?
-            // todo should multi-app-view end?
-
-            this.shutDownAppAndModal()
         }
 
     }
@@ -215,23 +210,27 @@ class Modal {
     pushUp(touches) {
         let ref = $('#' + this.id)
 
-        $(ref).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
-            function(event) {
-                // Do something when the transition ends
-                EventEmitter.dispatch('multi-app-view-changed')
-            });
+        $(ref).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", (e) => {
+            // Do something when the transition ends
+            // todo this works great but should be refactored for readability
+            // todo ie this is called push-up, but also shuts down the app/removes from dom.
+            this.shutDownAppAndModal();
+            EventEmitter.dispatch('multi-app-view-changed')
+        });
 
         ref.addClass('move-up-off-screen')
 
     }
 
-    shutDownAppAndModal(){
+    shutDownAppAndModal() {
         const app = this;
         EventEmitter.dispatch('close-app', app)
     }
 
-    removeFromDom(){
-        setTimeout(()=> {this.appsModalRef.remove()}, 250);
+    removeFromDom() {
+        setTimeout(() => {
+            this.appsModalRef.remove()
+        }, 250);
     }
 }
 
