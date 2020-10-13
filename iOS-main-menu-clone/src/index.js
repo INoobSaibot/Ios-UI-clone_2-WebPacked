@@ -144,9 +144,6 @@ class Index {
             this.handleDoubleTapHome();
         });
 
-        $(".screen-flip").on('click', ((e) => {
-            this.handleFlipButtonClicked();
-        }));
     }
 
     toggleExternalButtons(){

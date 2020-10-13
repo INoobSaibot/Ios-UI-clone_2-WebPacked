@@ -2,6 +2,7 @@ import Rect from '../rect/rect';
 import Modal from './modal';
 import './modal-service.css';
 import {EventEmitter} from '../EventEmitter/eventEmitter'
+import $ from "jquery";
 
 class ModalService {
     constructor() {
@@ -16,10 +17,15 @@ class ModalService {
         EventEmitter.subscribe('close-app', (appModal) => {
             this.closeAppAndModal(appModal)
         })
+
         EventEmitter.subscribe('multi-app-view-changed', () => {
             setTimeout(() => {
                 this.handleMultiAppViewChanged()
             })
+        })
+
+        EventEmitter.subscribe('multi-app-view-cancel', () => {
+            this.multiModalViewCancel();
         })
     }
 
@@ -101,7 +107,9 @@ class ModalService {
             offset++;
             this.openAppMultiView(modal)
         })
+
     }
+
 
     handleMultiAppViewChanged() {
         let offset = 0;

@@ -3,6 +3,7 @@ import Touches from '../touch-screen/touches'
 import './modal.css';
 import './multi-app-view.css'
 import {EventEmitter} from '../EventEmitter/eventEmitter';
+import $ from "jquery";
 
 
 class Modal {
@@ -110,6 +111,7 @@ class Modal {
         this.ref.one('transitionend', (e) => {
             this.focused = false;
         })
+
     }
 
     isMinimized() {
@@ -130,7 +132,9 @@ class Modal {
         }
 
         this.appHalfSize(cancel);
-        this.activateSwipes(cancel)
+        this.activateSwipes(cancel);
+        // todo consider moving this touch tap logic to another class
+        this.enableTapToMaximize();
     }
 
     appHalfSize(cancel) {
@@ -185,6 +189,35 @@ class Modal {
                 down: this.swipeDown
             })
         }
+    }
+
+    enableTapToMaximize(cancel){
+        if (!cancel){
+            this.appsModalRef.one('click', ((e) => {
+                this.handleAppModalTap(e)
+            }));
+
+            this.appsModalRef
+                .one('touchstart', (e) => {
+                    $(this).data('moved', '0');
+                })
+                .one('touchmove', (e) => {
+                    $(this).data('moved', '1');
+                })
+                .one('touchend', (e) => {
+                    if ($(this).data('moved') == 0) {
+                        // HERE YOUR CODE TO EXECUTE ON TAP-EVENT
+                        this.handleAppModalTap(e);
+                    }
+                });
+        }
+
+    }
+
+    handleAppModalTap(e){
+        // todo
+        console.log(e)
+        EventEmitter.dispatch('multi-app-view-cancel',e)
     }
 
 
