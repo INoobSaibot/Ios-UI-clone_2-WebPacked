@@ -192,32 +192,43 @@ class Modal {
     }
 
     enableTapToMaximize(cancel){
+        const tapHoldLimit = 2; // 2 seconds
+        if (this.hasTapToMaximize){
+            return;
+        }
         if (!cancel){
-            this.appsModalRef.one('click', ((e) => {
+            this.appsModalRef.on('click', ((e) => {
                 this.handleAppModalTap(e)
             }));
 
             this.appsModalRef
-                .one('touchstart', (e) => {
+                .on('touchstart', (e) => {
                     $(this).data('moved', '0');
+                    this.start = new Date().getTime() / 1000;
                 })
-                .one('touchmove', (e) => {
+                .on('touchmove', (e) => {
                     $(this).data('moved', '1');
                 })
-                .one('touchend', (e) => {
+                .on('touchend', (e) => {
                     if ($(this).data('moved') == 0) {
                         // HERE YOUR CODE TO EXECUTE ON TAP-EVENT
-                        this.handleAppModalTap(e);
+                        this.end = new Date().getTime() / 1000;
+                        const elapsed = this.end - this.start
+                        if (elapsed <= tapHoldLimit){
+                            this.handleAppModalTap(e);
+                        }
                     }
                 });
         }
-
+        this.hasTapToMaximize = true
     }
 
     handleAppModalTap(e){
         // todo
         console.log(e)
-        EventEmitter.dispatch('multi-app-view-cancel',e)
+        // EventEmitter.dispatch('multi-app-view-cancel',e)
+        // this.appsModalRef.dispatchEvent(new CustomEvent('multi-app-view-cancel',{detail:'none'}))
+        this.appsModalRef.trigger('multi-app-view-cancel',{detail:'none'})
     }
 
 

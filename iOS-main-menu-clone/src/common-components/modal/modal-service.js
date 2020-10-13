@@ -24,7 +24,7 @@ class ModalService {
             })
         })
 
-        EventEmitter.subscribe('multi-app-view-cancel', () => {
+        this.el.on('multi-app-view-cancel', (e)=>{
             this.multiModalViewCancel();
         })
     }
