@@ -224,10 +224,6 @@ class Modal {
     }
 
     handleAppModalTap(e){
-        // todo
-        console.log(e)
-        // EventEmitter.dispatch('multi-app-view-cancel',e)
-        // this.appsModalRef.dispatchEvent(new CustomEvent('multi-app-view-cancel',{detail:'none'}))
         this.appsModalRef.trigger('multi-app-view-cancel',{detail:'none'})
     }
 

@@ -32,6 +32,8 @@ import './styles/slide-modal/slide-modal.css';
 import './styles/volume_control.css';
 import './common-components/screen/screen.css'
 
+import Widget from './apps/up-next-widgets/up-next-widgets.js';
+
 
 class Index {
     constructor() {
@@ -42,6 +44,7 @@ class Index {
         this.messageCenterService = new MessageCenterService(this.messages);
         this.volume = new Volume();
         this.messageCenterSearchBox = new SearchBarService($('._search-container'));
+        new Widget($('.scrollable'))
 
         this.init();
         this.clickTimer = null;
@@ -53,30 +56,30 @@ class Index {
     devOnly() {
         // dev testing start at #0 search screen
         // setTimeout(()=> {this.pan.right();}, 250);
-        // setTimeout(() => {
-        //     this.pan.left();
-        //     // $('#calculator-icon').click();
-        //     $('.search-input-box').click();
-        // }, 250);
+        setTimeout(() => {
+            this.pan.left();
+            // $('#calculator-icon').click();
+            $('.search-input-box').click();
+        }, 250);
         // this.modalService.open('tips', new Event('e'), UtilitiesApp)
 
-        $('#settings').click();
-        $('#photos').click();
-        $('#tips').click();
-        setTimeout(() => {
-            this.modalService.minimizeAllModals();
-
-        }, 250);
-        setTimeout(() => {
-            EventEmitter.dispatch('double-tap')
-        }, 1000);
-        //////
-        EventEmitter.subscribe('onAllAppsClosed',()=>{
-            $('#photos').click();
-            $('#settings').click();
-            $('#tips').click();
-            EventEmitter.dispatch('double-tap')
-        })
+        // $('#settings').click();
+        // $('#photos').click();
+        // $('#tips').click();
+        // setTimeout(() => {
+        //     this.modalService.minimizeAllModals();
+        //
+        // }, 250);
+        // setTimeout(() => {
+        //     EventEmitter.dispatch('double-tap')
+        // }, 1000);
+        // //////
+        // EventEmitter.subscribe('onAllAppsClosed',()=>{
+        //     $('#photos').click();
+        //     $('#settings').click();
+        //     $('#tips').click();
+        //     EventEmitter.dispatch('double-tap')
+        // })
 
         // EventEmitter.dispatch('debug', {debug:true})
 

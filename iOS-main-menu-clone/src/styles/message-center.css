@@ -88,3 +88,17 @@ div.icon-and-name.expanding-row{
     line-height: 1.4;
 }
 
+#container {
+    overflow-y: scroll;
+}
+
+#container {
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+#container::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+}
+
