@@ -2,59 +2,33 @@ import $ from "jquery";
 
 class Widget {
     constructor(el) {
-        this.elRef = el;
+        // this.elRef = el;
 
         this.init()
     }
 
     init() {
-        console.log(this.elRef)
         this.registerEvents()
     }
 
     registerEvents() {
-        this.elRef.on('touchstart', (e) => {
-            console.log(e)
+        // todo this el is hard-coded and needs refactored;
+        const el = $('#container');
+
+        let startY, dist, y_dist
+        el.on('touchstart', (e) =>{
+            const touchobj = e.changedTouches[0];
+            startY = touchobj.pageY;
+            e.preventDefault();
         })
 
-        this.alternateMethod();
-    }
+        el.on('touchmove', (e) =>{
+            let touchobj = e.changedTouches[0];
+            y_dist = touchobj.pageY - startY; // get total dist traveled by finger while in contact with surface
 
-    alternateMethod(){
-        // const el = {
-        //     slider:'',
-        //     holder: $('.scrollable'),
-        //     imgSlide: ''
-        // }
-        //
-        // let slideWidth = $('#slider').width(),
-        //     touchstartx,
-        //     touchmovex,
-        //     movex,
-        //     index: 0,
-        //     longTouch
-    }
-
-    enableTapToMaximize(cancel) {
-        this.appsModalRef
-            .on('touchstart', (e) => {
-                $(this).data('moved', '0');
-                this.start = new Date().getTime() / 1000;
-            })
-            .on('touchmove', (e) => {
-                $(this).data('moved', '1');
-            })
-            .on('touchend', (e) => {
-                if ($(this).data('moved') == 0) {
-                    // HERE YOUR CODE TO EXECUTE ON TAP-EVENT
-                    this.end = new Date().getTime() / 1000;
-                    const elapsed = this.end - this.start
-                    if (elapsed <= tapHoldLimit) {
-                        this.handleAppModalTap(e);
-                    }
-                }
-            });
-
+            el.scrollTop(el.scrollTop() -y_dist)
+            startY = touchobj.pageY; // keep everything in sync
+        })
     }
 
 }
