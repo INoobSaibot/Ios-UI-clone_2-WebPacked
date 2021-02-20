@@ -1,0 +1,13 @@
+:root {
+    --size: 0.35em;
+}
+menu-dots{
+    text-align: right;
+    margin-right: -0.70em;
+}
+menu-dots .dot{
+    background-color: white;
+    height: var(--size);
+    width: var(--size);
+    margin: 0 0.25em;
+}

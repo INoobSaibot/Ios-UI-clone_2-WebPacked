@@ -1,0 +1,36 @@
+.time-indicator{
+    color:black;
+}
+
+.time-indicator .whole{
+    background-color: white;
+    opacity: 0.25;
+    height: 0.5em;
+    border-radius: 5px;
+    position: relative;
+}
+
+.current{
+    background-color:red;
+    opacity: 0.525;
+    height:0.5em;
+    width:25%;
+    position: relative;
+    left:0;
+}
+
+.time-indicator span.current-time, .time-indicator span.eta {
+    /*todo color seems off, and probably needs to be flexible/ programmatically determined*/
+    color: white;
+    font-size: 1.25em;
+}
+
+.digital-time-current {
+    margin:1em 0;
+}
+
+.time-indicator span.eta {
+    float:right;
+}
+
+

@@ -1,5 +1,5 @@
-import header from '../../components/network-time-battery-header/network-time-battery-header';
 import './keyboard.css';
+import '../../components/message-center/cursor.css';
 import {EventEmitter} from "../EventEmitter/eventEmitter";
 class Keyboard {
     // static refs = []; /* break firefox and iOS safari*/
@@ -22,55 +22,160 @@ class Keyboard {
         this.title = this.container.dataset.title || this.container.id;
         this.render();
         this.registerEvents();
+
+        this.downKeys = []
+        this.space = 'space'
+
+        this.devOnly()
+    }
+
+    devOnly(){
+        // const spaceBar = this.container.querySelector('.space-bar')
+        // const keyValue = this.space
+        // EventEmitter.dispatch('key-down', keyValue);
+
+        // let d = 0;
+        // let v = 1;
+        // let limit = 200;
+        // setInterval(()=>{
+        //     if ((d >= limit)||(d < 0)) {v *= -1}
+        //     d = d + v;
+        //     this.uiKeyMove(d)
+        // }, 125)
+        // this.generatorStuff()
+    }
+
+    generatorStuff(){
+        function* generator(i) {
+            yield i;
+            yield i + 1;
+        }
+
+        const gen = generator(1);
+        console.log(gen.next().value);
+        // should output 1;
+
+        console.log(gen.next().value);
+        // should be 2
     }
 
     registerEvents(){
-        EventEmitter.subscribe('key-down', (key)=>{this.uiKeyDown(key)})
-        EventEmitter.subscribe('key-up', (key)=> {this.uiKeyUp(key)})
-        $('.key').on('click', (e) => {
-            this.handleKeyPresses(e)
+        let mousedown_startX = 0;
+        let mousedown_x_dist = 0;
+
+        $('.key').on('mousedown', (e) => {
+            mousedown_x_dist = 0;
+            mousedown_startX = e.pageX; //e.originalEvent.clientX
+            this.keyDown(e)
         })
 
+        $('.key').on('mousemove', (e) => {
+            mousedown_x_dist = e.pageX - mousedown_startX
+            this.uiKeyMove(mousedown_x_dist)
+        })
+
+        $('.key').on('mouseup', (e) => {
+            this.keyUp(e)
+            if (mousedown_x_dist){
+                this.uiKeyMoveEnd(mousedown_x_dist)
+            }
+            mousedown_x_dist= 0;
+        })
+
+        let touch_x_dist = 0
+        let touch_startX = 0
+
         $('.key').on('touchstart', (e) => {
-            console.log('start')
-            // this.interval = setInterval(()=>{console.log('holding', e.currentTarget.innerText)}, 250)
+            touch_startX = e.changedTouches[0].pageX
             e.preventDefault();
             this.keyDown(e)
         })
             .on('touchmove', (e) => {
-            console.log('move')
-                // clearInterval(this.interval)
-        })
+                let touchobj = e.changedTouches[0];
+                touch_x_dist = touchobj.pageX - touch_startX; // get total dist traveled by finger while in contact with surface
+                this.uiKeyMove(touch_x_dist)
+            })
             .on('touchend', (e) => {
-            console.log('end')
-                // clearInterval(this.interval)
-                console.log('key released')
                 this.keyUp(e)
+                this.uiKeyMoveEnd(touch_x_dist)
         })
-    }
-
-    uiKeyDown(key){
-        console.log(key, 'is down')
-    }
-
-    uiKeyUp(key){
-        console.log(key, 'is up')
-    }
-
-    keyDown(e){
-        const keyValue = this.keyValue(e)
-        EventEmitter.dispatch('key-down', keyValue);
-    }
-
-    keyUp(e){
-        const keyValue = this.keyValue(e)
-        EventEmitter.dispatch('key-up', keyValue);
     }
 
     handleKeyPresses(e){
         const keyValue = this.keyValue(e)
         EventEmitter.dispatch('key-pressed', keyValue);
     }
+
+    keyDown(e){
+        const keyValue = this.keyValue(e)
+        this.uiKeyDown(keyValue)
+        EventEmitter.dispatch('key-down', keyValue);
+    }
+
+    uiKeyDown(key){
+        // todo will eventually need to capture other keys being held
+        if (key !== this.space) {return;}
+        this.downKeys.push(key)
+        setTimeout(()=> {
+            if (this.downKeys.includes(key)) {
+                this.handleKeyHold(key);
+            }
+        }, 500)
+    }
+
+    handleKeyHold(key){
+        console.log('holding key: '+key)
+        this.disableAllKeys();
+        EventEmitter.dispatch('cursor-move', 0)
+    }
+
+    disableAllKeys(){
+        this.disabled = true
+        const allKeys = this.container.querySelectorAll('.key')
+        // console.log(allKeys)
+        allKeys.forEach((key)=>{
+            key.setAttribute('keydisabled', true)
+        })
+    }
+
+    uiKeyMove(d){
+        if (!this.disabled){return;}
+        EventEmitter.dispatch('cursor-move', d)
+    }
+
+    uiKeyMoveEnd(d){
+        EventEmitter.dispatch('cursor-move-end', d)
+    }
+
+    keyUp(e){
+        const keyValue = this.keyValue(e)
+        if(!this.disabled){EventEmitter.dispatch('key-up', keyValue);}
+        this.uiKeyUp(keyValue)
+    }
+
+    uiKeyUp(upkey){
+        // console.log(upkey)
+        this.downKeys = this.downKeys.filter((key)=> key !== upkey)
+        if (upkey === this.space) {
+            this.handleSpaceUp()
+        }
+    }
+
+    handleSpaceUp(){
+        // if (!this.disabled){
+        //     return;
+        // }
+        this.enableAllKeys()
+    }
+
+    enableAllKeys(){
+        this.disabled = false
+        const allKeys = this.container.querySelectorAll('.key')
+        allKeys.forEach((key)=>{
+            key.removeAttribute('keydisabled')
+        })
+    }
+
 
     keyValue(e){
         return e.currentTarget.innerText;
@@ -90,8 +195,6 @@ class Keyboard {
     }
 
     static markup({title}) {
-
-        const header = '';
         const key_q = `<button class="key" value="q">q</button>`
         const key_w = Keyboard.key('w');
         const keyboard = `
@@ -107,11 +210,7 @@ class Keyboard {
 </div>
         `
 
-        return `
-<!-- <div class="lost-motion-assembly-body">${header}</div>
-<div class="app-content"></div> <h1 class="title">${title}</h1> -->
-${keyboard}
-`;
+        return `${keyboard}`;
     }
 }
 

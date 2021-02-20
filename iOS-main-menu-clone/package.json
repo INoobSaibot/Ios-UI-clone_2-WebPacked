@@ -4,7 +4,7 @@
   "description": "ios-13-menu-clone",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm install && node ./node_modules/karma/bin/karma start --single-run",
     "start": "webpack-dev-server --open",
     "build": "webpack"
   },
@@ -12,15 +12,26 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
     "css-loader": "^3.4.2",
     "file-loader": "^6.0.0",
+    "jasmine": "^3.6.4",
+    "jest": "^26.6.3",
+    "karma": "^6.0.4",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-mocha": "^2.0.1",
+    "karma-requirejs": "^1.1.0",
+    "karma-spec-reporter": "0.0.32",
+    "mocha": "^8.2.1",
     "style-loader": "^1.1.3",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "jquery": "latest",
     "lodash": "^4.17.15",
-    "jquery": "latest"
+    "requirejs": "^2.3.6"
   }
 }

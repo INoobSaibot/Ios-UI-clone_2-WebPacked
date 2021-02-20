@@ -126,6 +126,7 @@ class Modal {
             signalTimeBatteryheader.addClass('inactive');
             this.maximizeAndFocus(true)
         } else {
+            // will trigger transition-end event, when returns to full screen.
             this.ref.removeClass('half-size');
             this.ref.css({transform: ''})
             signalTimeBatteryheader.removeClass('inactive');
@@ -191,12 +192,12 @@ class Modal {
         }
     }
 
-    enableTapToMaximize(cancel){
+    enableTapToMaximize(cancel) {
         const tapHoldLimit = 2; // 2 seconds
-        if (this.hasTapToMaximize){
+        if (this.hasTapToMaximize) {
             return;
         }
-        if (!cancel){
+        if (!cancel) {
             this.appsModalRef.on('click', ((e) => {
                 this.handleAppModalTap(e)
             }));
@@ -214,7 +215,7 @@ class Modal {
                         // HERE YOUR CODE TO EXECUTE ON TAP-EVENT
                         this.end = new Date().getTime() / 1000;
                         const elapsed = this.end - this.start
-                        if (elapsed <= tapHoldLimit){
+                        if (elapsed <= tapHoldLimit) {
                             this.handleAppModalTap(e);
                         }
                     }
@@ -223,8 +224,8 @@ class Modal {
         this.hasTapToMaximize = true
     }
 
-    handleAppModalTap(e){
-        this.appsModalRef.trigger('multi-app-view-cancel',{detail:'none'})
+    handleAppModalTap(e) {
+        this.appsModalRef.trigger('multi-app-view-cancel', {detail: 'none'})
     }
 
 

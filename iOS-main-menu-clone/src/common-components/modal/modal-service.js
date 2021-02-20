@@ -117,17 +117,22 @@ class ModalService {
             // modal.halfSize();
             modal.giveOffset(offset);
             offset++;
-            // this.openAppMultiView(modal)
-            // modal.calculate_app_size_by_left_position(true)
             modal.maximizeAndFocus(true)
         })
     }
 
     multiModalViewCancel() {
-        this.el.removeClass('multi-app-view');
-        this.multiAppView = false;
         const appModal = this.whichAppIsOpen();
-        if (!appModal) return;
+
+        if (!appModal) {
+            this.el.removeClass('multi-app-view');
+            this.multiAppView = false;
+            return;}
+        $('#'+appModal.id).one('transitionend', (e)=>{
+            console.log('(∩｀-´)⊃━☆ﾟ.*･｡ﾟ begone blur')
+            this.el.removeClass('multi-app-view');
+            this.multiAppView = false;
+        })
         appModal.halfSize(true);
     }
 

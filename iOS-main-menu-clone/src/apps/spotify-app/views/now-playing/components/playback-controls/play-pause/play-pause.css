@@ -1,0 +1,35 @@
+.play-pause {
+
+}
+
+i.fas {
+    padding: 0.5em 0;
+}
+
+play-pause-control div.play-pause i.fas{
+    color: #a67d84;
+    background-color: #a67d84;
+    background-color: white;
+    border-radius: 50%;
+    width:132px;
+    padding: 30px 0;
+}
+
+._play-pause{
+    width:3em;
+    height:3em;
+    background-color: #ffe600;
+    display: inline-block;
+}
+:root {
+    --play-btn-size: 8.5rem;
+}
+.play-pause-btn{
+    width:var(--play-btn-size);
+    height:var(--play-btn-size);
+    border: none;
+    border-radius: 100%;
+}
+
+
+

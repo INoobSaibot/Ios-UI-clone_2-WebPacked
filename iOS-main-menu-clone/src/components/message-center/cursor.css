@@ -1,0 +1,28 @@
+text-cursor span.cursor {
+    color: #1eaafc;
+    /*background: #1eaafc;*/
+}
+
+text-cursor {
+    position: absolute;
+    margin-left:-5px;
+}
+
+text-cursor .move-cursor{
+    position: absolute;
+    color: #1eaafc;
+    left:0;
+    box-shadow: 0px 10px 5px grey;
+    opacity: 0;
+}
+text-cursor .move-cursor[cursor-enabled=true] {
+    opacity: 1.0;
+}
+
+text-cursor .cursor[cursor-enabled=false] {
+    opacity: 0;
+    animation: normal; /* needed to cancel out animation and keep transparent*/
+}
+
+
+.w3-animate-fading{animation:fading 1s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}

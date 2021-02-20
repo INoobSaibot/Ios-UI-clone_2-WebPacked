@@ -1,20 +1,21 @@
 import {EventEmitter} from "../../common-components/EventEmitter/eventEmitter";
+import './my_input'
 
 class SearchBarService {
     constructor(searchBox) {
         this.subscriptions = [];
         this.elRef = searchBox;
-        this.inputField = searchBox.find('input');
+        this.inputField = searchBox.find('my-input');
 
-        this.inputField[0].value = 'foof'
-        this.cursor ='_'
+        // this.inputField[0].value = 'abcdefgh'
         this.init();
     }
 
     init() {
-        this.inputField.on('click touchend', (e) => {
+        this.inputField.on('click touchstart', (e) => {
             this.getKeyBoard(e);
         })
+        this.myInput = this.elRef[0].querySelector('my-input')
         this.devOnly()
     }
 
@@ -28,10 +29,21 @@ class SearchBarService {
         EventEmitter.dispatch('keyboard-request', e);
 
         this.lastKeyPress = Date.now();
-        this.safeSubscribe('key-up');
-        this.safeSubscribe('key-pressed')
+        // this.safeSubscribe('key-up', (k)=>{this.keyPressed(k)});
+        // todo this key-up and key press mix up needs fixed here and the dispatcher
+        // this.safeSubscribe('key-pressed', (k)=>{this.keyPressed(k)})
         this.safeSubscribe('return-pressed', ()=>{this.searchPressed()})
+        this.safeSubscribe('cursor-move', (e) => {this.moveCursor(e)})
+        this.safeSubscribe('cursor-move-end', (d) =>{this.moveCursorEnd(d)})
         this.outsideTouchRegister()
+    }
+
+    moveCursor(d){
+        this.myInput.cursorMove(d)
+    }
+
+    moveCursorEnd(d){
+        this.myInput.cursorMoveEnd(d)
     }
 
     outsideTouchRegister(){
@@ -51,52 +63,46 @@ class SearchBarService {
     }
 
     safeSubscribe(eventType, callBack) {
+        // todo this would be good to move into super class to inherit from or, into Event class itself
         if (!this.subscriptions.includes(eventType)) {
             EventEmitter.subscribe(eventType, (d) => {
                 if (callBack){callBack(d)
                 } else{
-                    this.keyPressed(d);
+                    // this.keyPressed(d);
                 }
             })
             this.subscriptions.push(eventType);
         }
     }
 
-    keyPressed(k) {
-        const now = Date.now();
-        const elapsedTimeSincePreviousKeyEvent =  now - this.lastKeyPress;
-        if(elapsedTimeSincePreviousKeyEvent < 100) {return}
-
-        this.lastKeyPress = now;
-        let tempStr = this.getInputFieldValue();
-        if (k === 'DEL') {
-            tempStr = this.strPop(tempStr);
-        } else if (k === 'space') {
-            tempStr += ' ';
-        } else if (k === 'search' || k === 'return') {
-            EventEmitter.dispatch('return-pressed');
-        } else {
-            tempStr += k;
-        }
-        this.updateInput(tempStr)
-    }
+    // keyPressed(k) {
+    //     // return;
+    //     const now = Date.now();
+    //     const elapsedTimeSincePreviousKeyEvent =  now - this.lastKeyPress;
+    //     if(elapsedTimeSincePreviousKeyEvent < 100) {return}
+    //
+    //     this.lastKeyPress = now;
+    //     let tempStr = this.getInputFieldValue();
+    //     if (k === 'DEL') {
+    //         tempStr = this.strPop(tempStr);
+    //     } else if (k === 'space') {
+    //         tempStr += ' ';
+    //     } else if (k === 'search' || k === 'return') {
+    //         EventEmitter.dispatch('return-pressed');
+    //     } else {
+    //         tempStr += k;
+    //     }
+    //     this.updateInput(tempStr)
+    // }
 
     updateInput(str) {
-        this.inputField[0].value = str + this.cursor;
-        // this.inputField[0].focus();
+        this.inputField[0].value = str //+ this.cursor;
     }
 
     getInputFieldValue(){
         const str = this.inputField[0].value;
-        const replacement = '';
 
-        return str.replace(/_([^_]*)$/, replacement + '$1');
-    }
-
-    strPop(str) {
-        let out = '';
-        out = str.substring(0, str.length - 1)
-        return out;
+        return str
     }
 }
 

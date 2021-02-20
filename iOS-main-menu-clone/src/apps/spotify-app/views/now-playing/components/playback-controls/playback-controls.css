@@ -1,0 +1,62 @@
+playback-controls .item11 { grid-area: favorite; }
+playback-controls .item21 { grid-area: back; }
+playback-controls .item31 { grid-area: play; }
+playback-controls .item41{ grid-area: next; }
+playback-controls .item51{ grid-area: circle-minus; }
+
+playback-controls .item61{ grid-area: project; }
+playback-controls .item71{ grid-area: void; }
+playback-controls .item81{ grid-area: share; }
+
+playback-controls .pgrid-container {
+    display: grid;
+    grid-template-areas:
+            'favorite back play next circle-minus'
+            'project void void void share';
+    grid-gap: 1px;
+    /*background-color: #2196F3;*/
+    padding: 1px;
+}
+
+playback-controls .pgrid-container > div {
+    text-align: left;
+    padding: 20px 0;
+}
+
+playback-controls .back-btn, play-pause-control, .forward {
+    font-size: 2.25em;
+}
+
+.pgrid-container span{
+    height: var(--play-btn-size);
+    position: relative;
+    /*border: 3px solid green;*/ /*debug*/
+}
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.like-heart, .controls, .circle-minus{
+    font-size: 1.5em;
+    color: white;
+}
+
+.project-to, .share {
+    font-size: 0.9em;
+    color: white;
+}
+
+.like-heart, .project-to, .back-btn{
+    float:left;
+    width:4rem;
+}
+
+.circle-minus, .share, .forward-btn{
+    float:right;
+    width: 4rem;
+}
+

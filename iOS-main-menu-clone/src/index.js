@@ -10,6 +10,7 @@ import Battery from './components/battery/battery';
 import Volume from "./components/volume/volume";
 import './components/external-buttons/external-buttons.css';
 import UtilitiesApp from './apps/utilitities-app/utilitiies-app'
+import SpotifyCloneApp from './apps/spotify-app/spotify-clone-app';
 import Photos from "./apps/photos/photos";
 import MailAppComponent from "./apps/mail/mail-app-component";
 import SettingsApp from './apps/settings-app/settings-app'
@@ -44,12 +45,13 @@ class Index {
         this.messageCenterService = new MessageCenterService(this.messages);
         this.volume = new Volume();
         this.messageCenterSearchBox = new SearchBarService($('._search-container'));
-        new Widget($('.scrollable'))
+        // new Widget($('.scrollable'))
 
         this.init();
         this.clickTimer = null;
         this.homeButtonIgnore = false;
-        this.elRef = $('container')
+        this.$elRef = $('#container')
+        // this.elRef = document.getElementBy('con')
         this.devOnly();
     }
 
@@ -57,11 +59,11 @@ class Index {
         // dev testing start at #0 search screen
         // setTimeout(()=> {this.pan.right();}, 250);
         setTimeout(() => {
-            this.pan.left();
+            // this.pan.left();
             // $('#calculator-icon').click();
-            $('.search-input-box').click();
+            // $('.search-input-box').click();
         }, 250);
-        // this.modalService.open('tips', new Event('e'), UtilitiesApp)
+        this.modalService.open('spotify-clone', new Event('e'), SpotifyCloneApp)
 
         // $('#settings').click();
         // $('#photos').click();
@@ -85,6 +87,23 @@ class Index {
 
 
         // EventEmitter.dispatch('keyboard-testing')
+
+        $("#external-buttons-flip-switch").click()
+        const counter = document.createElement('h1')
+        counter.innerText = 'nan'
+        counter.id = 'foo'
+        const volumeControls = $('.volume-external-buttons');
+        volumeControls.append(counter)
+        const cElRef = volumeControls.find('#foo')
+        this.$elRef.on('foo',(($e) => {
+            const value = $e.originalEvent.detail.value
+            counter.innerText = parseInt(value);
+        }));
+
+        const body = document.getElementsByTagName('body')
+        body[0].addEventListener('foo', (e) =>{
+            console.log(e)
+        })
         // end dev only code
     }
 
@@ -180,9 +199,9 @@ class Index {
         e.preventDefault();
         let key = e.key;
 
-        if (key === 'ArrowRight') {
+        if (key === '>') {
             this.pan.right();
-        } else if (key === 'ArrowLeft') {
+        } else if (key === '<') {
             this.pan.left();
         } else if (key === 'ArrowUp') {
             this.volume.volumeUp();
@@ -192,6 +211,10 @@ class Index {
             this.toggleExternalButtons()
         } else if (key === 'Alt') {
             this.handleHome()
+        } else if (key === 'ArrowLeft') {
+            EventEmitter.dispatch(key)
+        } else if (key === 'ArrowRight') {
+            EventEmitter.dispatch(key)
         }
     }
 

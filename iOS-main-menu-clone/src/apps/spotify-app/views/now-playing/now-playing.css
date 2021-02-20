@@ -1,0 +1,28 @@
+now-playing{
+    background-color: black;
+    display: block;
+    padding: 4em; /*top right bottom left*/
+
+    height: 100%;
+    background-image: linear-gradient(#a67d84, #594347);
+}
+
+.item1 { grid-area: carat; }
+.item2 { grid-area: title; }
+.item3 { grid-area: menu-dots; }
+
+now-playing .header-grid-container {
+    display: grid;
+    grid-template-areas:
+            'carat title menu-dots';
+    grid-gap: 10px;
+}
+
+now-playing .header-grid-container > *{
+    padding: 20px 0;
+}
+
+now-playing-image{
+    display: block;
+    margin: 2em 0 2em 0;
+}

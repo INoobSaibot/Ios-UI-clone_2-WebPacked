@@ -1,0 +1,9 @@
+artist-name{
+    color: rgba(255,255,255, 0.7);
+    /*background-color: #3edfd7;*/
+    font-size: 2em;
+    height: 1.25em;
+    overflow: hidden;
+    display: block;
+    margin: 0.5em 0 0.5em 0;
+}

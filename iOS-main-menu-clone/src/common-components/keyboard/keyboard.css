@@ -34,7 +34,8 @@
 .keyboard {
     /*height:25em;*/
     width:100%;
-    background-color: var(--dark-gray-transparent);
+    /*background-color: var(--dark-gray-transparent);*/
+    background-color: rgb(75,75,75);
     bottom: 0;
     position: absolute;
 }
@@ -60,16 +61,22 @@
 
 .key {
     text-align: center;
-    background-color: rgba(255,255,255, 0.5);
+    background-color: rgb(135,135,135);
     color:white;
-    border-radius: 10%;
+    border-radius: 10% 10%;
     padding-top: .2em;
     padding-bottom: 0.4em;
     margin:0.40rem;
     border: none;
     font-size:3em;
     width: 3.875rem;
+    /*box-shadow: #888888;*/
+    box-shadow: 0px 1px 1px #000000;
+}
 
+.key[keydisabled=true] {
+    color:rgba(255,255,255, 0.0);
+    box-shadow: none;
 }
 
 .function{
@@ -96,7 +103,8 @@
     padding-left: 0.3em;
     text-align: center;
     width: 9em;
-    border-radius: 5%;
+    /*border-radius: 2.5% 2.5% 2.5% 2.5%;*/
+    border-radius: 8px;
 }
 
 .search {

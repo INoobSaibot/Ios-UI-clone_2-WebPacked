@@ -18,17 +18,6 @@
 .search-container {
     width:744px; /*hack alert, need to pull in width rom parent */
 }
-.search-box-input {
-    font-size: 2.35em;
-    height: 100%; /* idk why but had to reduce this for it to fit in search container properly*/
-    width: 85%; /*idk*/
-    background-color: rgba(0,0,0, 0.0); /*clear transparent*/
-    border-width: 0;
-    padding:0;
-    display: inline-block;
-    margin-left: 1.4em;
-    z-index: 1001;
-}
 
 .search-box-input::placeholder {
     color:var(--light-gray-transparent);

@@ -1,7 +1,7 @@
 const EventEmitter = {
     events: {},
     dispatch: function (event, data) {
-        if (!this.events[event]) return
+        if (!this.events[event]) return 'none'
         this.events[event].forEach(callback => callback(data))
     },
     subscribe (event, callback) {
