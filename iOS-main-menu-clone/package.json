@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "jquery": "latest",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "requirejs": "^2.3.6"
   }
 }
