@@ -36,7 +36,14 @@ class ModalService {
         if (requestedAppModalinBackGround) {
             this.openAppFromBG(requestedAppModalinBackGround)
         } else {
-            this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate, isNonStandardModalSize))
+            if (true) {
+                import("../../apps/spotify-app/spotify-clone-app").then(({default: SpotifyCloneApp}) => {
+                    ClassDelegate = SpotifyCloneApp
+                    this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate, isNonStandardModalSize))
+
+                })
+            }
+            // this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate, isNonStandardModalSize))
         }
     }
 

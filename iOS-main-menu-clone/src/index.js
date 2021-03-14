@@ -10,7 +10,13 @@ import Battery from './components/battery/battery';
 import Volume from "./components/volume/volume";
 import './components/external-buttons/external-buttons.css';
 import UtilitiesApp from './apps/utilitities-app/utilitiies-app'
-import SpotifyCloneApp from './apps/spotify-app/spotify-clone-app';
+// import SpotifyCloneApp from './apps/spotify-app/spotify-clone-app';
+// if(true) {
+//     import("'./apps/spotify-app/spotify-clone-app'").then(({ default: SpotifyCloneApp}) => {
+//         const f = new BaseFoo()
+//         console.log(f.innerHTML)
+//     })
+// }
 import Photos from "./apps/photos/photos";
 import MailAppComponent from "./apps/mail/mail-app-component";
 import SettingsApp from './apps/settings-app/settings-app'
@@ -32,8 +38,6 @@ import './styles/app-transitions.css';
 import './styles/slide-modal/slide-modal.css';
 import './styles/volume_control.css';
 import './common-components/screen/screen.css'
-
-import Widget from './apps/up-next-widgets/up-next-widgets.js';
 
 
 class Index {
@@ -63,7 +67,7 @@ class Index {
             // $('#calculator-icon').click();
             // $('my-input').click();
         }, 250);
-        this.modalService.open('spotify-clone', new Event('e'), SpotifyCloneApp)
+        this.modalService.open('spotify-clone', new Event('e'), undefined)
 
         // $('#settings').click();
         // $('#photos').click();
@@ -95,13 +99,13 @@ class Index {
         const volumeControls = $('.volume-external-buttons');
         volumeControls.append(counter)
         const cElRef = volumeControls.find('#foo')
-        this.$elRef.on('foo',(($e) => {
+        this.$elRef.on('foo', (($e) => {
             const value = $e.originalEvent.detail.value
             counter.innerText = parseInt(value);
         }));
 
         const body = document.getElementsByTagName('body')
-        body[0].addEventListener('foo', (e) =>{
+        body[0].addEventListener('foo', (e) => {
             console.log(e)
         })
         // end dev only code
@@ -152,10 +156,10 @@ class Index {
         this.screen = document.querySelector('.container')
     }
 
-    setupExternalControls(){
+    setupExternalControls() {
         this.externalControlsContainer = document.body.querySelector('.volume-external-buttons')
-       document.body.querySelector('#external-buttons-flip-switch').addEventListener('switch-changed', (e) => {
-           e.stopImmediatePropagation();
+        document.body.querySelector('#external-buttons-flip-switch').addEventListener('switch-changed', (e) => {
+            e.stopImmediatePropagation();
             this.toggleExternalButtons();
         })
 
@@ -168,7 +172,7 @@ class Index {
 
     }
 
-    toggleExternalButtons(){
+    toggleExternalButtons() {
         this.externalControlsContainer.classList.toggle('closed')
         this.externalControlsContainer.classList.toggle('open')
     }
@@ -183,13 +187,13 @@ class Index {
         }
     }
 
-    handleFlipButtonClicked(){
+    handleFlipButtonClicked() {
         this.currentOrientation = {}
-        EventEmitter.dispatch('screen-flipped', {debug:true, on: this.currentOrientation })
+        EventEmitter.dispatch('screen-flipped', {debug: true, on: this.currentOrientation})
         this.handleFlip()
     }
 
-    handleFlip(){
+    handleFlip() {
         const flipped = this.screen.getAttribute('flipped')
         const isFlipped = flipped === true.toString() ? false : true;
         this.screen.setAttribute('flipped', isFlipped.toString())
@@ -237,6 +241,11 @@ class Index {
         // todo move apps hash to somewhere else. this. or service etc.
         const hash = {'utilities': UtilitiesApp, 'mail': MailAppComponent, 'photos': Photos, 'settings': SettingsApp}
         ClassDelegate = hash[appName];
+        if (true) {
+            import("./apps/spotify-app/spotify-clone-app").then(({default: SpotifyCloneApp}) => {
+
+            })
+        }
         this.handleIconClick(e, ClassDelegate);
     }
 

@@ -9,10 +9,17 @@ import './components/artist-name/artist-name'
 import './components/time-bar/time-bar'
 import './components/playback-controls/playback-controls'
 import BaseFoo from "./components/menu-dots/base-foo";
+// if(true) {
+//     import("./components/menu-dots/base-foo").then(({ default: BaseFoo}) => {
+//         const f = new BaseFoo()
+//         console.log(f.innerHTML)
+//     })
+// }
 
 class NowPlaying extends BaseFoo {
     constructor() {
         super();
+        // const f = new BaseFoo()
     }
 
     render(){
