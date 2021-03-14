@@ -8,21 +8,18 @@ import './components/track-title/track-title'
 import './components/artist-name/artist-name'
 import './components/time-bar/time-bar'
 import './components/playback-controls/playback-controls'
+import BaseFoo from "./components/menu-dots/base-foo";
 
-class NowPlaying extends HTMLElement{
+class NowPlaying extends BaseFoo {
     constructor() {
         super();
     }
 
-    connectedCallback() {
-        this.render()
-    }
-
     render(){
-        this.innerHTML = `
+        return `
 <div class="now-playing">
     <div class="header-grid-container"><close-carat></close-carat><playing-title></playing-title><menu-dots></menu-dots></div>
-    <now-playing-image></now-playing-image>
+    <now-playing-image style="width: 624px; height:629px;"></now-playing-image>
     <div class="title-and-artist">
         <track-title></track-title>
         <artist-name></artist-name>

@@ -7,18 +7,29 @@ class PlaybackControls extends BaseFoo{
         super()
     }
 
+    events(){
+        console.log('did it get called?')
+        this.onclick = (e) => {this.handleClick(e)}
+    }
+
+    handleClick(e){
+        console.log(e.target)
+    }
+
     render(){
         return `
 <div class="pgrid-container">
-  <div class="item11"><span class="like-heart"><i class='far fa-heart vertical-center'></i></span></div>
-  <div class="item21"><span class="back-btn" style="text-align: left;"><i class='vertical-center fas fa-step-backward'></i></span></div>
-  <div class="item31" style="text-align: center;"><span><play-pause-control></play-pause-control></span></div>
-  <div class="item41 forward" style="text-align: left;"><span class="forward-btn"><i class='vertical-center fas fa-step-forward'></i></span></div>
-  <div class="item51" style="text-align: center;"><span class="circle-minus"><i class='far fa-frown vertical-center'></i></span></div>
+  <div class="item11 vertical-container"><i class='vertical-center far fa-heart'></i></div>
   
-  <div class="item61"><div class="project-to"><i class='fas fa-broadcast-tower'></i></div></div>
+  <div class="item21 vertical-container"><i class='vertical-center fas fa-step-backward'></i></div>
+  <div class="item31 center vertical-container"><div class="_vertical-center"><play-pause-control></play-pause-control></div></div>
+  <div class="item41 center vertical-container"><i class='vertical-center fas fa-step-forward'></i></div>
+  
+  <div class="item51 center vertical-container"><i class='vertical-center far fa-frown'></i></div>
+  
+  <div class="item61 vertical-container extras"><i class='vertical-center fas fa-broadcast-tower'></i></div>
   <!-- voids -->
-  <div class="item81"><div class="share"><i class='fas fa-external-link-alt'></i></div></div>
+  <div class="item81 vertical-container extras"><i class='vertical-center fas fa-external-link-alt'></i></div>
 </div>`
     }
 }

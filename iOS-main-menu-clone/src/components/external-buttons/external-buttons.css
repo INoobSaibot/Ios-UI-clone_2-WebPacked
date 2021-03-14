@@ -1,12 +1,14 @@
 .closed{
-    right: -50%;
+    transform: translateX(1000px);
+    overflow:hidden;
 }
 .open{
-    right:3%;
+    transform: translateX(10rem);
+    overflow:visible;
 }
 
 .volume-external-buttons {
-    position: absolute;
+    position: relative;
     transition: all 1s;
     z-index: 1000;
 }
@@ -14,3 +16,9 @@
 flip-switch.reversed{
     transform: rotate(180deg);
 }
+
+div.external-buttons-container{
+    position: absolute;
+    margin-top: 40%;
+}
+

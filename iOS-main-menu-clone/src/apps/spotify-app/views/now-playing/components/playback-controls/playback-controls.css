@@ -1,5 +1,5 @@
 playback-controls .item11 { grid-area: favorite; }
-playback-controls .item21 { grid-area: back; }
+playback-controls .item21 { grid-area: back;}
 playback-controls .item31 { grid-area: play; }
 playback-controls .item41{ grid-area: next; }
 playback-controls .item51{ grid-area: circle-minus; }
@@ -13,25 +13,13 @@ playback-controls .pgrid-container {
     grid-template-areas:
             'favorite back play next circle-minus'
             'project void void void share';
-    grid-gap: 1px;
-    /*background-color: #2196F3;*/
     padding: 1px;
 }
 
-playback-controls .pgrid-container > div {
-    text-align: left;
-    padding: 20px 0;
-}
-
-playback-controls .back-btn, play-pause-control, .forward {
-    font-size: 2.25em;
-}
-
-.pgrid-container span{
-    height: var(--play-btn-size);
+.vertical-container {
     position: relative;
-    /*border: 3px solid green;*/ /*debug*/
 }
+
 .vertical-center {
     margin: 0;
     position: absolute;
@@ -40,23 +28,47 @@ playback-controls .back-btn, play-pause-control, .forward {
     transform: translateY(-50%);
 }
 
-.like-heart, .controls, .circle-minus{
-    font-size: 1.5em;
+playback-controls .pgrid-container > div.center {
+    text-align: center;
+}
+
+playback-controls .pgrid-container > div.right {
+    text-align: right;
+}
+
+playback-controls .back-btn, play-pause-control, .forward {
+    font-size: 2.25em;
+}
+
+i.far {
+    font-size: 2.75rem;
     color: white;
 }
+i.fa-frown {
+    color: rgba(255,255,255, 0.5);
+    margin-left: 1rem; /* some fix, dont know why but was lining up a bit off */
+}
 
-.project-to, .share {
-    font-size: 0.9em;
+i.fas {
+    font-size: 3.5rem;
     color: white;
+    color: rgba(255,255,255, 0.5);
 }
 
-.like-heart, .project-to, .back-btn{
-    float:left;
-    width:4rem;
+i.fa-broadcast-tower, i.fa-external-link-alt{
+    font-size: 1.75rem;
+    margin-top: 3.5rem;
 }
 
-.circle-minus, .share, .forward-btn{
-    float:right;
-    width: 4rem;
+i.fa-external-link-alt{
+    right:0;
 }
 
+i.fa-step-backward{
+    right:25%
+}
+
+
+i.fa-step-forward{
+    left:25%;
+}

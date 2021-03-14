@@ -61,7 +61,7 @@ class Index {
         setTimeout(() => {
             // this.pan.left();
             // $('#calculator-icon').click();
-            // $('.search-input-box').click();
+            // $('my-input').click();
         }, 250);
         this.modalService.open('spotify-clone', new Event('e'), SpotifyCloneApp)
 
