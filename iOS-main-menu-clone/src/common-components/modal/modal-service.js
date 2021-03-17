@@ -1,8 +1,8 @@
 import Rect from '../rect/rect';
-import Modal from './modal';
 import './modal-service.css';
 import {EventEmitter} from '../EventEmitter/eventEmitter'
 import $ from "jquery";
+import Modal from "./modal";
 
 class ModalService {
     constructor() {
@@ -10,7 +10,13 @@ class ModalService {
         this.el = $('#modal-container');
         this.modalRefs = new Array();
         this.registerEvents()
-        // this.devOnly = true;
+        this.devOnly()
+    }
+
+    devOnly() {
+        this.apps = []
+        let hash = {file: '../../apps/spotify-app/spotify-clone-app', id: 'spotify'}
+        this.apps.push(hash)
     }
 
     registerEvents() {
@@ -24,7 +30,7 @@ class ModalService {
             })
         })
 
-        this.el.on('multi-app-view-cancel', (e)=>{
+        this.el.on('multi-app-view-cancel', (e) => {
             this.multiModalViewCancel();
         })
     }
@@ -35,16 +41,58 @@ class ModalService {
         const requestedAppModalinBackGround = this.isThatAppInBackGround(id);
         if (requestedAppModalinBackGround) {
             this.openAppFromBG(requestedAppModalinBackGround)
-        } else {
-            if (true) {
-                import("../../apps/spotify-app/spotify-clone-app").then(({default: SpotifyCloneApp}) => {
-                    ClassDelegate = SpotifyCloneApp
-                    this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate, isNonStandardModalSize))
-
-                })
+        } else if(!ClassDelegate){
+            console.log(id)
+            let promise
+            switch(id) {
+                case 'spotify-clone':
+                    promise = this.openSpotify()
+                    break;
+                case 'mail':
+                    promise = import('../../apps//mail/mail-app-component')
+                    break;
+                case 'utilities':
+                    promise = import('../../apps/utilitities-app/utilitiies-app')
+                    break;
+                case 'photos':
+                    promise = import('../../apps/photos/photos')
+                    break;
+                case 'settings':
+                    promise = import('../../apps/settings-app/settings-app')
+                    break;
+                case 'tips':
+                    promise = import('../../apps/lost-motion-assembly/lost-motion-assembly')
+                    break;
+                default:
+                    // todo do something default
+                    return; /* todo if the icon id isnt listed here */
             }
-            // this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate, isNonStandardModalSize))
+
+            promise.then(({default: AppClass}) => {
+                this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, AppClass, isNonStandardModalSize))
+            })
         }
+
+        else{
+            this.modals.unshift(new Modal(id, this.el, openFrom, this.modalRefs, ClassDelegate, isNonStandardModalSize))
+        }
+    }
+
+    async openSpotify() {
+        return await import('../../apps/spotify-app/spotify-clone-app')
+    }
+
+    files(id) {
+        this.apps = []
+        let hash = {file: '../../apps/spotify-app/spotify-clone-app', id: 'spotify-clone'}
+        this.apps.push(hash)
+
+        const fileHash = this.apps.find((path_id) => {
+            return path_id.id === id
+        })
+
+        // return fileHash.file;
+        return '../../apps/spotify-app/spotify-clone-app'
     }
 
     openAppFromBG(requestedAppModal) {
@@ -134,8 +182,9 @@ class ModalService {
         if (!appModal) {
             this.el.removeClass('multi-app-view');
             this.multiAppView = false;
-            return;}
-        $('#'+appModal.id).one('transitionend', (e)=>{
+            return;
+        }
+        $('#' + appModal.id).one('transitionend', (e) => {
             console.log('(∩｀-´)⊃━☆ﾟ.*･｡ﾟ begone blur')
             this.el.removeClass('multi-app-view');
             this.multiAppView = false;

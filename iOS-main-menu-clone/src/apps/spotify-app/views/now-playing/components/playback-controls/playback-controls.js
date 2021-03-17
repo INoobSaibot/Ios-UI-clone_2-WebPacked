@@ -8,7 +8,6 @@ class PlaybackControls extends BaseFoo{
     }
 
     events(){
-        console.log('did it get called?')
         this.onclick = (e) => {this.handleClick(e)}
     }
 

@@ -15,7 +15,7 @@ class LostMotionAssembly {
             this.init(container);
         } else {
             // If this element has already been instantiated, use the existing reference.
-            return MailAppComponent.refs[container.dataset.ref];
+            return LostMotionAssembly.refs[container.dataset.ref];
         }
     }
 

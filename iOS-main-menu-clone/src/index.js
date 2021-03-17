@@ -1,6 +1,6 @@
 import {EventEmitter} from './common-components/EventEmitter/eventEmitter';
-
-import Calculator from './apps/calculator/Calculator'
+import AppBody from './apps/app-body/app-body';
+import Calculator from "./apps/calculator/Calculator";
 import $ from "jquery";
 import MessageCenterService from './components/message-center/message-center-service';
 import ModalService from "./common-components/modal/modal-service";
@@ -9,17 +9,9 @@ import Clock from "./components/clock/clock";
 import Battery from './components/battery/battery';
 import Volume from "./components/volume/volume";
 import './components/external-buttons/external-buttons.css';
-import UtilitiesApp from './apps/utilitities-app/utilitiies-app'
-// import SpotifyCloneApp from './apps/spotify-app/spotify-clone-app';
-// if(true) {
-//     import("'./apps/spotify-app/spotify-clone-app'").then(({ default: SpotifyCloneApp}) => {
-//         const f = new BaseFoo()
-//         console.log(f.innerHTML)
-//     })
-// }
-import Photos from "./apps/photos/photos";
-import MailAppComponent from "./apps/mail/mail-app-component";
-import SettingsApp from './apps/settings-app/settings-app'
+
+import './apps/shared-components/flip-switch-component/flip-switch-component'; /* todo fix css */
+
 import SearchBarService from './components/message-center/search-bar';
 import calculator_icon from "./apps/calculator/calculator-icon";
 import shortcuts_icon from "./apps/short-cuts/shortcuts";
@@ -39,7 +31,6 @@ import './styles/slide-modal/slide-modal.css';
 import './styles/volume_control.css';
 import './common-components/screen/screen.css'
 
-
 class Index {
     constructor() {
         this.calculator = new Calculator();
@@ -49,13 +40,11 @@ class Index {
         this.messageCenterService = new MessageCenterService(this.messages);
         this.volume = new Volume();
         this.messageCenterSearchBox = new SearchBarService($('._search-container'));
-        // new Widget($('.scrollable'))
 
         this.init();
         this.clickTimer = null;
         this.homeButtonIgnore = false;
         this.$elRef = $('#container')
-        // this.elRef = document.getElementBy('con')
         this.devOnly();
     }
 
@@ -67,28 +56,23 @@ class Index {
             // $('#calculator-icon').click();
             // $('my-input').click();
         }, 250);
-        this.modalService.open('spotify-clone', new Event('e'), undefined)
+        // this.modalService.open('spotify-clone', new Event('e'), undefined)
 
-        // $('#settings').click();
-        // $('#photos').click();
-        // $('#tips').click();
+        $('#settings').click();
+        $('#photos').click();
+        $('#tips').click();
+
         // setTimeout(() => {
         //     this.modalService.minimizeAllModals();
         //
         // }, 250);
-        // setTimeout(() => {
-        //     EventEmitter.dispatch('double-tap')
-        // }, 1000);
-        // //////
+
         // EventEmitter.subscribe('onAllAppsClosed',()=>{
         //     $('#photos').click();
         //     $('#settings').click();
         //     $('#tips').click();
         //     EventEmitter.dispatch('double-tap')
         // })
-
-        // EventEmitter.dispatch('debug', {debug:true})
-
 
         // EventEmitter.dispatch('keyboard-testing')
 
@@ -187,18 +171,6 @@ class Index {
         }
     }
 
-    handleFlipButtonClicked() {
-        this.currentOrientation = {}
-        EventEmitter.dispatch('screen-flipped', {debug: true, on: this.currentOrientation})
-        this.handleFlip()
-    }
-
-    handleFlip() {
-        const flipped = this.screen.getAttribute('flipped')
-        const isFlipped = flipped === true.toString() ? false : true;
-        this.screen.setAttribute('flipped', isFlipped.toString())
-    }
-
     handleKeyDown(e) {
         e.preventDefault();
         let key = e.key;
@@ -228,7 +200,7 @@ class Index {
 
         if (id === 'calculator-icon') {
             page_in_view.toggleClass('fall-back');
-            this.calculator.open();
+            // todo it already self opens from jquery click events in its own class, needs cleaned up?
         } else {
             this.modalService.open(id, e, ClassDelegate);
         }
@@ -237,15 +209,8 @@ class Index {
     handleIconTap(e) {
         e.stopImmediatePropagation(); /* infinite loop, open close app :( */
         let ClassDelegate;
-        const appName = e.target.getAttribute('data-app-name');
-        // todo move apps hash to somewhere else. this. or service etc.
-        const hash = {'utilities': UtilitiesApp, 'mail': MailAppComponent, 'photos': Photos, 'settings': SettingsApp}
-        ClassDelegate = hash[appName];
-        if (true) {
-            import("./apps/spotify-app/spotify-clone-app").then(({default: SpotifyCloneApp}) => {
+        // const appName = e.target.getAttribute('data-app-name');
 
-            })
-        }
         this.handleIconClick(e, ClassDelegate);
     }
 
@@ -256,6 +221,7 @@ class Index {
     singleTap() {
         const currently_focused_app = this.calculator;
         currently_focused_app.minimize();
+
         if (!this.modalService.hasFocusedModals()) {
             this.pan.home();
         } else if (this.modalService.multiAppView) {
